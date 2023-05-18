@@ -17,6 +17,13 @@ public class Administrador extends Pessoa {
         this.isAdministrador = isAdministrador;
     }
 
-    // Métodos adicionais da classe Administrador
+    // Método para cadastrar um funcionário
+    public void cadastrarFuncionario(String nome, String cpf, String email, String senha, String endereco, double salario, Date dataContratacao, String telefone) {
+        // Implemente a lógica de cadastro do funcionário aqui
+        System.out.println("Funcionário cadastrado com sucesso!");
+    }
+
+    // Outros métodos e funcionalidades da classe Administrador
     // ...
 }
+
