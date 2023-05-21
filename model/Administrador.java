@@ -1,3 +1,5 @@
+package model;
+import java.util.Date;
 public class Administrador extends Pessoa {
     private boolean isAdministrador;
 
@@ -25,5 +27,9 @@ public class Administrador extends Pessoa {
 
     // Outros métodos e funcionalidades da classe Administrador
     // ...
+
+     public void realizarAcao(){
+
+     }
 }
 

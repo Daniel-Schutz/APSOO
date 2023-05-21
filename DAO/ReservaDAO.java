@@ -2,6 +2,8 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.Reserva;
+
 
 public class ReservaDAO(){
     private Connection conexao;

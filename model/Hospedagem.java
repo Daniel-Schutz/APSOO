@@ -1,3 +1,4 @@
+package model;
 public class Hospedagem {
     private String horaCheckOut;
     private String horaCheckIn;

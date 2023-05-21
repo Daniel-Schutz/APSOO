@@ -1,3 +1,5 @@
+import model.Cliente;
+
 public class SisHotel {
     private PessoaDAO pessoaDAO;
     private QuartoDAO quartoDAO;

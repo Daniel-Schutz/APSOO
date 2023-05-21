@@ -1,3 +1,4 @@
+package model;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,5 +34,9 @@ public class Cliente extends Pessoa {
         Map<String, Cliente> bancoClientes = new HashMap<>();
         // Supondo que o CPF seja a chave do mapa
         return bancoClientes.containsKey(cpf);
+    }
+
+    public void realizarAcao(){
+
     }
 }

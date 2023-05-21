@@ -2,6 +2,8 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.Pessoa;
+
 
 public class PessoaDAO {
     private Connection conexao;
