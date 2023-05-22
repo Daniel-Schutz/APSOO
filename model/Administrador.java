@@ -1,4 +1,6 @@
-public class Administrador extends Pessoa {
+package model;
+import java.util.Date;
+public class Administrador extends Funcionario {
     private boolean isAdministrador;
 
     // Construtor da classe
@@ -25,5 +27,9 @@ public class Administrador extends Pessoa {
 
     // Outros métodos e funcionalidades da classe Administrador
     // ...
+
+     public void realizarAcao(){
+
+     }
 }
 

@@ -1,3 +1,4 @@
+package model;
 import java.util.Date;
 
 public class Funcionario extends Pessoa {
@@ -55,5 +56,9 @@ public class Funcionario extends Pessoa {
         // Implemente a lógica de realização do pagamento aqui
         char statusPagamento = 'A';  // Exemplo: 'A' para "Aprovado"
         return statusPagamento;
+    }
+
+    public void realizarAcao(){
+
     }
 }

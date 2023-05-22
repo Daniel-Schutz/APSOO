@@ -2,13 +2,13 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.Pessoa;
+
 
 public class PessoaDAO {
     private Connection conexao;
-
     public PessoaDAO(Connection conexao){
         this.conexao = conexao;
-
     }
 
     public void criarPessoa(Pessoa pessoa) {
@@ -30,6 +30,7 @@ public class PessoaDAO {
         
         }
     }
+    
 
     public List<Pessoa> listarPessoas() {
         List<Pessoa> pessoas = new ArrayList<>();
@@ -87,8 +88,7 @@ public class PessoaDAO {
     }
     }
 
-
-    public Pessoa buscarPessoa(String cpf) {
+    public Pessoa buscarPessoa(int cpf) { //Int? ou String??
     String sql = "SELECT * FROM pessoa WHERE cpf = ?";
     try(PreparedStatement stmt = conexao.prepareStatement(sql)) {
         
@@ -110,6 +110,19 @@ public class PessoaDAO {
     } 
     return null;
     }
+
+    //Fiz essa função baseada na decima mas não sei se está certa
+    public Pessoa existePessoa(int cpf) {
+        String sql = "SELECT * FROM pessoa WHERE cpf = ?";
+        try(PreparedStatement stmt = conexao.prepareStatement(sql)) {
+            stmt.setString(1, cpf);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return true;
+            }
+        } 
+        return false;
+        }
 
 
 

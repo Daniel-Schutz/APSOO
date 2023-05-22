@@ -1,3 +1,4 @@
+package model;
 public class Quarto {
     private String situacao;
     private String descricao;

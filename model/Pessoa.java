@@ -1,3 +1,7 @@
+package model;
+
+import java.sql.Date;
+
 public abstract class Pessoa {
     private String nome;
     private String cpf;
@@ -56,5 +60,21 @@ public abstract class Pessoa {
     // Métodos abstratos que podem ser implementados pelas subclasses
     public abstract void realizarAcao();
     // ...
+
+    public String getTelefone() {
+        return null;
+    }
+
+    public String getSituacao() {
+        return null;
+    }
+
+    public Date getDataContratacao() {
+        return null;
+    }
+
+    public double getSalario() {
+        return 0;
+    }
 }
 

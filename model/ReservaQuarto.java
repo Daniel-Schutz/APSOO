@@ -1,4 +1,5 @@
-public class ReservaQuarto {
+   
+    public class ReservaQuarto {
     private int reserva;
     private int quarto;
 
