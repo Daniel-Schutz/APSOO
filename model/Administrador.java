@@ -1,6 +1,6 @@
 package model;
 import java.util.Date;
-public class Administrador extends Pessoa {
+public class Administrador extends Funcionario {
     private boolean isAdministrador;
 
     // Construtor da classe
