@@ -1,21 +1,65 @@
-import model.Cliente;
+import DAO.*;
+import model.*;
+import java.sql.*;
 
 public class SisHotel {
     private PessoaDAO pessoaDAO;
     private QuartoDAO quartoDAO;
     private ReservaDAO reservaDAO;
     private ReservaView reservaView;
+    private Cliente cliente;
 
-    public SisHotel() {
-        pessoaDAO = new PessoaDAO();
-        quartoDAO = new QuartoDAO();
-        reservaDAO = new ReservaDAO();
+    public SisHotel(Connection conexao) {
+        pessoaDAO = new PessoaDAO(conexao);
+        quartoDAO = new QuartoDAO(conexao);
+        reservaDAO = new ReservaDAO(conexao);
         reservaView = new ReservaView();
     }
 
-    public void confirmarReserva(int cpf, int dataEntrada, int dataSaida, int quantPessoas, int quantQuartos, int[] quartosSelecionados) {
+    public String cadastrarCliente(String nome, String cpf, String email, String senha, String endereco,
+            String situacao) {
+        cliente = new Cliente(this.pessoaDAO, nome, cpf, email, senha, endereco, situacao);
+        cliente.cadastrarCliente();
+        return "Cliente cadastrado com sucesso!";
+    }
+
+    public Cliente buscarCliente(string cpf) {
+        Cliente objCliente;
+        objCliente = cliente.buscarCliente(cpf);
+        return objCliente;
+    }
+
+    public Cliente[] buscarTodosClientes() {
+        Cliente[] objCliente;
+        //esperar desenvolver função no DAO
+        return objCliente;
+    }
+
+    public String deletarCliente(String cpf) {
+
+        String mensagem;
+        mensagem = cliente.deletarCliente(cpf);
+
+        return mensagem;
+    }
+
+    public String atualizarCliente(String nome, String cpf, String email, String senha, String endereco,
+    String situacao) {
+        cliente = new Cliente(this.pessoaDAO, nome, cpf, email, senha, endereco, situacao);
+        cliente.atualizarCliente();
+        return "Cliente atualizado com sucesso";
+    }
+
+    public boolean existeCliente(int cpf) {
+        // Verificar se o cliente com o CPF fornecido existe na base de dados
+        // utilizando a classe de DAO e retornar true ou false
+        return pessoaDAO.buscarPessoa(cpf) != null;
+    }
+
+    public void confirmarReserva(String cpf, int dataEntrada, int dataSaida, int quantPessoas, int quantQuartos,
+        int[] quartosSelecionados) {
         if (existeCliente(cpf)) {
-            Cliente cliente = pessoaDAO.buscarCliente(cpf);
+            Cliente cliente = pessoaDAO.buscarPessoa(cpf);
             // Realizar a lógica de confirmação da reserva utilizando os dados fornecidos
             // e interagir com as classes de DAO e View conforme necessário
             reservaView.escolhaConfirmarOuCancelar();
@@ -42,14 +86,9 @@ public class SisHotel {
         reservaView.selecaoQuartos();
     }
 
-    public boolean existeCliente(int cpf) {
-        // Verificar se o cliente com o CPF fornecido existe na base de dados
-        // utilizando a classe de DAO e retornar true ou false
-        return pessoaDAO.buscarCliente(cpf) != null;
-    }
-
     public void cancelarReserva() {
-        // Realizar a lógica de cancelamento de reserva utilizando a classe de DAO e View
+        // Realizar a lógica de cancelamento de reserva utilizando a classe de DAO e
+        // View
         reservaView.escolhaConfirmarOuCancelar();
     }
 
