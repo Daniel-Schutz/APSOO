@@ -86,6 +86,12 @@ public class SisHotel {
         reservaView.selecaoQuartos();
     }
 
+    public void registrarReserva(string codigo, Date dataEntrada, int dataSaida, String tipoPagamento, String situacao){
+        Reserva newReserva = new Reserva(codigo, dataEntrada,dataSaida,tipoPagamento, situacao);
+        newReserva.registrarReserva();
+        System.out.println("SisHotel: Reserva criada com sucesso!!");
+    }
+
     public void cancelarReserva() {
         // Realizar a lógica de cancelamento de reserva utilizando a classe de DAO e
         // View

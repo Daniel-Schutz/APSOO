@@ -1,4 +1,6 @@
 package model;
+
+import DAO.*;
 import java.util.Date;
 
 public class Reserva {
@@ -7,17 +9,41 @@ public class Reserva {
     private int diasEstadia;
     private String tipoPagamento;
     private String situacao;
+    private ReservaDAO reservaDAO;
 
     // Construtor da classe
-    public Reserva(int codigo, Date data, int diasEstadia, String tipoPagamento, String situacao) {
+    public Reserva(int codigo, Date data, int diasEstadia, String tipoPagamento, String situacao, ReservaDAO reservaDAO) {
         this.codigo = codigo;
         this.data = data;
         this.diasEstadia = diasEstadia;
         this.tipoPagamento = tipoPagamento;
         this.situacao = situacao;
+        this.reservaDAO = reservaDAO;
     }
 
     // Métodos getters e setters para os atributos
+
+    public void registrarReserva(){
+        this.reservaDAO.criarReserva(this);
+        System.out.println("Registrada a reserva!!");
+    }
+
+    public buscarReserva(){
+
+    }
+
+    public buscarTodasReservas(){
+
+    }
+
+    public atualizarReserva(){
+
+    }
+
+    public deletarReserva(){
+
+    }
+
     public int getCodigo() {
         return codigo;
     }
