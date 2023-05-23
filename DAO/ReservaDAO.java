@@ -5,7 +5,7 @@ import java.util.List;
 import model.Reserva;
 
 
-public class ReservaDAO(){
+public class ReservaDAO{
     private Connection conexao;
 
     public ReservaDAO(Connection conexao){
