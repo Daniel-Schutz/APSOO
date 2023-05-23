@@ -23,7 +23,7 @@ public class SisHotel {
         return "Cliente cadastrado com sucesso!";
     }
 
-    public Cliente buscarCliente(string cpf) {
+    public Cliente buscarCliente(String cpf) {
         Cliente objCliente;
         objCliente = cliente.buscarCliente(cpf);
         return objCliente;
@@ -50,7 +50,7 @@ public class SisHotel {
         return "Cliente atualizado com sucesso";
     }
 
-    public boolean existeCliente(int cpf) {
+    public boolean existeCliente(String cpf) {
         // Verificar se o cliente com o CPF fornecido existe na base de dados
         // utilizando a classe de DAO e retornar true ou false
         return pessoaDAO.buscarPessoa(cpf) != null;
