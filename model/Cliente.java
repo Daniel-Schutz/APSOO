@@ -46,21 +46,21 @@ public class Cliente extends Pessoa {
         return pessoaDAO.existePessoa(cpf);
     }
 
-    public Cliente buscarCliente(String cpf) {
+    public static Cliente buscarCliente(PessoaDAO pessoaDAO,String cpf) {
 
         Cliente cliente;
-        cliente = this.pessoaDAO.buscarPessoa(cpf); // errado pq la no dao ta definido cpf como int ao inves de string
+        cliente = pessoaDAO.buscarPessoa(cpf); 
         return cliente;
     }
 
-    public Cliente[] buscarTodosCliente() {
+    public static Cliente[] buscarTodosCliente(PessoaDAO pessoaDAO, String tipo) {
         Cliente[] objClientes;
-        objClientes = this.pessoaDAO.buscarPessoas(); //CRIAR FUNÇAO DE BUSCAR TODAS AS PESSOAS DE UM TIPO NO DAO
+        objClientes = pessoaDAO.listarPessoas(tipo); //CRIAR FUNÇAO DE BUSCAR TODAS AS PESSOAS DE UM TIPO NO DAO
         return objClientes;
     }
 
-    public void deletarCliente(String cpf) {
-        this.pessoaDAO.excluirPessoa(cpf);
+    public static void deletarCliente(PessoaDAO pessoaDAO, String cpf) {
+        pessoaDAO.excluirPessoa(cpf);
         System.out.println("Cliente deletado");
     }
 
