@@ -12,6 +12,7 @@ public class Funcionario extends Pessoa {
         this.salario = salario;
         this.dataContratacao = dataContratacao;
         this.telefone = telefone;
+        this.tipo = FUNCIONARIO;
     }
 
     // Métodos getters e setters para os atributos adicionais
