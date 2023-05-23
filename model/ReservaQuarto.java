@@ -1,5 +1,6 @@
-   
-    public class ReservaQuarto {
+package model;
+
+public class ReservaQuarto {
     private int reserva;
     private int quarto;
 
