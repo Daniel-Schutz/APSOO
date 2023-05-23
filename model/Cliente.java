@@ -42,12 +42,7 @@ public class Cliente extends Pessoa {
 
     // Método para verificar se um cliente existe no banco de dados pelo CPF
     public static boolean existeCliente(PessoaDAO pessoaDAO, String cpf) {
-        // // Implemente a lógica de busca do cliente no banco de dados pelo CPF aqui
-        // // Neste exemplo, utilizaremos um mapa simples para simular o banco de dados
-        // Map<String, Cliente> bancoClientes = new HashMap<>();
-        // // Supondo que o CPF seja a chave do mapa
-        // return bancoClientes.containsKey(cpf);
-
+        
         return pessoaDAO.existePessoa(cpf);
     }
 
@@ -60,7 +55,7 @@ public class Cliente extends Pessoa {
 
     public Cliente[] buscarTodosCliente() {
         Cliente[] objClientes;
-        objClientes = this.pessoaDAO.buscarPessoas() //CRIAR FUNÇAO DE BUSCAR TODOS OS CLIENTES NO DAO
+        objClientes = this.pessoaDAO.buscarPessoas(); //CRIAR FUNÇAO DE BUSCAR TODAS AS PESSOAS DE UM TIPO NO DAO
         return objClientes;
     }
 
