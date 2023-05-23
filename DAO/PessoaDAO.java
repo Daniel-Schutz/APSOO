@@ -3,6 +3,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.Pessoa;
+import model.Cliente;
+import model.Funcionario;
+
 
 
 public class PessoaDAO {
@@ -11,22 +14,45 @@ public class PessoaDAO {
         this.conexao = conexao;
     }
 
-    public void criarPessoa(Pessoa pessoa) {
-    String sql = "INSERT INTO pessoa (cpf, nome, email, senha, endereco, telefone, situacao, dataContratacao, salario) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    public void criarPessoa(Cliente cliente) {
+    String sql = "INSERT INTO pessoa (cpf, nome, email, senha, endereco, telefone, situacao, dataContratacao, salario, tipo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     try(PreparedStatement stmt = conexao.prepareStatement(sql)) {
        
-        stmt.setString(1, pessoa.getCpf());
-        stmt.setString(2, pessoa.getNome());
-        stmt.setString(3, pessoa.getEmail());
-        stmt.setString(4, pessoa.getSenha());
-        stmt.setString(5, pessoa.getEndereco());
-        stmt.setString(6, pessoa.getTelefone());
-        stmt.setString(7, pessoa.getSituacao());
-        stmt.setDate(8, pessoa.getDataContratacao());
-        stmt.setDouble(9, pessoa.getSalario());
+        stmt.setString(1, cliente.getCpf());
+        stmt.setString(2, cliente.getNome());
+        stmt.setString(3, cliente.getEmail());
+        stmt.setString(4, cliente.getSenha());
+        stmt.setString(5, cliente.getEndereco());
+        stmt.setString(6, cliente.getTelefone());
+        stmt.setString(7, cliente.getSituacao());
+        stmt.setDate(8, cliente.getDataContratacao());
+        stmt.setDouble(9, cliente.getSalario());
+        stmt.setString(10, cliente.getTipo());
 
         stmt.executeUpdate();
-        System.out.println("Pessoa inserida com sucesso!");
+        System.out.println("Cliente inserido com sucesso!");
+        
+        }
+    }
+
+    
+    public void criarPessoa(Funcionario funcinario) {
+    String sql = "INSERT INTO pessoa (cpf, nome, email, senha, endereco, telefone, situacao, dataContratacao, salario, tipo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    try(PreparedStatement stmt = conexao.prepareStatement(sql)) {
+       
+        stmt.setString(1, funcionario.getCpf());
+        stmt.setString(2, funcionario.getNome());
+        stmt.setString(3, funcionario.getEmail());
+        stmt.setString(4, funcionario.getSenha());
+        stmt.setString(5, funcionario.getEndereco());
+        stmt.setString(6, funcionario.getTelefone());
+        stmt.setString(7, funcionario.getSituacao());
+        stmt.setDate(8, funcionario.getDataContratacao());
+        stmt.setDouble(9, funcionario.getSalario());
+        stmt.setString(10, funcionario.getTipo());
+
+        stmt.executeUpdate();
+        System.out.println("Funcionario inserido com sucesso!");
         
         }
     }
