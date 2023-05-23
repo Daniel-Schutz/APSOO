@@ -17,11 +17,11 @@ public class ReservaDAO{
         String sql = "INSERT INTO reserva (data, diasEstadia, tipoPagamento, situacao, pessoaCPF) VALUES (?, ?, ?, ?, ?)";
 
         try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
-            stmt.setDate(1, data);
-            stmt.setInt(2, diasEstadia);
-            stmt.setString(3, tipoPagamento);
-            stmt.setString(4, situacao);
-            stmt.setString(5, pessoaCPF);
+            stmt.setDate(1, getDate("data"));
+            stmt.setInt(2, getInt("diasEstadia"));
+            stmt.setString(3, getString("tipoPagamento"));
+            stmt.setString(4, getString("situacao"));
+            stmt.setString(5, getString("pessoaCPF"));
 
             stmt.executeUpdate();
             System.out.println("Reserva inserida com sucesso!");
@@ -55,11 +55,11 @@ public class ReservaDAO{
             String sql = "UPDATE reserva SET data = ?, diasEstadia = ?, tipoPagamento = ?, situacao = ? WHERE codigo = ?";
 
             try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
-                stmt.setDate(1, data);
-                stmt.setInt(2, diasEstadia);
-                stmt.setString(3, tipoPagamento);
-                stmt.setString(4, situacao);
-                stmt.setInt(5, codigo);
+                stmt.setDate(1, getDate("data"));
+                stmt.setInt(2, getInt("diasEstadia"));
+                stmt.setString(3, getString("tipoPagamento"));
+                stmt.setString(4, getString("situacao"));
+                stmt.setInt(5, getInt("codigo"));
 
                 stmt.executeUpdate();
                 System.out.println("Reserva atualizada com sucesso!");

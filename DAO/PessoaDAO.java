@@ -88,7 +88,7 @@ public class PessoaDAO {
     }
     }
 
-    public Pessoa buscarPessoa(String cpf) { //Int? ou String??
+    public Pessoa buscarPessoa(String cpf) { 
     String sql = "SELECT * FROM pessoa WHERE cpf = ?";
     try(PreparedStatement stmt = conexao.prepareStatement(sql)) {
         

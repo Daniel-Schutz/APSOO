@@ -16,11 +16,11 @@ public class QuartoDAO(){
     String sql = "INSERT INTO quarto (valor, tipoQuarto, local, descricao, situacao) VALUES (?, ?, ?, ?, ?)";
     try(PreparedStatement stmt = conexao.prepareStatement(sql)) {
         
-        stmt.setDouble(1, Quarto.getValor());
-        stmt.setString(2, Quarto.getTipoQuarto());
-        stmt.setString(3, Quarto.getLocal());
-        stmt.setString(4, Quarto.getDescricao());
-        stmt.setString(5, Quarto.getSituacao());
+        stmt.setDouble(1, valor);
+        stmt.setString(2, tipoQuarto);
+        stmt.setString(3, local);
+        stmt.setString(4, descricao);
+        stmt.setString(5, situacao);
 
         stmt.executeUpdate();
         System.out.println("Quarto inserido com sucesso!");
