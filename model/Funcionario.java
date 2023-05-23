@@ -1,4 +1,5 @@
 package model;
+
 import java.util.Date;
 
 public class Funcionario extends Pessoa {
@@ -7,7 +8,8 @@ public class Funcionario extends Pessoa {
     private String telefone;
 
     // Construtor da classe
-    public Funcionario(String nome, String cpf, String email, String senha, String endereco, double salario, Date dataContratacao, String telefone) {
+    public Funcionario(String nome, String cpf, String email, String senha, String endereco, double salario,
+            Date dataContratacao, String telefone) {
         super(nome, cpf, email, senha, endereco);
         this.salario = salario;
         this.dataContratacao = dataContratacao;
@@ -17,15 +19,16 @@ public class Funcionario extends Pessoa {
 
     // Métodos getters e setters para os atributos adicionais
     public double getSalario() {
-        return salario;
+        return this.salario;
     }
 
     public void setSalario(double salario) {
         this.salario = salario;
     }
 
+    @Override
     public Date getDataContratacao() {
-        return dataContratacao;
+        return this.dataContratacao;
     }
 
     public void setDataContratacao(Date dataContratacao) {
@@ -33,7 +36,7 @@ public class Funcionario extends Pessoa {
     }
 
     public String getTelefone() {
-        return telefone;
+        return this.telefone;
     }
 
     public void setTelefone(String telefone) {
@@ -41,7 +44,8 @@ public class Funcionario extends Pessoa {
     }
 
     // Método para confirmar uma reserva
-    public void confirmarReserva(String cpf, String dataEntrada, String dataSaida, int quantPessoas, int quantQuartos, Quarto[] quartosSelecionados) {
+    public void confirmarReserva(String cpf, String dataEntrada, String dataSaida, int quantPessoas, int quantQuartos,
+            Quarto[] quartosSelecionados) {
         // Implemente a lógica de confirmação de reserva aqui
         System.out.println("Reserva confirmada!");
     }
@@ -55,11 +59,11 @@ public class Funcionario extends Pessoa {
     // Método para realizar um pagamento
     public char pagamento(String tipoPagamento) {
         // Implemente a lógica de realização do pagamento aqui
-        char statusPagamento = 'A';  // Exemplo: 'A' para "Aprovado"
+        char statusPagamento = 'A'; // Exemplo: 'A' para "Aprovado"
         return statusPagamento;
     }
 
-    public void realizarAcao(){
+    public void realizarAcao() {
 
     }
 }
