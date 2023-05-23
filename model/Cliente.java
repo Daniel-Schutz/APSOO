@@ -14,6 +14,7 @@ public class Cliente extends Pessoa {
         super(nome, cpf, email, senha, endereco);
         this.situacao = situacao;
         this.pessoaDAO = pessoaDAO;
+        this.tipo = CLIENTE;
 
     }
 
@@ -59,7 +60,7 @@ public class Cliente extends Pessoa {
 
     public Cliente[] buscarTodosCliente() {
         Cliente[] objClientes;
-        // objClientes = this.pessoaDAO. CRIAR FUNÇAO DE BUSCAR TODOS OS CLIENTES NO DAO
+        objClientes = this.pessoaDAO.buscarPessoas() //CRIAR FUNÇAO DE BUSCAR TODOS OS CLIENTES NO DAO
         return objClientes;
     }
 
