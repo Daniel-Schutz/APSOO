@@ -3,11 +3,17 @@ package model;
 import java.sql.Date;
 
 public abstract class Pessoa {
+
+    protected static final String CLIENTE = "CLIENTE";
+    protected static final String FUNCIONARIO = "FUNCIONARIO";
+    protected static final String ADMIN = "ADMINISTRADOR";
+
     private String nome;
     private String cpf;
     private String email;
     private String senha;
     private String endereco;
+    protected String tipo;
 
     public Pessoa(String nome, String cpf, String email, String senha, String endereco) {
         this.nome = nome;
@@ -75,6 +81,16 @@ public abstract class Pessoa {
 
     public double getSalario() {
         return 0;
+    }
+
+    // Getter para o atributo "tipo"
+    public String getTipo() {
+        return tipo;
+    }
+
+    // Setter para o atributo "tipo"
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 }
 
