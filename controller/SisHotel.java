@@ -92,6 +92,11 @@ public class SisHotel {
         System.out.println("SisHotel: Reserva criada com sucesso!!");
     }
 
+    public Reserva buscarReserva(int codigo){
+        Reserva reserva;
+        reserva = reserva.buscarReserva(codigo);
+    }
+
     public void cancelarReserva() {
         // Realizar a lógica de cancelamento de reserva utilizando a classe de DAO e
         // View

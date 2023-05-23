@@ -28,8 +28,10 @@ public class Reserva {
         System.out.println("Registrada a reserva!!");
     }
 
-    public buscarReserva(){
-
+    public Reserva buscarReserva(int codigo){
+        Reserva reserva;
+        reserva = reserva.reservaDAO.buscarReserva(codigo);
+        return reserva;
     }
 
     public buscarTodasReservas(){
