@@ -88,7 +88,7 @@ public class PessoaDAO {
     }
     }
 
-    public Pessoa buscarPessoa(int cpf) { //Int? ou String??
+    public Pessoa buscarPessoa(String cpf) { //Int? ou String??
     String sql = "SELECT * FROM pessoa WHERE cpf = ?";
     try(PreparedStatement stmt = conexao.prepareStatement(sql)) {
         
@@ -112,7 +112,7 @@ public class PessoaDAO {
     }
 
     //Fiz essa função baseada na decima mas não sei se está certa
-    public Pessoa existePessoa(int cpf) {
+    public boolean existePessoa(String cpf) {
         String sql = "SELECT * FROM pessoa WHERE cpf = ?";
         try(PreparedStatement stmt = conexao.prepareStatement(sql)) {
             stmt.setString(1, cpf);
