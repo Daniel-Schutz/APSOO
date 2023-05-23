@@ -32,8 +32,9 @@ public class PrincipalInterface extends JFrame {
 
         cadastrarFuncionarioButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // Abre a tela de cadastro de funcionário
-                CadastroFuncionarioInterface cadastroFuncionarioInterface = new CadastroFuncionarioInterface();
+                // Abre a tela de cadastro de funcionário, passando a referência do ArrayList
+                CadastroFuncionarioInterface cadastroFuncionarioInterface = new CadastroFuncionarioInterface(
+                        funcionarios);
                 cadastroFuncionarioInterface.setVisible(true);
                 dispose();
             }
@@ -59,62 +60,6 @@ public class PrincipalInterface extends JFrame {
 
         // Exibe a janela
         setVisible(true);
-    }
-
-    private class Funcionario {
-        private String nome;
-        private String cpf;
-        private String email;
-        private String telefone;
-        private String endereco;
-
-        public Funcionario(String nome, String cpf, String email, String telefone, String endereco) {
-            this.nome = nome;
-            this.cpf = cpf;
-            this.email = email;
-            this.telefone = telefone;
-            this.endereco = endereco;
-        }
-
-        public String getNome() {
-            return nome;
-        }
-
-        public String getCpf() {
-            return cpf;
-        }
-
-        public String getEmail() {
-            return email;
-        }
-
-        public String getTelefone() {
-            return telefone;
-        }
-
-        public String getEndereco() {
-            return endereco;
-        }
-
-        public void setNome(String nome) {
-            this.nome = nome;
-        }
-
-        public void setCpf(String cpf) {
-            this.cpf = cpf;
-        }
-
-        public void setEmail(String email) {
-            this.email = email;
-        }
-
-        public void setTelefone(String telefone) {
-            this.telefone = telefone;
-        }
-
-        public void setEndereco(String endereco) {
-            this.endereco = endereco;
-        }
     }
 
     private class ListaFuncionariosInterface extends JFrame {
@@ -284,4 +229,3 @@ public class PrincipalInterface extends JFrame {
         SwingUtilities.invokeLater(() -> new PrincipalInterface());
     }
 }
-
