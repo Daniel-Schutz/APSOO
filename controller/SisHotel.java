@@ -31,16 +31,16 @@ public class SisHotel {
 
     public Cliente[] buscarTodosClientes() {
         Cliente[] objCliente;
-        //esperar desenvolver função no DAO
+        objCliente = cliente.buscarTodosCliente()
         return objCliente;
     }
 
     public String deletarCliente(String cpf) {
-
-        String mensagem;
-        mensagem = cliente.deletarCliente(cpf);
-
-        return mensagem;
+        if(!existeCliente(cpf)){
+            return "Cliente não encontrado";
+        }
+        cliente.deletarCliente(cpf);
+        return "Cliente deletado com sucesso";
     }
 
     public String atualizarCliente(String nome, String cpf, String email, String senha, String endereco,
@@ -51,8 +51,6 @@ public class SisHotel {
     }
 
     public boolean existeCliente(String cpf) {
-        // Verificar se o cliente com o CPF fornecido existe na base de dados
-        // utilizando a classe de DAO e retornar true ou false
         return pessoaDAO.buscarPessoa(cpf) != null;
     }
 
