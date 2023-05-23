@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList; // Import the ArrayList class
 
 public class CadastroFuncionarioInterface extends JFrame {
     private JTextField nomeField;
@@ -10,7 +11,7 @@ public class CadastroFuncionarioInterface extends JFrame {
     private JTextField telefoneField;
     private JTextField enderecoField;
 
-    public CadastroFuncionarioInterface() {
+    public CadastroFuncionarioInterface(ArrayList<Funcionario> funcionarios) {
         // Configurações da janela
         setTitle("Cadastro de Funcionário");
         setSize(300, 250);
@@ -58,10 +59,14 @@ public class CadastroFuncionarioInterface extends JFrame {
                 String telefone = telefoneField.getText();
                 String endereco = enderecoField.getText();
 
-                // Salvar as informações do funcionário (exemplo: apenas exibir as informações)
-                JOptionPane.showMessageDialog(CadastroFuncionarioInterface.this,
-                        "Novo funcionário cadastrado:\nNome: " + nome + "\nCPF: " + cpf + "\nEmail: " + email +
-                                "\nTelefone: " + telefone + "\nEndereço: " + endereco);
+                // Criar um novo objeto Funcionario com base nas informações inseridas
+                Funcionario novoFuncionario = new Funcionario(nome, cpf, email, telefone, endereco);
+
+                // Adicionar o novo funcionário ao ArrayList de funcionários
+                funcionarios.add(novoFuncionario);
+
+                // Exibir uma mensagem de confirmação
+                JOptionPane.showMessageDialog(CadastroFuncionarioInterface.this, "Novo funcionário cadastrado!");
 
                 // Limpar os campos de entrada após o cadastro
                 nomeField.setText("");
@@ -69,6 +74,13 @@ public class CadastroFuncionarioInterface extends JFrame {
                 emailField.setText("");
                 telefoneField.setText("");
                 enderecoField.setText("");
+
+                // Voltar para a tela principal
+                PrincipalInterface principalInterface = new PrincipalInterface();
+                principalInterface.setVisible(true);
+
+                // Fechar a tela de cadastro de funcionário
+                dispose();
             }
         });
 
