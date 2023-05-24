@@ -66,7 +66,7 @@ public class Reserva {
         return "Reserva Atualizada";
     }
 
-    public String cancelarReserva(ReservaDAO reservaDAO, ReservaQuartoDAO reservaQuartoDAO, QuartoDAO quartoDAO, int codigo, string cpf){
+    public String emiteMultaCancelamentoReserva(ReservaDAO reservaDAO, ReservaQuartoDAO reservaQuartoDAO, QuartoDAO quartoDAO, int codigo, string cpf){
         Reserva reservaACancelar;
         reservaACancelar = reservaDAO.buscarReserva(codigo);
         ReservaQuarto[] reservaQuarto = reservaQuartoDAO.buscarReservaQuarto(codigo); //reserva pode estar atrelada a mais de um quarto || Possibilidade de mudar essa função
@@ -83,12 +83,12 @@ public class Reserva {
         Date dataDaReserva = reservaACancelar.getData();
         int i = 0;
         float soma = 0;
-        if ((dataDaReserva.getTime() - dataAtual.getTime()) > 7){
+        if (((dataDaReserva.getTime() - dataAtual.getTime())/(1000 * 60 * 60 * 24)) > 7){ //mais de uma semana antes
             valorMulta = (float) 0.0;
             return valorMulta.toString();
         }
 
-        else if((dataDaReserva.getTime() - dataAtual.getTime()) > 5){
+        else if(((dataDaReserva.getTime() - dataAtual.getTime())/(1000 * 60 * 60 * 24)) > 4){ //5 a 7 dias antes
             while (i < reservaQuarto.length){
                 Quarto quartoAtual = quartoDAO.buscarQuarto(reservaQuarto[i].getIdQuarto());
                 soma = soma + quartoAtual.getValor()*reservaACancelar.getDiasEstadia(); //Possibilidade de mudança de atributo em reserva
@@ -97,7 +97,33 @@ public class Reserva {
             valorMulta = (float)((20/100)*soma);
             return valorMulta.toString();
         }
-
+        else if (((dataDaReserva.getTime() - dataAtual.getTime())/(1000 * 60 * 60 * 24)) > 1){ //2 a 4 dias
+            while (i < reservaQuarto.length){
+                Quarto quartoAtual = quartoDAO.buscarQuarto(reservaQuarto[i].getIdQuarto());
+                soma = soma + quartoAtual.getValor()*reservaACancelar.getDiasEstadia(); //Possibilidade de mudança de atributo em reserva
+                i++;
+            }
+            valorMulta = (float)((30/100)*soma);
+            return valorMulta.toString();
+        }
+        else if (((dataDaReserva.getTime() - dataAtual.getTime())/(1000 * 60 * 60 * 24)) > 0){ //24horas antes
+            while (i < reservaQuarto.length){
+                Quarto quartoAtual = quartoDAO.buscarQuarto(reservaQuarto[i].getIdQuarto());
+                soma = soma + quartoAtual.getValor()*reservaACancelar.getDiasEstadia(); //Possibilidade de mudança de atributo em reserva
+                i++;
+            }
+            valorMulta = (float)((50/100)*soma);
+            return valorMulta.toString();
+        }
+        else { //trata tanto para caso na hora quanto para cancelamentos atrasados
+            while (i < reservaQuarto.length){
+                Quarto quartoAtual = quartoDAO.buscarQuarto(reservaQuarto[i].getIdQuarto());
+                soma = soma + quartoAtual.getValor()*reservaACancelar.getDiasEstadia(); //Possibilidade de mudança de atributo em reserva
+                i++;
+            }
+            valorMulta = (float)(soma);
+            return valorMulta.toString();
+        }
     }
 
     public int getCodigo() {
