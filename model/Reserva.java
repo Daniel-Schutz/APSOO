@@ -5,7 +5,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
-import dao.*;
+import DAO.*;
 
 public class Reserva {
     private int codigo;
