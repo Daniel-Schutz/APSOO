@@ -78,7 +78,7 @@ public class PessoaDAO {
         }
     }
     
-    //Isso não vai precisar retornar um Array com todos as tuplas da tabela?
+    
     public List<Pessoa> listarPessoas() {
         List<Pessoa> pessoas = new ArrayList<>();
         String sql = "SELECT * FROM pessoa";
@@ -119,7 +119,8 @@ public class PessoaDAO {
 
         stmt.executeUpdate();
         System.out.println("Pessoa atualizada com sucesso!");
-       
+        //verificar se o front já recebe a mensagem
+        
         }
     }
 

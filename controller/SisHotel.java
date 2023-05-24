@@ -68,6 +68,30 @@ public class SisHotel {
         }
     }
 
+    public void registrarReserva(int codigo, Date dataEntrada, int dataSaida, String tipoPagamento, String situacao){
+        Reserva newReserva = new Reserva(codigo, dataEntrada,dataSaida,tipoPagamento, situacao, this.reservaDAO);
+        newReserva.registrarReserva();
+        System.out.println("SisHotel: Reserva criada com sucesso!!");
+    }
+
+    public Reserva buscarReserva(int codigo){
+        Reserva reserva;
+        reserva = Reserva.buscarReserva(this.reservaDAO, codigo);
+        if (reserva != null){
+            return reserva;
+        }
+        return null;
+    }
+
+
+
+    public void cancelarReserva() {
+        // Realizar a lógica de cancelamento de reserva utilizando a classe de DAO e
+        // View
+        reservaView.escolhaConfirmarOuCancelar();
+    }
+
+    
     public void confirmaPagamento(int pagamento, int tipoPagamento) {
         // Realizar a lógica de confirmação do pagamento utilizando os dados fornecidos
         // e interagir com as classes de DAO e View conforme necessário
@@ -84,23 +108,6 @@ public class SisHotel {
         // Exibir as opções de quartos disponíveis utilizando os dados da classe de DAO
         // e interagir com a classe de View conforme necessário
         reservaView.selecaoQuartos();
-    }
-
-    public void registrarReserva(string codigo, Date dataEntrada, int dataSaida, String tipoPagamento, String situacao){
-        Reserva newReserva = new Reserva(codigo, dataEntrada,dataSaida,tipoPagamento, situacao);
-        newReserva.registrarReserva();
-        System.out.println("SisHotel: Reserva criada com sucesso!!");
-    }
-
-    public Reserva buscarReserva(int codigo){
-        Reserva reserva;
-        reserva = reserva.buscarReserva(codigo);
-    }
-
-    public void cancelarReserva() {
-        // Realizar a lógica de cancelamento de reserva utilizando a classe de DAO e
-        // View
-        reservaView.escolhaConfirmarOuCancelar();
     }
 
     // Outros métodos e funcionalidades da classe SisHotel

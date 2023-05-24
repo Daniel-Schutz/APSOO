@@ -1,7 +1,10 @@
 package model;
 
-import DAO.*;
+import dao.*;
 import java.util.Date;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 public class Reserva {
     private int codigo;
@@ -24,7 +27,7 @@ public class Reserva {
     // Métodos getters e setters para os atributos
 
     public void registrarReserva(){
-        this.reservaDAO.criarReserva(this);
+        this.reservaDAO.criarReserva(this); //argumentos error
         System.out.println("Registrada a reserva!!");
     }
 
@@ -43,12 +46,20 @@ public class Reserva {
         
     }
 
+    public static Collection<String> buscarReservaPorCpf(String cpf, ReservaDAO reservaDAO){
+
+        if (reservaDAO.buscarReservaPorCpf(cpf) != null){
+            return reservaDAO.buscarReservaPorCpf(cpf);
+        } //COLLECTION ERROR AHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH
+        return null;
+    }
     public buscarTodasReservas(){
 
     }
 
-    public atualizarReserva(){
-
+    public String atualizarReserva(Reserva reserva){
+        this.reservaDAO.atualizarReserva(reserva);
+        return "Atualizei";
     }
 
     public deletarReserva(){
