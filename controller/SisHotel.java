@@ -41,7 +41,7 @@ public class SisHotel {
         if(!existeCliente(cpf)){
             return "Cliente não encontrado";
         }
-        cliente.deletarCliente(cpf);
+        Cliente.deletarCliente(this.pessoaDAO, cpf);
         return "Cliente deletado com sucesso";
     }
 
