@@ -4,7 +4,7 @@ public class Quarto {
     private String descricao;
     private String local;
     private String tipoQuarto;
-    private double valor;
+    private float valor;
     private int idQuarto;
 
     // Construtor da classe
@@ -50,7 +50,7 @@ public class Quarto {
         this.tipoQuarto = tipoQuarto;
     }
 
-    public double getValor() {
+    public float getValor() {
         return valor;
     }
 

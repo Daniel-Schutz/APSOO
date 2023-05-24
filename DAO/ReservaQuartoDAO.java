@@ -2,6 +2,8 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.ReservaQuarto;
+
 
 public class ReservaQuartoDAO(){
     private Connection conexao;
@@ -71,7 +73,7 @@ public class ReservaQuartoDAO(){
     }
 
 
-    public ReservaQuarto buscarReservaQuarto(int idReservaQuarto) throws SQLException {
+    public ReservaQuarto buscarReservaQuarto(int idReservaQuarto) throws SQLException { //Cliente não saberá informar ID para buscar, logo, terá que buscar pelo codigo da reserva, mantem essa função e cria outra so pra buscar todos os reservaquarto atrelados ao codigo da reserva
     String sql = "SELECT * FROM reservaQuarto WHERE idReservaQuarto = ?";
     
     try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
@@ -79,8 +81,8 @@ public class ReservaQuartoDAO(){
         ResultSet rs = stmt.executeQuery();
 
         if (rs.next()) {
-            ReservaQuarto reservaQuarto = new ReservaQuarto();
-            reservaQuarto.setCodigoReserva(rs.getInt("codigoReserva"));
+            ReservaQuarto reservaQuarto;
+            reservaQuarto.setcodigoReserva(rs.getInt("codigoReserva"));
             reservaQuarto.setIdQuarto(rs.getInt("idQuarto"));
 
             return reservaQuarto;

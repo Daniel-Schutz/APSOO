@@ -21,7 +21,7 @@ public class ReservaDAO{
             stmt.setInt(2, reserva.getDiasEstadia());
             stmt.setString(3, reserva.getTipoPagamento());
             stmt.setString(4, reserva.getSituacao());
-            stmt.setString(5, getString("pessoaCPF"));       // irá receber cpf de pessoa por parametro ou pelo método get?
+            stmt.setString(5, reserva.getCpf());       // irá receber cpf de pessoa por parametro ou pelo método get?
 
             stmt.executeUpdate();
             System.out.println("Reserva inserida com sucesso!");

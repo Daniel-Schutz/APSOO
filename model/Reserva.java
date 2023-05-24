@@ -1,5 +1,6 @@
 package model;
 
+import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -12,15 +13,17 @@ public class Reserva {
     private int diasEstadia;
     private String tipoPagamento;
     private String situacao;
+    private String pessoaCPF;
     private ReservaDAO reservaDAO;
 
     // Construtor da classe
-    public Reserva(int codigo, Date data, int diasEstadia, String tipoPagamento, String situacao, ReservaDAO reservaDAO) {
+    public Reserva(int codigo, Date data, int diasEstadia, String tipoPagamento, String situacao, String pessoaCPF, ReservaDAO reservaDAO) {
         this.codigo = codigo;
         this.data = data;
         this.diasEstadia = diasEstadia;
         this.tipoPagamento = tipoPagamento;
         this.situacao = situacao;
+        this.pessoaCPF = pessoaCPF;
         this.reservaDAO = reservaDAO;
     }
 
@@ -63,7 +66,37 @@ public class Reserva {
         return "Reserva Atualizada";
     }
 
-    public deletarReserva(){
+    public String cancelarReserva(ReservaDAO reservaDAO, ReservaQuartoDAO reservaQuartoDAO, QuartoDAO quartoDAO, int codigo, string cpf){
+        Reserva reservaACancelar;
+        reservaACancelar = reservaDAO.buscarReserva(codigo);
+        ReservaQuarto[] reservaQuarto = reservaQuartoDAO.buscarReservaQuarto(codigo); //reserva pode estar atrelada a mais de um quarto || Possibilidade de mudar essa função
+        Float valorMulta;
+        if (reservaACancelar.getCpf() != cpf){
+            return "CPF não titular da reserva";
+        }
+        if (reservaACancelar == null){
+            return "Reserva não encontrada";
+        }
+
+        
+        Date dataAtual = new Date();
+        Date dataDaReserva = reservaACancelar.getData();
+        int i = 0;
+        float soma = 0;
+        if ((dataDaReserva.getTime() - dataAtual.getTime()) > 7){
+            valorMulta = (float) 0.0;
+            return valorMulta.toString();
+        }
+
+        else if((dataDaReserva.getTime() - dataAtual.getTime()) > 5){
+            while (i < reservaQuarto.length){
+                Quarto quartoAtual = quartoDAO.buscarQuarto(reservaQuarto[i].getIdQuarto());
+                soma = soma + quartoAtual.getValor()*reservaACancelar.getDiasEstadia(); //Possibilidade de mudança de atributo em reserva
+                i++;
+            }
+            valorMulta = (float)((20/100)*soma);
+            return valorMulta.toString();
+        }
 
     }
 
@@ -106,4 +139,16 @@ public class Reserva {
     public void setSituacao(String situacao) {
         this.situacao = situacao;
     }
-}
+    
+    public String getCpf() {
+        return pessoaCPF;
+    }
+
+    public void setCpf(String pessoaCPF) {
+        this.pessoaCPF = pessoaCPF;
+    }
+
+
+
+
+}  
