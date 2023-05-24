@@ -24,17 +24,6 @@ public class Cliente extends Pessoa {
         return pessoaDAO.existePessoa(cpf);
     }
 
-
-    // Método getter para o atributo situacao
-    public String getSituacao() {
-        return situacao;
-    }
-
-    // Método setter para o atributo situacao
-    public void setSituacao(String situacao) {
-        this.situacao = situacao;
-    }
-
     // Método para cadastrar um cliente no banco de dados
     public void cadastrarCliente() {
         this.pessoaDAO.criarPessoa(this);
@@ -69,7 +58,19 @@ public class Cliente extends Pessoa {
     }
 
 
+    // Método getter para o atributo situacao
+    public String getSituacao() {
+    return situacao;
+    }
+
+    // Método setter para o atributo situacao
+    public void setSituacao(String situacao) {
+        this.situacao = situacao;
+    }
+
+
     public void realizarAcao() {
 
     }
+
 }
