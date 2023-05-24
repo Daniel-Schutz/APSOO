@@ -55,7 +55,7 @@ public class PessoaDAO {
         System.out.println("Funcionario inserido com sucesso!");
         
         }
-    }.
+    }
 
     public void criarPessoa(Administrador administrador) {
     String sql = "INSERT INTO pessoa (cpf, nome, email, senha, endereco, telefone, situacao, dataContratacao, salario, tipo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -78,7 +78,7 @@ public class PessoaDAO {
         }
     }
     
-
+    //Isso não vai precisar retornar um Array com todos as tuplas da tabela?
     public List<Pessoa> listarPessoas() {
         List<Pessoa> pessoas = new ArrayList<>();
         String sql = "SELECT * FROM pessoa";
