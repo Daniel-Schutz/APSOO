@@ -80,28 +80,78 @@ public class PessoaDAO {
     
     
     public List<Pessoa> listarPessoas() {
-        List<Pessoa> pessoas = new ArrayList<>();
+        List<Pessoa> clientes = new ArrayList<>();
         String sql = "SELECT * FROM pessoa";
         try(PreparedStatement stmt = conexao.prepareStatement(sql)) {
             
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                Pessoa pessoa = new Pessoa();
-                pessoa.setCpf(rs.getString("cpf"));
-                pessoa.setNome(rs.getString("nome"));
-                pessoa.setEmail(rs.getString("email"));
-                pessoa.setSenha(rs.getString("senha"));
-                pessoa.setEndereco(rs.getString("endereco"));
-                pessoa.setTelefone(rs.getString("telefone"));
-                pessoa.setSituacao(rs.getString("situacao"));
-                pessoa.setDataContratacao(rs.getDate("dataContratacao"));
-                pessoa.setSalario(rs.getDouble("salario"));
-                pessoas.add(pessoa);
+                Cliente cliente = new Cliente();
+                cliente.setCpf(rs.getString("cpf"));
+                cliente.setNome(rs.getString("nome"));
+                cliente.setEmail(rs.getString("email"));
+                cliente.setSenha(rs.getString("senha"));
+                cliente.setEndereco(rs.getString("endereco"));
+                cliente.setTelefone(rs.getString("telefone"));
+                cliente.setSituacao(rs.getString("situacao"));
+                cliente.setDataContratacao(rs.getDate("dataContratacao"));
+                cliente.setSalario(rs.getDouble("salario"));
+                clientes.add(cliente);
             }
         } 
 
-        return pessoas;
+        return clientes;
     }
+
+    public List<Pessoa> listarPessoas() {
+        List<Pessoa> funcionarios = new ArrayList<>();
+        String sql = "SELECT * FROM pessoa";
+        try(PreparedStatement stmt = conexao.prepareStatement(sql)) {
+            
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                Funcionario funcionario = new Funcionario();
+                funcionario.setCpf(rs.getString("cpf"));
+                funcionario.setNome(rs.getString("nome"));
+                funcionario.setEmail(rs.getString("email"));
+                funcionario.setSenha(rs.getString("senha"));
+                funcionario.setEndereco(rs.getString("endereco"));
+                funcionario.setTelefone(rs.getString("telefone"));
+                funcionario.setSituacao(rs.getString("situacao"));
+                funcionario.setDataContratacao(rs.getDate("dataContratacao"));
+                funcionario.setSalario(rs.getDouble("salario"));
+                funcionarios.add(funcionario);
+            }
+        } 
+
+        return funcionarios;
+    }
+
+
+    public List<Pessoa> listarPessoas() {
+        List<Pessoa> administradores = new ArrayList<>();
+        String sql = "SELECT * FROM pessoa";
+        try(PreparedStatement stmt = conexao.prepareStatement(sql)) {
+            
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                Administrador administrador = new Administrador();
+                administrador.setCpf(rs.getString("cpf"));
+                administrador.setNome(rs.getString("nome"));
+                administrador.setEmail(rs.getString("email"));
+                administrador.setSenha(rs.getString("senha"));
+                administrador.setEndereco(rs.getString("endereco"));
+                administrador.setTelefone(rs.getString("telefone"));
+                administrador.setSituacao(rs.getString("situacao"));
+                administrador.setDataContratacao(rs.getDate("dataContratacao"));
+                administrador.setSalario(rs.getDouble("salario"));
+                administradores.add(administrador);
+            }
+        } 
+
+        return administradores;
+    }
+
 
     public void atualizarPessoa(Pessoa pessoa) {
     String sql = "UPDATE pessoa SET nome = ?, email = ?, senha = ?, endereco = ?, telefone = ?, situacao = ?, dataContratacao = ?, salario = ? WHERE cpf = ?";
