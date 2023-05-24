@@ -66,16 +66,16 @@ public class Reserva {
         return "Reserva Atualizada";
     }
 
-    public String emiteMultaCancelamentoReserva(ReservaDAO reservaDAO, ReservaQuartoDAO reservaQuartoDAO, QuartoDAO quartoDAO, int codigo, string cpf){
+    public String emiteMultaCancelamentoReserva(ReservaDAO reservaDAO, ReservaQuartoDAO reservaQuartoDAO, QuartoDAO quartoDAO, int codigo, String cpf){
         Reserva reservaACancelar;
         reservaACancelar = reservaDAO.buscarReserva(codigo);
         ReservaQuarto[] reservaQuarto = reservaQuartoDAO.buscarReservaQuarto(codigo); //reserva pode estar atrelada a mais de um quarto || Possibilidade de mudar essa função
         Float valorMulta;
         if (reservaACancelar.getCpf() != cpf){
-            return "CPF não titular da reserva";
+            return "ERROR : CPF não titular da reserva";
         }
         if (reservaACancelar == null){
-            return "Reserva não encontrada";
+            return "ERROR : Reserva não encontrada";
         }
 
         
@@ -124,6 +124,11 @@ public class Reserva {
             valorMulta = (float)(soma);
             return valorMulta.toString();
         }
+    }
+
+    public String excluirReserva(ReservaDAO reservaDAO, int codigo, String cpf){
+        String message = reservaDAO.excluirReserva(codigo);
+        return message;
     }
 
     public int getCodigo() {
