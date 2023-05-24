@@ -1,4 +1,4 @@
-import dao.*;
+import DAO.*;
 import model.*;
 import java.sql.*;
 import java.util.Collection;
@@ -9,6 +9,7 @@ public class SisHotel {
     private QuartoDAO quartoDAO;
     private ReservaDAO reservaDAO;
     private ReservaView reservaView;
+    private ReservaQuartoDAO reservaQuartoDAO;
     private Cliente cliente;
 
     public SisHotel(Connection conexao) {
@@ -16,6 +17,7 @@ public class SisHotel {
         quartoDAO = new QuartoDAO(conexao);
         reservaDAO = new ReservaDAO(conexao);
         reservaView = new ReservaView();
+        reservaQuartoDAO = new ReservaQuartoDAO();
     }
 
     public String cadastrarCliente(String nome, String cpf, String email, String senha, String endereco,
@@ -101,16 +103,24 @@ public class SisHotel {
         return null;
     }
 
-    public String atualizarReserva(int codigo, Date dataEntrada, int dataSaida, String tipoPagamento, String situacao){
-        Reserva updatedReserva = new Reserva(codigo, dataEntrada,dataSaida,tipoPagamento, situacao, this.reservaDAO);
+    public String atualizarReserva(int codigo, Date dataEntrada, int dataSaida, String tipoPagamento, String situacao, String pessoaCPF){
+        Reserva updatedReserva = new Reserva(codigo, dataEntrada,dataSaida,tipoPagamento, situacao, this.reservaDAO, pessoaCPF);
         String message = updatedReserva.atualizarReserva();
         return message;
     }
 
 
-    public void cancelarReserva() {
-        // Realizar a lógica de cancelamento de reserva utilizando a classe de DAO e
-        // View
+    public String cancelarReserva(int codigo, String cpf) {
+        String message;
+        message = Reserva.emiteMultaCancelamentoReserva(reservaDAO, this.reservaQuartoDAO, quartoDAO, codigo, cpf);
+        if (message.startsWith("ERROR")){
+            return message; //exibir ela na view
+        }
+        // if pagamento { ver a opção na view que vai confirmar ou 
+        //                cancelar o pagamento do cliente que nem discutimos com a prof em sala
+        // message = Reserva.excluirReserva(this.reservaDao, codigo, cpf)   
+        //}
+        return message; //exibir ela na view
         reservaView.escolhaConfirmarOuCancelar();
     }
 

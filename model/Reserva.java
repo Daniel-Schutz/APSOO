@@ -30,9 +30,13 @@ public class Reserva {
     // Métodos getters e setters para os atributos
 
     public void registrarReserva(){
+    try {
         this.reservaDAO.criarReserva(this); //argumentos error
         System.out.println("Registrada a reserva!!");
+    } catch (Exception e) {
+        return;
     }
+}
 
     public static Reserva buscarReserva(ReservaDAO reservaDAO,int codigo){
         
@@ -66,7 +70,7 @@ public class Reserva {
         return "Reserva Atualizada";
     }
 
-    public String emiteMultaCancelamentoReserva(ReservaDAO reservaDAO, ReservaQuartoDAO reservaQuartoDAO, QuartoDAO quartoDAO, int codigo, String cpf){
+    public static String emiteMultaCancelamentoReserva(ReservaDAO reservaDAO, ReservaQuartoDAO reservaQuartoDAO, QuartoDAO quartoDAO, int codigo, String cpf){
         Reserva reservaACancelar;
         reservaACancelar = reservaDAO.buscarReserva(codigo);
         ReservaQuarto[] reservaQuarto = reservaQuartoDAO.buscarReservaQuarto(codigo); //reserva pode estar atrelada a mais de um quarto || Possibilidade de mudar essa função
@@ -126,7 +130,7 @@ public class Reserva {
         }
     }
 
-    public String excluirReserva(ReservaDAO reservaDAO, int codigo, String cpf){
+    public static String excluirReserva(ReservaDAO reservaDAO, int codigo, String cpf){
         String message = reservaDAO.excluirReserva(codigo);
         return message;
     }
