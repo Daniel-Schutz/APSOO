@@ -36,7 +36,7 @@ public class PessoaDAO {
     }
 
     
-    public void criarPessoa(Funcionario funcinario) {
+    public void criarPessoa(Funcionario funcionario) {
     String sql = "INSERT INTO pessoa (cpf, nome, email, senha, endereco, telefone, situacao, dataContratacao, salario, tipo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     try(PreparedStatement stmt = conexao.prepareStatement(sql)) {
        

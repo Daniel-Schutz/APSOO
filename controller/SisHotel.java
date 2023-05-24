@@ -1,4 +1,4 @@
-import DAO.*;
+import dao.*;
 import model.*;
 import java.sql.*;
 
@@ -24,9 +24,11 @@ public class SisHotel {
     }
 
     public Cliente buscarCliente(String cpf) {
-        Cliente objCliente;
-        objCliente = cliente.buscarCliente(cpf);
-        return objCliente;
+
+        if(Cliente.buscarCliente(pessoaDAO, cpf) != null){
+            return Cliente.buscarCliente(pessoaDAO, cpf);
+        }
+        return null;
     }
 
     public Cliente[] buscarTodosClientes() {

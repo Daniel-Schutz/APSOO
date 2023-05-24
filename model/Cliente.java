@@ -1,6 +1,6 @@
 package model;
 
-import DAO.*;
+import dao.*;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,6 +17,13 @@ public class Cliente extends Pessoa {
         this.tipo = CLIENTE;
 
     }
+
+    // Método para verificar se um cliente existe no banco de dados pelo CPF
+    public static boolean existeCliente(PessoaDAO pessoaDAO, String cpf) {
+    
+        return pessoaDAO.existePessoa(cpf);
+    }
+
 
     // Método getter para o atributo situacao
     public String getSituacao() {
@@ -40,17 +47,14 @@ public class Cliente extends Pessoa {
 
     }
 
-    // Método para verificar se um cliente existe no banco de dados pelo CPF
-    public static boolean existeCliente(PessoaDAO pessoaDAO, String cpf) {
-        
-        return pessoaDAO.existePessoa(cpf);
-    }
-
     public static Cliente buscarCliente(PessoaDAO pessoaDAO,String cpf) {
 
         Cliente cliente;
-        cliente = pessoaDAO.buscarPessoa(cpf); 
-        return cliente;
+        if(pessoaDAO.buscarPessoa(cpf) != null){
+            cliente = (Cliente) pessoaDAO.buscarPessoa(cpf);
+            return cliente;
+        }
+        return null;
     }
 
     public static Cliente[] buscarTodosCliente(PessoaDAO pessoaDAO, String tipo) {
