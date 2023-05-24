@@ -1,6 +1,7 @@
 import dao.*;
 import model.*;
 import java.sql.*;
+import java.util.Collection;
 import java.util.List;
 
 public class SisHotel {
@@ -92,6 +93,19 @@ public class SisHotel {
         return null;
     }
 
+    public Collection<String> buscarReservaPorCpf(String cpf){
+        Collection<String> resultado = Reserva.buscarReservaPorCpf(this.reservaDAO, cpf);
+        if (resultado != null){
+            return resultado;
+        }
+        return null;
+    }
+
+    public String atualizarReserva(int codigo, Date dataEntrada, int dataSaida, String tipoPagamento, String situacao){
+        Reserva updatedReserva = new Reserva(codigo, dataEntrada,dataSaida,tipoPagamento, situacao, this.reservaDAO);
+        String message = updatedReserva.atualizarReserva();
+        return message;
+    }
 
 
     public void cancelarReserva() {

@@ -58,9 +58,9 @@ public class Reserva {
         return reservas;
     }
 
-    public String atualizarReserva(Reserva reserva){
-        this.reservaDAO.atualizarReserva(reserva);
-        return "Atualizei";
+    public String atualizarReserva(){
+        this.reservaDAO.atualizarReserva(this);
+        return "Reserva Atualizada";
     }
 
     public deletarReserva(){
