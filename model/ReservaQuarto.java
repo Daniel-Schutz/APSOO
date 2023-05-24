@@ -4,7 +4,7 @@ public class ReservaQuarto {
     private int codigoReserva;
     private int idQuarto;
 
-    public ReservaQuarto(int codigoReserva, int codigoQuarto) {
+    public ReservaQuarto(int codigoReserva, int idQuarto) {
         this.codigoReserva = codigoReserva;
         this.idQuarto = idQuarto;
     }
