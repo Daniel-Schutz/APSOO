@@ -25,15 +25,13 @@ public class Cliente extends Pessoa {
     }
 
     // Método para cadastrar um cliente no banco de dados
-    public void cadastrarCliente() {
-        this.pessoaDAO.criarPessoa(this);
-        System.out.println("Cliente cadastrado com sucesso!");
+    public String cadastrarCliente() {
+        String message = this.pessoaDAO.criarPessoa(this);
+        return message;
     }
 
-    public void atualizarCliente(Cliente cliente){
-        pessoaDAO.atualizarPessoa(cliente); //verificar se poderá passar tipo cliente ou pessoa
-        System.out.println("Cliente atualizado com sucesso!");
-
+    public String atualizarCliente(){
+        return this.pessoaDAO.atualizarPessoa(this); //verificar se poderá passar tipo cliente ou pessoa e retornar string no dao
     }
 
     public static Cliente buscarCliente(PessoaDAO pessoaDAO,String cpf) {
@@ -52,9 +50,9 @@ public class Cliente extends Pessoa {
         return objClientes;
     }
 
-    public static void deletarCliente(PessoaDAO pessoaDAO, String cpf) {
-        pessoaDAO.excluirPessoa(cpf);
-        System.out.println("Cliente deletado");
+    public static String deletarCliente(PessoaDAO pessoaDAO, String cpf) {
+        return pessoaDAO.excluirPessoa(cpf); //não esquecer de no DAO retornar a string mensagem;
+        
     }
 
 

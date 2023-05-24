@@ -169,7 +169,7 @@ public class PessoaDAO {
 
         stmt.executeUpdate();
         System.out.println("Pessoa atualizada com sucesso!");
-        //verificar se o front já recebe a mensagem
+        //Retornar string
         
         }
     }
@@ -182,7 +182,7 @@ public class PessoaDAO {
         stmt.setString(1, cpf);
         stmt.executeUpdate();
         System.out.println("Pessoa excluída com sucesso!");
-        
+        //retornar string
     }
     }
 
@@ -193,7 +193,8 @@ public class PessoaDAO {
         stmt.setString(1, cpf);
         ResultSet rs = stmt.executeQuery();
         if (rs.next()) {
-            Cliente cliente = new Cliente();
+            Cliente cliente = new Cliente(); //Não precisa instancear se for settar todos os atributos manualmente, se não me engano
+                                            //Nesse sentido, basta Cliente cliente;
             cliente.setCpf(rs.getString("cpf"));
             cliente.setNome(rs.getString("nome"));
             cliente.setEmail(rs.getString("email"));
@@ -216,7 +217,7 @@ public class PessoaDAO {
         stmt.setString(1, cpf);
         ResultSet rs = stmt.executeQuery();
         if (rs.next()) {
-            Funcionario funcionario = new Funcionario();
+            Funcionario funcionario = new Funcionario(); //mesma lógica de cliente acima e será a mesma para administrador;
             funcionario.setCpf(rs.getString("cpf"));
             funcionario.setNome(rs.getString("nome"));
             funcionario.setEmail(rs.getString("email"));
@@ -239,7 +240,7 @@ public class PessoaDAO {
         stmt.setString(1, cpf);
         ResultSet rs = stmt.executeQuery();
         if (rs.next()) {
-            Administrador administrador = new Administrador();
+            Administrador administrador = new Administrador(); //acima
             administrador.setCpf(rs.getString("cpf"));
             administrador.setNome(rs.getString("nome"));
             administrador.setEmail(rs.getString("email"));

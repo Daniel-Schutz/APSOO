@@ -35,29 +35,30 @@ public class SisHotel {
         return null;
     }
 
-    public Cliente[] buscarTodosClientes() {
+    public Cliente[] buscarTodosClientes(String tipo) {
         Cliente[] objCliente;
-        objCliente = cliente.buscarTodosCliente()
+        objCliente = cliente.buscarTodosCliente(tipo); //Mudar no dao
         return objCliente;
     }
 
     public String deletarCliente(String cpf) {
-        if(!existeCliente(cpf)){
+        if(!this.existeCliente(cpf)){
             return "Cliente não encontrado";
         }
-        Cliente.deletarCliente(this.pessoaDAO, cpf);
-        return "Cliente deletado com sucesso";
+        String message = Cliente.deletarCliente(this.pessoaDAO, cpf);
+        return message;
     }
 
     public String atualizarCliente(String nome, String cpf, String email, String senha, String endereco,
     String situacao) {
+        String message;
         cliente = new Cliente(this.pessoaDAO, nome, cpf, email, senha, endereco, situacao);
-        cliente.atualizarCliente(cliente);
-        return "Cliente atualizado com sucesso";
+        message = cliente.atualizarCliente();
+        return message;
     }
 
     public boolean existeCliente(String cpf) {
-        return pessoaDAO.buscarPessoa(cpf) != null;
+        return Cliente.existeCliente(this.pessoaDAO, cpf);
     }
 
     public void confirmarReserva(String cpf, int dataEntrada, int dataSaida, int quantPessoas, int quantQuartos,
