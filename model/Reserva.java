@@ -1,10 +1,10 @@
 package model;
 
-import dao.*;
-import java.util.Date;
-import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
+
+import dao.*;
 
 public class Reserva {
     private int codigo;
@@ -50,11 +50,12 @@ public class Reserva {
 
         if (reservaDAO.buscarReservaPorCpf(cpf) != null){
             return reservaDAO.buscarReservaPorCpf(cpf);
-        } //COLLECTION ERROR AHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH
+        }
         return null;
     }
-    public buscarTodasReservas(){
-
+    public static List<Reserva> buscarTodasReservas(ReservaDAO reservaDAO){
+        List<Reserva> reservas = reservaDAO.listarReservas();
+        return reservas;
     }
 
     public String atualizarReserva(Reserva reserva){

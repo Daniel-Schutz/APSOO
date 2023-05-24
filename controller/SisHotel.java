@@ -1,6 +1,7 @@
 import dao.*;
 import model.*;
 import java.sql.*;
+import java.util.List;
 
 public class SisHotel {
     private PessoaDAO pessoaDAO;
@@ -79,6 +80,14 @@ public class SisHotel {
         reserva = Reserva.buscarReserva(this.reservaDAO, codigo);
         if (reserva != null){
             return reserva;
+        }
+        return null;
+    }
+
+    public List<Reserva> buscarTodasReservas(){
+        List<Reserva> reservas = Reserva.buscarTodasReservas(this.reservaDAO);
+        if (reservas != null){
+            return reservas;
         }
         return null;
     }
