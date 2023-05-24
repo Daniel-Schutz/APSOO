@@ -72,8 +72,8 @@ public class SisHotel {
         }
     }
 
-    public void registrarReserva(int codigo, Date dataEntrada, int dataSaida, String tipoPagamento, String situacao){
-        Reserva newReserva = new Reserva(codigo, dataEntrada,dataSaida,tipoPagamento, situacao, this.reservaDAO);
+    public void registrarReserva(int codigo, Date dataEntrada, int dataSaida, String tipoPagamento, String situacao, String pessoaCPF){
+        Reserva newReserva = new Reserva(codigo, dataEntrada,dataSaida,tipoPagamento, situacao, pessoaCPF, this.reservaDAO);
         newReserva.registrarReserva();
         System.out.println("SisHotel: Reserva criada com sucesso!!");
     }
