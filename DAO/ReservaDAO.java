@@ -100,5 +100,35 @@ public class ReservaDAO{
 
         return null;
     }
+    
+    public Collection<String> buscarReservaPorCpf(String cpf) {
+        Collection<String> resultado = new ArrayList<>();
+
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/banco_de_dados", "usuario", "senha");
+
+            String sql = "SELECT * FROM reserva INNER JOIN reservaQuarto 
+            ON reserva.codigo = reservaQuarto.codigoReserva INNER JOIN hospedagem
+            ON reserva.codigo = hospedagem.codigoReserva INNER JOIN quarto
+            ON reservaQuarto.idQuarto = quarto.idQuarto INNER JOIN pessoa
+            ON pessoa.cpf = reserva.pessoaCPF
+            WHERE pessoaCPF = ?";
+
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, cpf);
+
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                String detalhesReserva = resultSet.getString("detalhes");
+                resultado.add(detalhesReserva);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return resultado;
+    }
 
 }
