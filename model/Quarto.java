@@ -8,7 +8,7 @@ public class Quarto {
     private int idQuarto;
 
     // Construtor da classe
-    public Quarto(String situacao, String descricao, String local, String tipoQuarto, double valor, int idQuarto) {
+    public Quarto(String situacao, String descricao, String local, String tipoQuarto, float valor, int idQuarto) {
         this.situacao = situacao;
         this.descricao = descricao;
         this.local = local;
@@ -54,7 +54,7 @@ public class Quarto {
         return valor;
     }
 
-    public void setValor(double valor) {
+    public void setValor(float valor) {
         this.valor = valor;
     }
 

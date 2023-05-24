@@ -1,6 +1,6 @@
 package model;
 
-import dao.*;
+import DAO.*;
 import java.util.HashMap;
 import java.util.Map;
 
