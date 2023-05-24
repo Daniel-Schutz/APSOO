@@ -30,8 +30,12 @@ public class Reserva {
     // Métodos getters e setters para os atributos
 
     public void registrarReserva(){
-        this.reservaDAO.criarReserva(this); //argumentos error
+    try{
+       this.reservaDAO.criarReserva(this); //argumentos error
         System.out.println("Registrada a reserva!!");
+    } catch (Exception e){
+        System.out.println("ERROR ON REGISTRARRESERVA");
+    }
     }
 
     public static Reserva buscarReserva(ReservaDAO reservaDAO,int codigo){
