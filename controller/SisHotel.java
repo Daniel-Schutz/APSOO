@@ -37,7 +37,7 @@ public class SisHotel {
 
     public Cliente[] buscarTodosClientes(String tipo) {
         Cliente[] objCliente;
-        objCliente = cliente.buscarTodosCliente(tipo); //Mudar no dao
+        objCliente = cliente.buscarTodosCliente(tipo); //Mudar no dao para receeber parametro tipo
         return objCliente;
     }
 
@@ -105,7 +105,7 @@ public class SisHotel {
     }
 
     public String atualizarReserva(int codigo, Date dataEntrada, int dataSaida, String tipoPagamento, String situacao, String pessoaCPF){
-        Reserva updatedReserva = new Reserva(codigo, dataEntrada,dataSaida,tipoPagamento, situacao, this.reservaDAO, pessoaCPF);
+        Reserva updatedReserva = new Reserva(codigo, dataEntrada,dataSaida,tipoPagamento, situacao, pessoaCPF, this.reservaDAO);
         String message = updatedReserva.atualizarReserva();
         return message;
     }
