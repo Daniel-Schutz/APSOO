@@ -5,7 +5,7 @@ import java.util.List;
 import model.Pessoa;
 import model.Cliente;
 import model.Funcionario;
-
+import model.Administrador;
 
 
 public class PessoaDAO {
@@ -53,6 +53,27 @@ public class PessoaDAO {
 
         stmt.executeUpdate();
         System.out.println("Funcionario inserido com sucesso!");
+        
+        }
+    }
+
+    public void criarPessoa(Administrador administrador) {
+    String sql = "INSERT INTO pessoa (cpf, nome, email, senha, endereco, telefone, situacao, dataContratacao, salario, tipo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    try(PreparedStatement stmt = conexao.prepareStatement(sql)) {
+       
+        stmt.setString(1, administrador.getCpf());
+        stmt.setString(2, administrador.getNome());
+        stmt.setString(3, administrador.getEmail());
+        stmt.setString(4, administrador.getSenha());
+        stmt.setString(5, administrador.getEndereco());
+        stmt.setString(6, administrador.getTelefone());
+        stmt.setString(7, administrador.getSituacao());
+        stmt.setDate(8, administrador.getDataContratacao());
+        stmt.setDouble(9, administrador.getSalario());
+        stmt.setString(10, administrador.getTipo());
+
+        stmt.executeUpdate();
+        System.out.println("Cliente inserido com sucesso!");
         
         }
     }
