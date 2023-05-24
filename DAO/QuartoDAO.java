@@ -12,15 +12,15 @@ public class QuartoDAO(){
         this.conexao = conexao;
     }
 
-    public void criarQuarto(double valor, String tipoQuarto, String local, String descricao, String situacao) throws SQLException {
+    public void criarQuarto(Quarto quarto) throws SQLException {
     String sql = "INSERT INTO quarto (valor, tipoQuarto, local, descricao, situacao) VALUES (?, ?, ?, ?, ?)";
     try(PreparedStatement stmt = conexao.prepareStatement(sql)) {
         
-        stmt.setDouble(1, valor);
-        stmt.setString(2, tipoQuarto);
-        stmt.setString(3, local);
-        stmt.setString(4, descricao);
-        stmt.setString(5, situacao);
+        stmt.setDouble(1, quarto.getValor());
+        stmt.setString(2, quarto.getTipoQuarto());
+        stmt.setString(3, quarto.getLocal());
+        stmt.setString(4, quarto.getDescricao());
+        stmt.setString(5, quarto.getSituacao());
 
         stmt.executeUpdate();
         System.out.println("Quarto inserido com sucesso!");
