@@ -193,17 +193,63 @@ public class PessoaDAO {
         stmt.setString(1, cpf);
         ResultSet rs = stmt.executeQuery();
         if (rs.next()) {
-            Pessoa pessoa = new Pessoa();
-            pessoa.setCpf(rs.getString("cpf"));
-            pessoa.setNome(rs.getString("nome"));
-            pessoa.setEmail(rs.getString("email"));
-            pessoa.setSenha(rs.getString("senha"));
-            pessoa.setEndereco(rs.getString("endereco"));
-            pessoa.setTelefone(rs.getString("telefone"));
-            pessoa.setSituacao(rs.getString("situacao"));
-            pessoa.setDataContratacao(rs.getDate("dataContratacao"));
-            pessoa.setSalario(rs.getDouble("salario"));
-            return pessoa;
+            Cliente cliente = new Cliente();
+            cliente.setCpf(rs.getString("cpf"));
+            cliente.setNome(rs.getString("nome"));
+            cliente.setEmail(rs.getString("email"));
+            cliente.setSenha(rs.getString("senha"));
+            cliente.setEndereco(rs.getString("endereco"));
+            cliente.setTelefone(rs.getString("telefone"));
+            cliente.setSituacao(rs.getString("situacao"));
+            cliente.setDataContratacao(rs.getDate("dataContratacao"));
+            cliente.setSalario(rs.getDouble("salario"));
+            return cliente;
+        }
+    } 
+    return null;
+    }
+
+    public Pessoa buscarPessoa(String cpf) { 
+    String sql = "SELECT * FROM pessoa WHERE cpf = ?";
+    try(PreparedStatement stmt = conexao.prepareStatement(sql)) {
+        
+        stmt.setString(1, cpf);
+        ResultSet rs = stmt.executeQuery();
+        if (rs.next()) {
+            Funcionario funcionario = new Funcionario();
+            funcionario.setCpf(rs.getString("cpf"));
+            funcionario.setNome(rs.getString("nome"));
+            funcionario.setEmail(rs.getString("email"));
+            funcionario.setSenha(rs.getString("senha"));
+            funcionario.setEndereco(rs.getString("endereco"));
+            funcionario.setTelefone(rs.getString("telefone"));
+            funcionario.setSituacao(rs.getString("situacao"));
+            funcionario.setDataContratacao(rs.getDate("dataContratacao"));
+            funcionario.setSalario(rs.getDouble("salario"));
+            return funcionario;
+        }
+    } 
+    return null;
+    }
+
+    public Pessoa buscarPessoa(String cpf) { 
+    String sql = "SELECT * FROM pessoa WHERE cpf = ?";
+    try(PreparedStatement stmt = conexao.prepareStatement(sql)) {
+        
+        stmt.setString(1, cpf);
+        ResultSet rs = stmt.executeQuery();
+        if (rs.next()) {
+            Administrador administrador = new Administrador();
+            administrador.setCpf(rs.getString("cpf"));
+            administrador.setNome(rs.getString("nome"));
+            administrador.setEmail(rs.getString("email"));
+            administrador.setSenha(rs.getString("senha"));
+            administrador.setEndereco(rs.getString("endereco"));
+            administrador.setTelefone(rs.getString("telefone"));
+            administrador.setSituacao(rs.getString("situacao"));
+            administrador.setDataContratacao(rs.getDate("dataContratacao"));
+            administrador.setSalario(rs.getDouble("salario"));
+            return administrador;
         }
     } 
     return null;
