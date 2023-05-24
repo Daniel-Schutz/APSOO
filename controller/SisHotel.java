@@ -48,7 +48,7 @@ public class SisHotel {
     public String atualizarCliente(String nome, String cpf, String email, String senha, String endereco,
     String situacao) {
         cliente = new Cliente(this.pessoaDAO, nome, cpf, email, senha, endereco, situacao);
-        cliente.atualizarCliente();
+        cliente.atualizarCliente(cliente);
         return "Cliente atualizado com sucesso";
     }
 

@@ -41,8 +41,8 @@ public class Cliente extends Pessoa {
         System.out.println("Cliente cadastrado com sucesso!");
     }
 
-    public void atualizarCliente(){
-        pessoaDAO.atualizarPessoa(this);
+    public void atualizarCliente(Cliente cliente){
+        pessoaDAO.atualizarPessoa(cliente); //verificar se poderá passar tipo cliente ou pessoa
         System.out.println("Cliente atualizado com sucesso!");
 
     }
