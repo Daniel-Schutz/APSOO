@@ -66,7 +66,7 @@ public class Reserva {
         return "Reserva Atualizada";
     }
 
-    public String cancelarReserva(ReservaDAO reservaDAO, ReservaQuartoDAO reservaQuartoDAO, QuartoDAO quartoDAO, int codigo, string cpf){
+    public String emiteMultaCancelamentoReserva(ReservaDAO reservaDAO, ReservaQuartoDAO reservaQuartoDAO, QuartoDAO quartoDAO, int codigo, string cpf){
         Reserva reservaACancelar;
         reservaACancelar = reservaDAO.buscarReserva(codigo);
         ReservaQuarto[] reservaQuarto = reservaQuartoDAO.buscarReservaQuarto(codigo); //reserva pode estar atrelada a mais de um quarto || Possibilidade de mudar essa função
