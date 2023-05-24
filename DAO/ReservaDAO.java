@@ -13,15 +13,15 @@ public class ReservaDAO{
     }
 
     
-    public void criarReserva(Date data, int diasEstadia, String tipoPagamento, String situacao, String pessoaCPF) throws SQLException {
+    public void criarReserva(Reserva reserva) throws SQLException {
         String sql = "INSERT INTO reserva (data, diasEstadia, tipoPagamento, situacao, pessoaCPF) VALUES (?, ?, ?, ?, ?)";
 
         try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
-            stmt.setDate(1, getDate("data"));
-            stmt.setInt(2, getInt("diasEstadia"));
-            stmt.setString(3, getString("tipoPagamento"));
-            stmt.setString(4, getString("situacao"));
-            stmt.setString(5, getString("pessoaCPF"));
+            stmt.setDate(1, reserva.getData());
+            stmt.setInt(2, reserva.getDiasEstadia());
+            stmt.setString(3, reserva.getTipoPagamento());
+            stmt.setString(4, reserva.getSituacao());
+            stmt.setString(5, getString("pessoaCPF"));       // irá receber cpf de pessoa por parametro ou pelo método get?
 
             stmt.executeUpdate();
             System.out.println("Reserva inserida com sucesso!");
@@ -51,15 +51,15 @@ public class ReservaDAO{
         return reservas;
     }
 
-    public void atualizarReserva(Date data, int diasEstadia, String tipoPagamento, String situacao, int codigo) throws SQLException {
+    public void atualizarReserva(Reserva reserva) throws SQLException {
             String sql = "UPDATE reserva SET data = ?, diasEstadia = ?, tipoPagamento = ?, situacao = ? WHERE codigo = ?";
 
             try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
-                stmt.setDate(1, getDate("data"));
-                stmt.setInt(2, getInt("diasEstadia"));
-                stmt.setString(3, getString("tipoPagamento"));
-                stmt.setString(4, getString("situacao"));
-                stmt.setInt(5, getInt("codigo"));
+                stmt.setDate(1, reserva.getData());
+                stmt.setInt(2, reserva.getDiasEstadia());
+                stmt.setString(3, reserva.getTipoPagamento());
+                stmt.setString(4, reserva.getSituacao());
+                stmt.setInt(5, reserva.getCodigo());
 
                 stmt.executeUpdate();
                 System.out.println("Reserva atualizada com sucesso!");
