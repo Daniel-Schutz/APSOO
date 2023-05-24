@@ -61,18 +61,6 @@ public class SisHotel {
         return Cliente.existeCliente(this.pessoaDAO, cpf);
     }
 
-    public void confirmarReserva(String cpf, int dataEntrada, int dataSaida, int quantPessoas, int quantQuartos,
-        int[] quartosSelecionados) {
-        if (existeCliente(cpf)) {
-            Cliente cliente = pessoaDAO.buscarPessoa(cpf);
-            // Realizar a lógica de confirmação da reserva utilizando os dados fornecidos
-            // e interagir com as classes de DAO e View conforme necessário
-            reservaView.escolhaConfirmarOuCancelar();
-        } else {
-            System.out.println("Cliente não encontrado.");
-        }
-    }
-
     public void registrarReserva(int codigo, Date dataEntrada, int dataSaida, String tipoPagamento, String situacao, String pessoaCPF){
         Reserva newReserva = new Reserva(codigo, dataEntrada,dataSaida,tipoPagamento, situacao, pessoaCPF, this.reservaDAO);
         newReserva.registrarReserva();
