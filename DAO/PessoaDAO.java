@@ -55,7 +55,7 @@ public class PessoaDAO {
         System.out.println("Funcionario inserido com sucesso!");
         
         }
-    }
+    }.
 
     public void criarPessoa(Administrador administrador) {
     String sql = "INSERT INTO pessoa (cpf, nome, email, senha, endereco, telefone, situacao, dataContratacao, salario, tipo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -73,7 +73,7 @@ public class PessoaDAO {
         stmt.setString(10, administrador.getTipo());
 
         stmt.executeUpdate();
-        System.out.println("Cliente inserido com sucesso!");
+        System.out.println("Administrador inserido com sucesso!");
         
         }
     }
