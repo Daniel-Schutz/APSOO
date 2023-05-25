@@ -4,6 +4,7 @@ import model.*;
 import view.ReservaView;
 
 import java.sql.*;
+import java.util.List;
 
 public class SisHotel {
     private PessoaDAO pessoaDAO;
@@ -36,9 +37,9 @@ public class SisHotel {
         return null;
     }
 
-    public Cliente[] buscarTodosClientes(String tipo) {
-        Cliente[] objCliente;
-        objCliente = cliente.buscarTodosCliente(tipo); //Mudar no dao para receeber parametro tipo
+    public List<Pessoa> buscarTodosClientes(String tipo) {
+        List<Pessoa> objCliente;
+        objCliente = Cliente.buscarTodosCliente(this.pessoaDAO, tipo); //Mudar no dao para receeber parametro tipo
         return objCliente;
     }
 

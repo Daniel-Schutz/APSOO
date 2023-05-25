@@ -4,6 +4,7 @@ import DAO.*;
 
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Cliente extends Pessoa {
@@ -47,9 +48,9 @@ public class Cliente extends Pessoa {
         return null;
     }
 
-    public static Cliente[] buscarTodosCliente(PessoaDAO pessoaDAO, String tipo) {
-        Cliente[] objClientes;
-        objClientes = pessoaDAO.listarPessoas(tipo); // CRIAR FUNÇAO DE BUSCAR TODAS AS PESSOAS DE UM TIPO NO DAO
+    public static List<Pessoa> buscarTodosCliente(PessoaDAO pessoaDAO, String tipo) {
+        List<Pessoa> objClientes;
+        objClientes = pessoaDAO.listarPessoas(tipo);
         return objClientes;
     }
 
