@@ -54,10 +54,17 @@ public class SisHotel {
 
     public String atualizarCliente(String nome, String cpf, String email, String senha, String endereco,
     String situacao) {
-        String message;
-        cliente = new Cliente(this.pessoaDAO, nome, cpf, email, senha, endereco, situacao);
-        message = cliente.atualizarCliente();
-        return message;
+        try{
+            
+            String message;
+            cliente = new Cliente(this.pessoaDAO, nome, cpf, email, senha, endereco, situacao);
+            message = cliente.atualizarCliente();
+            return message;
+
+        } catch (Exception e){
+            return "Error!";
+        }
+       
     }
 
     public boolean existeCliente(String cpf) {
