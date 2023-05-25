@@ -53,7 +53,7 @@ public class HospedagemDAO{
     }
 
 
-    public void atualizarHospedagem(Hospedagem hospedagem) throws SQLException {
+    public String atualizarHospedagem(Hospedagem hospedagem) throws SQLException {
     String sql = "UPDATE hospedagem SET horaCheckIn = ?, horaCheckOut = ? WHERE idHospedagem = ?";
 
     try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
@@ -63,7 +63,7 @@ public class HospedagemDAO{
         stmt.setInt(3, hospedagem.getIdHospedagem());
 
         stmt.executeUpdate();
-        System.out.println("Hospedagem atualizada com sucesso!");
+        return "Hospedagem Atualizada";
          
         }
     }

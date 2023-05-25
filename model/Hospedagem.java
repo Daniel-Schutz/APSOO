@@ -43,6 +43,7 @@ public class Hospedagem {
         this.confirmarCheckOut = true;
         this.setHoraCheckOut(LocalTime.now());
         this.setCodigoReserva(codigoReserva);
+        String mensagem = "Checkout não Realizado";
         if (this.getHoraCheckOut().getHour() > 12){
             try{
                 List<ReservaQuarto> reservaQuarto = reservaQuartoDAO.buscarReservaQuarto(codigoReserva);
@@ -60,8 +61,14 @@ public class Hospedagem {
                 return "Error";
             }
         }
+        try{
+            mensagem = hospedagemDAO.atualizarHospedagem(this);
+            mensagem = "checkout realizado";
+        } catch (Exception e){
+            return mensagem;
+        }
         
-        return "CheckOut realizado";
+        return mensagem;
     }
 
     public String realizarCheckIn(HospedagemDAO hospedagemDAO){
