@@ -19,7 +19,7 @@ public class ReservaDAO{
         String sql = "INSERT INTO reserva (data, diasEstadia, tipoPagamento, situacao, pessoaCPF) VALUES (?, ?, ?, ?, ?)";
 
         try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
-            stmt.setDate(1, reserva.getData());
+            stmt.setDate(1, (Date) reserva.getData());
             stmt.setInt(2, reserva.getDiasEstadia());
             stmt.setString(3, reserva.getTipoPagamento());
             stmt.setString(4, reserva.getSituacao());
@@ -39,13 +39,13 @@ public class ReservaDAO{
     try (PreparedStatement stmt = conexao.prepareStatement(sql);
          ResultSet rs = stmt.executeQuery()) {
         while (rs.next()) {
-            Reserva reserva = new Reserva();
-            reserva.setId(rs.getInt("id"));
+            Reserva reserva = new Reserva(0, null, 0, sql, sql, sql, null);
+            reserva.setCodigo(rs.getInt("codigo"));
             reserva.setData(rs.getDate("data"));
             reserva.setDiasEstadia(rs.getInt("diasEstadia"));
             reserva.setTipoPagamento(rs.getString("tipoPagamento"));
             reserva.setSituacao(rs.getString("situacao"));
-            reserva.setPessoaCPF(rs.getString("pessoaCPF"));
+            reserva.setCpf(rs.getString("pessoaCPF"));
 
             reservas.add(reserva);
             }
@@ -58,7 +58,7 @@ public class ReservaDAO{
             String sql = "UPDATE reserva SET data = ?, diasEstadia = ?, tipoPagamento = ?, situacao = ? WHERE codigo = ?";
 
             try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
-                stmt.setDate(1, reserva.getData());
+                stmt.setDate(1, (Date) reserva.getData());
                 stmt.setInt(2, reserva.getDiasEstadia());
                 stmt.setString(3, reserva.getTipoPagamento());
                 stmt.setString(4, reserva.getSituacao());
@@ -89,7 +89,7 @@ public class ReservaDAO{
         ResultSet rs = stmt.executeQuery();
     
         if (rs.next()) {
-            Reserva reserva = new Reserva();
+            Reserva reserva = new Reserva(codigo, null, codigo, sql, sql, sql, null);
             reserva.setCodigo(rs.getInt("id"));
             reserva.setData(rs.getDate("data"));
             reserva.setDiasEstadia(rs.getInt("diasEstadia"));
@@ -110,12 +110,7 @@ public class ReservaDAO{
         try {
             Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/banco_de_dados", "usuario", "senha");
 
-            String sql = "SELECT * FROM reserva INNER JOIN reservaQuarto 
-            ON reserva.codigo = reservaQuarto.codigoReserva INNER JOIN hospedagem
-            ON reserva.codigo = hospedagem.codigoReserva INNER JOIN quarto
-            ON reservaQuarto.idQuarto = quarto.idQuarto INNER JOIN pessoa
-            ON pessoa.cpf = reserva.pessoaCPF
-            WHERE pessoaCPF = ?";
+            String sql = "SELECT * FROM reserva INNER JOIN reservaQuarto ON reserva.codigo = reservaQuarto.codigoReserva INNER JOIN hospedagem ON reserva.codigo = hospedagem.codigoReserva INNER JOIN quarto ON reservaQuarto.idQuarto = quarto.idQuarto INNER JOIN pessoa ON pessoa.cpf = reserva.pessoaCPF WHERE pessoaCPF = ?";
 
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, cpf);
