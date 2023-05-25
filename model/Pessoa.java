@@ -75,7 +75,7 @@ public abstract class Pessoa {
         return null;
     }
 
-    public Date getDataContratacao() {
+    public java.util.Date getDataContratacao() {
         return null;
     }
 
@@ -92,5 +92,16 @@ public abstract class Pessoa {
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }
-}
 
+    public void setTelefone(String string) {
+    }
+
+    public void setDataContratacao(Date date) {
+    }
+
+    public void setSalario(double double1) {
+    }
+
+    public void setSituacao(String string) {
+    }
+}

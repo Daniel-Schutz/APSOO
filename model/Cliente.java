@@ -20,7 +20,7 @@ public class Cliente extends Pessoa {
 
     // Método para verificar se um cliente existe no banco de dados pelo CPF
     public static boolean existeCliente(PessoaDAO pessoaDAO, String cpf) {
-    
+
         return pessoaDAO.existePessoa(cpf);
     }
 
@@ -30,15 +30,16 @@ public class Cliente extends Pessoa {
         return message;
     }
 
-    public String atualizarCliente(){
-        return this.pessoaDAO.atualizarPessoa(this); //verificar se poderá passar tipo cliente ou pessoa e retornar string no dao
+    public String atualizarCliente() {
+        return this.pessoaDAO.atualizarPessoa(this); // verificar se poderá passar tipo cliente ou pessoa e retornar
+                                                     // string no dao
     }
 
-    public static Cliente buscarCliente(PessoaDAO pessoaDAO,String cpf) {
+    public static Cliente buscarCliente(PessoaDAO pessoaDAO, String cpf) {
 
         Cliente cliente;
-        if(pessoaDAO.buscarPessoa(cpf) != null){
-            cliente = (Cliente) pessoaDAO.buscarPessoa(cpf);
+        if (pessoaDAO.buscarCliente(cpf) != null) {
+            cliente = (Cliente) pessoaDAO.buscarCliente(cpf);
             return cliente;
         }
         return null;
@@ -46,26 +47,24 @@ public class Cliente extends Pessoa {
 
     public static Cliente[] buscarTodosCliente(PessoaDAO pessoaDAO, String tipo) {
         Cliente[] objClientes;
-        objClientes = pessoaDAO.listarPessoas(tipo); //CRIAR FUNÇAO DE BUSCAR TODAS AS PESSOAS DE UM TIPO NO DAO
+        objClientes = pessoaDAO.listarPessoas(tipo); // CRIAR FUNÇAO DE BUSCAR TODAS AS PESSOAS DE UM TIPO NO DAO
         return objClientes;
     }
 
     public static String deletarCliente(PessoaDAO pessoaDAO, String cpf) {
-        return pessoaDAO.excluirPessoa(cpf); //não esquecer de no DAO retornar a string mensagem;
-        
-    }
+        return pessoaDAO.excluirPessoa(cpf); // não esquecer de no DAO retornar a string mensagem;
 
+    }
 
     // Método getter para o atributo situacao
     public String getSituacao() {
-    return situacao;
+        return situacao;
     }
 
     // Método setter para o atributo situacao
     public void setSituacao(String situacao) {
         this.situacao = situacao;
     }
-
 
     public void realizarAcao() {
 

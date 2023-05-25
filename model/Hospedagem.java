@@ -1,4 +1,5 @@
 package model;
+
 public class Hospedagem {
     private String horaCheckOut;
     private String horaCheckIn;
@@ -24,5 +25,11 @@ public class Hospedagem {
 
     public void setHoraCheckIn(String horaCheckIn) {
         this.horaCheckIn = horaCheckIn;
+    }
+
+    public void setCodigoReserva(String string) {
+    }
+
+    public void setIdQuarto(String string) {
     }
 }
