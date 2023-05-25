@@ -13,6 +13,7 @@ public class SisHotel {
     private ReservaDAO reservaDAO;
     private ReservaView reservaView;
     private ReservaQuartoDAO reservaQuartoDAO;
+    private HospedagemDAO hospedagemDAO;
     private Cliente cliente;
 
     public SisHotel(Connection conexao) {
@@ -20,6 +21,7 @@ public class SisHotel {
         quartoDAO = new QuartoDAO(conexao);
         reservaDAO = new ReservaDAO(conexao);
         reservaView = new ReservaView(conexao);
+        hospedagemDAO = new HospedagemDAO(conexao);
         reservaQuartoDAO = new ReservaQuartoDAO(conexao);
     }
 
@@ -126,8 +128,17 @@ public class SisHotel {
     }
     }
 
-    public String realizarCheckIn(){
-        return null;
+    public String realizarCheckIn(int codigo){ // vai mudar pra cpf ainda,
+        
+        Hospedagem hospedagem =  new Hospedagem(codigo, null, null);
+        String mensagem = hospedagem.realizarCheckIn(this.hospedagemDAO, this.reservaDAO, codigo);
+        return mensagem;
+    }
+
+    public String realizarCheckOut(int codigo){
+
+        String mensagem = Hospedagem.realizarCheckOut(codigo, this.hospedagemDAO, this.reservaQuartoDAO, this.quartoDAO);
+        return mensagem;
         
     }
     // Outros métodos e funcionalidades da classe SisHotel

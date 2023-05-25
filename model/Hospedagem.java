@@ -40,13 +40,16 @@ public class Hospedagem {
     //     return "Checkin realizado!";
     // }
 
-    public String realizarCheckOut(int codigoReserva, HospedagemDAO hospedagemDAO, ReservaQuartoDAO reservaQuartoDAO, QuartoDAO quartoDAO){
-        this.confirmarCheckOut = true;
-        this.setHoraCheckOut(LocalTime.now());
-        this.setCodigoReserva(codigoReserva);
+    public static String realizarCheckOut(int codigoReserva, HospedagemDAO hospedagemDAO, ReservaQuartoDAO reservaQuartoDAO, QuartoDAO quartoDAO){ //codigo deverá ser alterado para cpf
+       
         String mensagem = "Checkout não Realizado";
-        if (this.getHoraCheckOut().getHour() > 12){
-            try{
+        try{
+            Hospedagem hospedagem = hospedagemDAO.buscarHospedagem(codigoReserva);
+            hospedagem.confirmarCheckOut = true; //temos q buscar uma hospedagem antes para depois realizar a atualização dessa, temos que corrigir BuscarHospedagem no hospedagem dao
+            hospedagem.setHoraCheckOut(LocalTime.now());
+            hospedagem.setCodigoReserva(codigoReserva);
+            if (hospedagem.getHoraCheckOut().getHour() > 12){
+            
                 List<ReservaQuarto> reservaQuarto = reservaQuartoDAO.buscarReservaQuarto(codigoReserva);
                 int i = 0;
                 float soma = 0;
@@ -58,17 +61,15 @@ public class Hospedagem {
                 }
                 Float novaDiaria = soma;
                 return novaDiaria.toString();
-            } catch (Exception e){
-                return "Error";
             }
-        }
-        try{
-            mensagem = hospedagemDAO.atualizarHospedagem(this);
-            mensagem = "checkout realizado";
-        } catch (Exception e){
-            return mensagem;
-        }
         
+            mensagem = hospedagemDAO.atualizarHospedagem(hospedagem);
+            mensagem = "checkout realizado";
+            
+        } catch (Exception e){
+            return "Error";
+            }
+       
         return mensagem;
     }
 
