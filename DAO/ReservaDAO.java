@@ -99,9 +99,11 @@ public class ReservaDAO{
             return reserva;
             }
         
+            return null;
+            
         }
 
-        return null;
+        
     }
     
     public Collection<String> buscarReservaPorCpf(String cpf) {
