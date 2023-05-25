@@ -15,7 +15,7 @@ import java.text.ParseException;
 public class AtualizarReservaInterface extends JFrame {
     private JTextField Field;
     private JTextField cpfField;
-    private ArrayList<Funcionario> funcionarios;
+    private ArrayList<Reserva> Reservas;
 
     // private SisHotel sisHotel;
 
@@ -29,9 +29,9 @@ public class AtualizarReservaInterface extends JFrame {
         setLocationRelativeTo(null);
 
         // Inicialização da lista de funcionários
-        funcionarios = new ArrayList<>();
-        funcionarios.add(new Funcionario("João", "123456789", "joao@example.com", "1234567890", "Rua A, 123"));
-        funcionarios.add(new Funcionario("Maria", "987654321", "maria@example.com", "0987654321", "Rua B, 456"));
+        Reservas = new ArrayList<>();
+        Reservas.add(new Reserva("26/05/2023", "123456789", "5", "1", "Dinheiro"));
+        Reservas.add(new Reserva("26/06/2023", "123456789", "7", "1", "Dinheiro"));
 
         JLabel cpfLabel = new JLabel("CPF:");
 
@@ -56,8 +56,8 @@ public class AtualizarReservaInterface extends JFrame {
                 // Obter as informações inseridas pelo usuário
                 String cpf = cpfField.getText();
                 // Abre a lista de funcionários para edição
-                ListaFuncionariosInterface listaFuncionariosInterface = new ListaFuncionariosInterface(conexao);
-                listaFuncionariosInterface.setVisible(true);
+                ListaReservasInterface listaReservasInterface = new ListaReservasInterface(conexao);
+                listaReservasInterface.setVisible(true);
                 dispose();
 
             }
@@ -91,37 +91,38 @@ public class AtualizarReservaInterface extends JFrame {
 
     }
 
-    private class ListaFuncionariosInterface extends JFrame {
-        private JList<String> funcionariosList;
+    private class ListaReservasInterface extends JFrame {
+        private JList<String> ReservasList;
 
-        public ListaFuncionariosInterface(Connection conexao) {
+        public ListaReservasInterface(Connection conexao) {
             // Configurações da janela
-            setTitle("Lista de Funcionários");
+            setTitle("Lista de reservas deste usuário");
             setSize(300, 150);
             setDefaultCloseOperation(DISPOSE_ON_CLOSE);
             setLocationRelativeTo(null);
 
             // Criação dos componentes
             DefaultListModel<String> listModel = new DefaultListModel<>();
-            for (Funcionario funcionario : funcionarios) {
-                listModel.addElement(funcionario.getNome());
+            for (Reserva Reserva : Reservas) {
+                listModel.addElement(Reserva.getdataEntrada());
             }
-            funcionariosList = new JList<>(listModel);
-            JScrollPane scrollPane = new JScrollPane(funcionariosList);
+            ReservasList = new JList<>(listModel);
+            JScrollPane scrollPane = new JScrollPane(ReservasList);
             JButton voltarButton = new JButton("Voltar");
 
             // Layout
             JPanel panel = new JPanel(new BorderLayout());
+
             panel.add(scrollPane, BorderLayout.CENTER);
             panel.add(voltarButton, BorderLayout.SOUTH);
 
-            funcionariosList.addListSelectionListener(e -> {
+            ReservasList.addListSelectionListener(e -> {
                 // Obtém o índice do funcionário selecionado na lista
-                int index = funcionariosList.getSelectedIndex();
+                int index = ReservasList.getSelectedIndex();
                 if (index != -1) {
                     // Abre a página de informações do funcionário
-                    InfoFuncionarioInterface infoFuncionarioInterface = new InfoFuncionarioInterface(index, conexao);
-                    infoFuncionarioInterface.setVisible(true);
+                    InfoReservaInterface infoReservaInterface = new InfoReservaInterface(index, conexao);
+                    infoReservaInterface.setVisible(true);
                     dispose();
                 }
             });
@@ -143,15 +144,15 @@ public class AtualizarReservaInterface extends JFrame {
         }
     }
 
-    private class InfoFuncionarioInterface extends JFrame {
-        private JTextField nomeField;
+    private class InfoReservaInterface extends JFrame {
+        private JTextField dataEntradaField;
         private JTextField cpfField;
-        private JTextField emailField;
-        private JTextField telefoneField;
-        private JTextField enderecoField;
-        private int funcionarioIndex;
+        private JTextField tempoEstadiaField;
+        private JTextField quantQuartosField;
+        private JTextField formaPagamentoField;
+        private int ReservaIndex;
 
-        public InfoFuncionarioInterface(int index, Connection conexao) {
+        public InfoReservaInterface(int index, Connection conexao) {
             // Configurações da janela
             setTitle("Informações do Funcionário");
             setSize(300, 250);
@@ -159,50 +160,53 @@ public class AtualizarReservaInterface extends JFrame {
             setLocationRelativeTo(null);
 
             // Obtém o funcionário selecionado pelo índice
-            Funcionario funcionario = funcionarios.get(index);
+            Reserva Reserva = Reservas.get(index);
 
             // Salva o índice do funcionário para atualizar as informações posteriormente
-            funcionarioIndex = index;
+            ReservaIndex = index;
 
             // Criação dos componentes
-            JLabel nomeLabel = new JLabel("Nome:");
+            JLabel dataEntradaLabel = new JLabel("dataEntrada:");
             JLabel cpfLabel = new JLabel("CPF:");
-            JLabel emailLabel = new JLabel("Email:");
-            JLabel telefoneLabel = new JLabel("Telefone:");
-            JLabel enderecoLabel = new JLabel("Endereço:");
-            nomeField = new JTextField(funcionario.getNome(), 20);
-            cpfField = new JTextField(funcionario.getCpf(), 20);
-            emailField = new JTextField(funcionario.getEmail(), 20);
-            telefoneField = new JTextField(funcionario.getTelefone(), 20);
-            enderecoField = new JTextField(funcionario.getEndereco(), 20);
+            JLabel tempoEstadiaLabel = new JLabel("tempoEstadia:");
+            JLabel quantQuartosLabel = new JLabel("quantQuartos:");
+            JLabel formaPagamentoLabel = new JLabel("Endereço:");
+            dataEntradaField = new JTextField(Reserva.getdataEntrada(), 20);
+            cpfField = new JTextField(Reserva.getCpf(), 20);
+            tempoEstadiaField = new JTextField(Reserva.gettempoEstadia(), 20);
+            quantQuartosField = new JTextField(Reserva.getquantQuartos(), 20);
+            formaPagamentoField = new JTextField(Reserva.getformaPagamento(), 20);
             JButton voltarButton = new JButton("Voltar");
-            JButton apagarButton = new JButton("Apagar Funcionário");
-            JButton salvarButton = new JButton("Salvar");
+            JButton apagarButton = new JButton("Cancelar Reserva");
+            JButton checkInButton = new JButton("Realizar Check-In");
+            JButton checkOutButton = new JButton("Realizar Check-Out");
 
             // Layout
-            JPanel panel = new JPanel(new GridLayout(8, 2));
-            panel.add(nomeLabel);
-            panel.add(nomeField);
+            JPanel panel = new JPanel(new GridLayout(9, 2));
+            panel.add(dataEntradaLabel);
+            panel.add(dataEntradaField);
             panel.add(cpfLabel);
             panel.add(cpfField);
-            panel.add(emailLabel);
-            panel.add(emailField);
-            panel.add(telefoneLabel);
-            panel.add(telefoneField);
-            panel.add(enderecoLabel);
-            panel.add(enderecoField);
+            panel.add(tempoEstadiaLabel);
+            panel.add(tempoEstadiaField);
+            panel.add(quantQuartosLabel);
+            panel.add(quantQuartosField);
+            panel.add(formaPagamentoLabel);
+            panel.add(formaPagamentoField);
             panel.add(new JLabel()); // espaço em branco para alinhar corretamente
             panel.add(voltarButton);
             panel.add(new JLabel()); // espaço em branco para alinhar corretamente
             panel.add(apagarButton);
             panel.add(new JLabel()); // espaço em branco para alinhar corretamente
-            panel.add(salvarButton);
+            panel.add(checkInButton);
+            panel.add(new JLabel()); // espaço em branco para alinhar corretamente
+            panel.add(checkOutButton);
 
             voltarButton.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     // Volta para a lista de funcionários
-                    ListaFuncionariosInterface listaFuncionariosInterface = new ListaFuncionariosInterface(conexao);
-                    listaFuncionariosInterface.setVisible(true);
+                    ListaReservasInterface listaReservasInterface = new ListaReservasInterface(conexao);
+                    listaReservasInterface.setVisible(true);
                     dispose();
                 }
             });
@@ -210,38 +214,71 @@ public class AtualizarReservaInterface extends JFrame {
             apagarButton.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     // Remove o funcionário da lista
-                    funcionarios.remove(funcionarioIndex);
+                    Reservas.remove(ReservaIndex);
+
+                    // Exibe uma mensagem de sucesso
+                    JOptionPane.showMessageDialog(InfoReservaInterface.this, "Reserva cancelada com sucesso!");
 
                     // Volta para a lista de funcionários
-                    ListaFuncionariosInterface listaFuncionariosInterface = new ListaFuncionariosInterface(conexao);
-                    listaFuncionariosInterface.setVisible(true);
+                    ListaReservasInterface listaReservasInterface = new ListaReservasInterface(conexao);
+                    listaReservasInterface.setVisible(true);
                     dispose();
                 }
             });
 
-            salvarButton.addActionListener(new ActionListener() {
+            checkInButton.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     // Obtém as informações editadas
-                    String nome = nomeField.getText();
+                    String dataEntrada = dataEntradaField.getText();
                     String cpf = cpfField.getText();
-                    String email = emailField.getText();
-                    String telefone = telefoneField.getText();
-                    String endereco = enderecoField.getText();
+                    String tempoEstadia = tempoEstadiaField.getText();
+                    String quantQuartos = quantQuartosField.getText();
+                    String formaPagamento = formaPagamentoField.getText();
 
                     // Atualiza as informações do funcionário selecionado
-                    Funcionario funcionario = funcionarios.get(funcionarioIndex);
-                    funcionario.setNome(nome);
-                    funcionario.setCpf(cpf);
-                    funcionario.setEmail(email);
-                    funcionario.setTelefone(telefone);
-                    funcionario.setEndereco(endereco);
+                    Reserva Reserva = Reservas.get(ReservaIndex);
+                    Reserva.setdataEntrada(dataEntrada);
+                    Reserva.setCpf(cpf);
+                    Reserva.settempoEstadia(tempoEstadia);
+                    Reserva.setquantQuartos(quantQuartos);
+                    Reserva.setformaPagamento(formaPagamento);
 
                     // Exibe uma mensagem de sucesso
-                    JOptionPane.showMessageDialog(InfoFuncionarioInterface.this, "Edições salvas com sucesso!");
+                    JOptionPane.showMessageDialog(InfoReservaInterface.this, "Check-In realizado com sucesso!");
 
                     // Volta para a lista de funcionários
-                    ListaFuncionariosInterface listaFuncionariosInterface = new ListaFuncionariosInterface(conexao);
-                    listaFuncionariosInterface.setVisible(true);
+                    ListaReservasInterface listaReservasInterface = new ListaReservasInterface(conexao);
+                    listaReservasInterface.setVisible(true);
+                    dispose();
+                }
+            });
+
+            checkOutButton.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    // Obtém as informações editadas
+                    String dataEntrada = dataEntradaField.getText();
+                    String cpf = cpfField.getText();
+                    String tempoEstadia = tempoEstadiaField.getText();
+                    String quantQuartos = quantQuartosField.getText();
+                    String formaPagamento = formaPagamentoField.getText();
+
+                    // Atualiza as informações do funcionário selecionado
+                    Reserva Reserva = Reservas.get(ReservaIndex);
+                    Reserva.setdataEntrada(dataEntrada);
+                    Reserva.setCpf(cpf);
+                    Reserva.settempoEstadia(tempoEstadia);
+                    Reserva.setquantQuartos(quantQuartos);
+                    Reserva.setformaPagamento(formaPagamento);
+
+                    // Remove o funcionário da lista
+                    Reservas.remove(ReservaIndex);
+
+                    // Exibe uma mensagem de sucesso
+                    JOptionPane.showMessageDialog(InfoReservaInterface.this, "Check-Out realizado com sucesso!");
+
+                    // Volta para a lista de funcionários
+                    ListaReservasInterface listaReservasInterface = new ListaReservasInterface(conexao);
+                    listaReservasInterface.setVisible(true);
                     dispose();
                 }
             });

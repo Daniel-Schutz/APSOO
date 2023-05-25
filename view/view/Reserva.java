@@ -1,58 +1,58 @@
 package view;
 
 public class Reserva {
-    private String nome;
+    private String dataEntrada;
     private String cpf;
-    private String email;
-    private String telefone;
-    private String endereco;
+    private String tempoEstadia;
+    private String quantQuartos;
+    private String formaPagamento;
 
-    public Reserva(String nome, String cpf, String email, String telefone, String endereco) {
-        this.nome = nome;
+    public Reserva(String dataEntrada, String cpf, String tempoEstadia, String quantQuartos, String formaPagamento) {
+        this.dataEntrada = dataEntrada;
         this.cpf = cpf;
-        this.email = email;
-        this.telefone = telefone;
-        this.endereco = endereco;
+        this.tempoEstadia = tempoEstadia;
+        this.quantQuartos = quantQuartos;
+        this.formaPagamento = formaPagamento;
     }
 
-    public String getNome() {
-        return nome;
+    public String getdataEntrada() {
+        return dataEntrada;
     }
 
     public String getCpf() {
         return cpf;
     }
 
-    public String getEmail() {
-        return email;
+    public String gettempoEstadia() {
+        return tempoEstadia;
     }
 
-    public String getTelefone() {
-        return telefone;
+    public String getquantQuartos() {
+        return quantQuartos;
     }
 
-    public String getEndereco() {
-        return endereco;
+    public String getformaPagamento() {
+        return formaPagamento;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setdataEntrada(String dataEntrada) {
+        this.dataEntrada = dataEntrada;
     }
 
     public void setCpf(String cpf) {
         this.cpf = cpf;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void settempoEstadia(String tempoEstadia) {
+        this.tempoEstadia = tempoEstadia;
     }
 
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
+    public void setquantQuartos(String quantQuartos) {
+        this.quantQuartos = quantQuartos;
     }
 
-    public void setEndereco(String endereco) {
-        this.endereco = endereco;
+    public void setformaPagamento(String formaPagamento) {
+        this.formaPagamento = formaPagamento;
     }
 
 }
