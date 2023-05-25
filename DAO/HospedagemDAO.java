@@ -6,11 +6,11 @@ import java.util.List;
 import model.Hospedagem;
 
 
-public class HospedagemDAO(){
+public class HospedagemDAO{
     private Connection conexao;
 
 
-    public HospedagemDAO(){
+    public HospedagemDAO(Connection conexao){
         this.conexao = conexao;
     }
 

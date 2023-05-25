@@ -5,13 +5,12 @@ import java.util.List;
 import model.ReservaQuarto;
 
 
-public class ReservaQuartoDAO(){
+public class ReservaQuartoDAO{
     private Connection conexao;
 
-    public ReservaQuartoDAO(){
+    public ReservaQuartoDAO(Connection conexao){
         this.conexao = conexao;
     }
-
 
     public void criarReservaQuarto(int codigoReserva, int idQuarto){
         String sql = "INSERT INTO reservaQuarto (codigoReserva, idQuarto) VALUES (?, ?)";

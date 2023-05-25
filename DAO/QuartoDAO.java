@@ -5,7 +5,7 @@ import java.util.List;
 import model.Quarto;
 
 
-public class QuartoDAO(){
+public class QuartoDAO{
     private Connection conexao;
 
     public QuartoDAO(Connection conexao){
