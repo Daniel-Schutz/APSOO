@@ -165,38 +165,12 @@ public class PessoaDAO {
         return administradores;      
 
         }
-
         return null;
        
         
     }
 
-    public List<Pessoa> listarTodasPessoas() {
-        List<Pessoa> pessoas = new ArrayList<>();
-        String sql = "SELECT * FROM pessoa";
-        try(PreparedStatement stmt = conexao.prepareStatement(sql)) {
-            
-            ResultSet rs = stmt.executeQuery();
-            while (rs.next()) {
-                Pessoa pessoa;
-                pessoa.setCpf(rs.getString("cpf"));
-                pessoa.setNome(rs.getString("nome"));
-                pessoa.setEmail(rs.getString("email"));
-                pessoa.setSenha(rs.getString("senha"));
-                pessoa.setEndereco(rs.getString("endereco"));
-                pessoa.setTelefone(rs.getString("telefone"));
-                pessoa.setDataContratacao(rs.getDate("dataContratacao"));
-                pessoa.setSalario(rs.getDouble("salario"));
-                pessoa.setSituacao(rs.getString("situacao"));
-                pessoas.add(pessoa);
-            }
-            return pessoas;
-        }catch (SQLException e) {
-            System.err.println("Erro ao executar a consulta SQL: " + e.getMessage());
-        } 
-
-      return pessoas;
-    }
+    
 
 
     public String excluirPessoa(String cpf) {
