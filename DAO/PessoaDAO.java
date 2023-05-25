@@ -150,7 +150,7 @@ public class PessoaDAO {
         
     }
 
-    public List<Pessoa> listarPessoas() {
+    public List<Pessoa> listarTodasPessoas() {
         List<Pessoa> pessoas = new ArrayList<>();
         String sql = "SELECT * FROM pessoa";
         try(PreparedStatement stmt = conexao.prepareStatement(sql)) {
