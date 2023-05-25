@@ -158,7 +158,7 @@ public class Reserva {
         }
     }
 
-    public static String excluirReserva(ReservaDAO reservaDAO, int codigo, String cpf) throws SQLException {
+    public static String excluirReserva(ReservaDAO reservaDAO, int codigo) throws SQLException {
         String message = reservaDAO.excluirReserva(codigo);
         return message;
     }

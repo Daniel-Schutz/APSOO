@@ -105,20 +105,18 @@ public class SisHotel {
     public String realizarCheckIn()
 
 
-    public String cancelarReserva(int codigo, String cpf) {
+    public String emiteMultaCancelamento(int codigo, String cpf) {
         String message;
-        message = Reserva.emiteMultaCancelamentoReserva(reservaDAO, this.reservaQuartoDAO, quartoDAO, codigo, cpf);
-        if (message.startsWith("ERROR")){
-            return message; //exibir ela na view
-        }
-        // if pagamento { ver a opção na view que vai confirmar ou 
-        //                cancelar o pagamento do cliente que nem discutimos com a prof em sala
-        // message = Reserva.excluirReserva(this.reservaDao, codigo, cpf)   
-        //}
-        return message; //exibir ela na view
-        reservaView.escolhaConfirmarOuCancelar();
+        message = Reserva.emiteMultaCancelamentoReserva(this.reservaDAO, this.reservaQuartoDAO, this.quartoDAO, codigo, cpf);
+        
+        return message;
     }
 
+    public String excluirReserva(int codigo) {
+        String message;
+        message = Reserva.excluirReserva(this.reservaDAO, codigo); 
+        return message;
+    }
     
     public void confirmaPagamento(int pagamento, int tipoPagamento) {
         // Realizar a lógica de confirmação do pagamento utilizando os dados fornecidos
