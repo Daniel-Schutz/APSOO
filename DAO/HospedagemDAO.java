@@ -15,13 +15,13 @@ public class HospedagemDAO{
     }
 
 
-    public void criarHospedagem(String horaCheckIn, String getHoraCheckOut, int codigoReserva){
+    public void criarHospedagem(Hospedagem hospedagem){
         String sql = "INSERT INTO hospedagem (horaCheckIn, horaCheckOut, codigoReserva) VALUES (?, ?, ?)";
         
         try(PreparedStatement stmt = conexao.prepareStatement(sql)){
-            stmt.setHoraCheckIn(1, horaCheckIn);
-            stmt.setHoraCheckOut(2, horaCheckOut);
-            stmt.setCodigoReserva(3, codigoReserva);
+            stmt.setDate(1, hospedagem.getHoraCheckIn());
+            stmt.setDate(2, hospedagem.getHoraCheckOut());
+            stmt.setCodigoReserva(3, hospedagem.getcodigoReserva());
             
             stmt.executeUpdate();
             System.out.println("Hospedagem inserida com sucesso!");
@@ -40,8 +40,8 @@ public class HospedagemDAO{
 
         while (rs.next()) {
             Hospedagem hospedagem = new Hospedagem();
-            hospedagem.setCodigoReserva(rs.getString("horaCheckIn"));
-            hospedagem.setIdQuarto(rs.getString("horaCheckOut"));
+            hospedagem.setHoraCheckIn(rs.getDate("horaCheckIn"));
+            hospedagem.setHoraCheckOut(rs.getDate("horaCheckOut"));
             hospedagem.setCodigoReserva(rs.getInt("codigoReserva"));
         
 
@@ -53,13 +53,14 @@ public class HospedagemDAO{
     }
 
 
-    public void atualizarHospedagem(String horaCheckIn, String horaCheckOut, int idHospedagem) throws SQLException {
+    public void atualizarHospedagem(Hospedagem hospedagem) throws SQLException {
     String sql = "UPDATE hospedagem SET horaCheckIn = ?, horaCheckOut = ? WHERE idHospedagem = ?";
 
     try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
-        stmt.setString(1, horaCheckIn);
-        stmt.setString(2, horaCheckOut);
-        stmt.setInt(3, idHospedagem);
+
+        stmt.setDate(1, hospedagem.getHoraCheckIn());
+        stmt.setDate(2, hospedagem.getHoraCheckOut());
+        stmt.setInt(3, hospedagem.getIdHospedagem());
 
         stmt.executeUpdate();
         System.out.println("Hospedagem atualizada com sucesso!");
@@ -89,8 +90,8 @@ public class HospedagemDAO{
         if (rs.next()) {
             Hospedagem hospedagem = new Hospedagem();
             hospedagem.setIdHospedagem(rs.getInt("idHospedagem"));
-            hospedagem.setHoraCheckIn(rs.getString("horaCheckIn"));
-            hospedagem.setHoraCheckOut(rs.getString("horaCheckOut"));
+            hospedagem.setHoraCheckIn(rs.getDate("horaCheckIn"));
+            hospedagem.setHoraCheckOut(rs.getDate("horaCheckOut"));
             hospedagem.setCodigoReserva(rs.getInt("codigoReserva"));
 
             return hospedagem;
