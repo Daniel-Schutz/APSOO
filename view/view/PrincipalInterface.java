@@ -35,14 +35,16 @@ public class PrincipalInterface extends JFrame {
         JButton editarClienteButton = new JButton("Editar Cliente");
         JButton editarFuncionarioButton = new JButton("Editar Funcionário");
         JButton criarReservaButton = new JButton("Criar Reserva");
+        JButton atualizarReservaButton = new JButton("Atualizar Reserva");
 
         // Layout
-        JPanel panel = new JPanel(new GridLayout(5, 1));
+        JPanel panel = new JPanel(new GridLayout(6, 1));
         panel.add(cadastrarFuncionarioButton);
         panel.add(cadastrarClienteButton);
         panel.add(editarClienteButton);
         panel.add(editarFuncionarioButton);
         panel.add(criarReservaButton);
+        panel.add(atualizarReservaButton);
 
         cadastrarFuncionarioButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -87,6 +89,15 @@ public class PrincipalInterface extends JFrame {
                 // Abre a lista de funcionários para edição
                 ListaFuncionariosInterface listaFuncionariosInterface = new ListaFuncionariosInterface(conexao);
                 listaFuncionariosInterface.setVisible(true);
+                dispose();
+            }
+        });
+
+        atualizarReservaButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // Abre a tela de cadastro de funcionário, passando a referência do ArrayList
+                AtualizarReservaInterface atualizarReservaInterface = new AtualizarReservaInterface(conexao);
+                atualizarReservaInterface.setVisible(true);
                 dispose();
             }
         });
