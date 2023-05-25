@@ -17,8 +17,8 @@ public class SisHotel {
         pessoaDAO = new PessoaDAO(conexao);
         quartoDAO = new QuartoDAO(conexao);
         reservaDAO = new ReservaDAO(conexao);
-        reservaView = new ReservaView();
-        reservaQuartoDAO = new ReservaQuartoDAO();
+        reservaView = new ReservaView(conexao);
+        reservaQuartoDAO = new ReservaQuartoDAO(conexao);
     }
 
     public String cadastrarCliente(String nome, String cpf, String email, String senha, String endereco,

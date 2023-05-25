@@ -41,7 +41,7 @@ public class Cliente extends Pessoa {
 
         Cliente cliente = new Cliente(null, null, null, null, null, null, null);
         if (pessoaDAO.buscarPessoa(cliente,cpf) != null) {
-            cliente = (Cliente) pessoaDAO.buscarCliente(cliente, cpf);
+            cliente = (Cliente) pessoaDAO.buscarPessoa(cliente, cpf);
             return cliente;
         }
         return null;
