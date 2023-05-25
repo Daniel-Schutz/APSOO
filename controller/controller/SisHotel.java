@@ -102,9 +102,6 @@ public class SisHotel {
         return message;
     }
 
-    public String realizarCheckIn()
-
-
     public String emiteMultaCancelamento(int codigo, String cpf) {
         String message;
         message = Reserva.emiteMultaCancelamentoReserva(this.reservaDAO, this.reservaQuartoDAO, this.quartoDAO, codigo, cpf);
@@ -113,29 +110,19 @@ public class SisHotel {
     }
 
     public String excluirReserva(int codigo) {
+    try{
         String message;
         message = Reserva.excluirReserva(this.reservaDAO, codigo); 
         return message;
+    } catch (Exception e){
+        return "Error";
     }
-    
-    public void confirmaPagamento(int pagamento, int tipoPagamento) {
-        // Realizar a lógica de confirmação do pagamento utilizando os dados fornecidos
-        // e interagir com as classes de DAO e View conforme necessário
-        reservaView.pagamento((char) tipoPagamento);
     }
 
-    public void adicionarQuartos() {
-        // Realizar a lógica para adicionar quartos utilizando os dados fornecidos
-        // e interagir com a classe de DAO conforme necessário
-        quartoDAO.criarQuartos(...);
+    public String realizarCheckIn(){
+        return null;
+        
     }
-
-    public void exibirOpcoesQuartos() {
-        // Exibir as opções de quartos disponíveis utilizando os dados da classe de DAO
-        // e interagir com a classe de View conforme necessário
-        reservaView.selecaoQuartos();
-    }
-
     // Outros métodos e funcionalidades da classe SisHotel
     // ...
 }
