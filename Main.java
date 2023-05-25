@@ -4,7 +4,7 @@ import view.LoginInterface;
 
 public class Main {
     public static void main(String[] args) {
-        Conexao connect = new Conexao("jdbc:mysql://192.168.17.1:3306/meubanco", "root", "fernanda123");
+        Conexao connect = new Conexao("jdbc:mysql://localhost:3306/banco_de_dados", "root", "fernanda123");
         SwingUtilities.invokeLater(() -> new LoginInterface(connect.getConexao()));
     }
 }

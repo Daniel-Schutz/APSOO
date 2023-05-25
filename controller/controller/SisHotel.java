@@ -9,6 +9,7 @@ public class SisHotel {
     private PessoaDAO pessoaDAO;
     private QuartoDAO quartoDAO;
     private ReservaDAO reservaDAO;
+    private ReservaView reservaView;
     private ReservaQuartoDAO reservaQuartoDAO;
     private Cliente cliente;
 
@@ -16,6 +17,7 @@ public class SisHotel {
         pessoaDAO = new PessoaDAO(conexao);
         quartoDAO = new QuartoDAO(conexao);
         reservaDAO = new ReservaDAO(conexao);
+        reservaView = new ReservaView();
         reservaQuartoDAO = new ReservaQuartoDAO();
     }
 
@@ -97,6 +99,8 @@ public class SisHotel {
         String message = updatedReserva.atualizarReserva();
         return message;
     }
+
+    public String realizarCheckIn()
 
 
     public String cancelarReserva(int codigo, String cpf) {

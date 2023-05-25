@@ -16,6 +16,7 @@ public class Reserva {
     private String situacao;
     private String pessoaCPF;
     private ReservaDAO reservaDAO;
+    private Hospedagem hospedagem;
 
     // Construtor da classe
     public Reserva(int codigo, Date data, int diasEstadia, String tipoPagamento, String situacao, String pessoaCPF,
@@ -27,6 +28,7 @@ public class Reserva {
         this.situacao = situacao;
         this.pessoaCPF = pessoaCPF;
         this.reservaDAO = reservaDAO;
+        this.hospedagem = new Hospedagem();
     }
 
     // Métodos getters e setters para os atributos
@@ -161,6 +163,10 @@ public class Reserva {
     public static String excluirReserva(ReservaDAO reservaDAO, int codigo, String cpf) throws SQLException {
         String message = reservaDAO.excluirReserva(codigo);
         return message;
+    }
+
+    public String checkIn(){
+        this.hospedagem.confirmarCheckIn(this.diasEstadia)
     }
 
     public int getCodigo() {

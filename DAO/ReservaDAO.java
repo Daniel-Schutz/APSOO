@@ -89,13 +89,13 @@ public class ReservaDAO{
         ResultSet rs = stmt.executeQuery();
     
         if (rs.next()) {
-            reserva = new Reserva();
-            reserva.setId(rs.getInt("id"));
+            Reserva reserva = new Reserva();
+            reserva.setCodigo(rs.getInt("id"));
             reserva.setData(rs.getDate("data"));
             reserva.setDiasEstadia(rs.getInt("diasEstadia"));
             reserva.setTipoPagamento(rs.getString("tipoPagamento"));
             reserva.setSituacao(rs.getString("situacao"));
-            reserva.setPessoaCPF(rs.getString("pessoaCPF"));
+            reserva.setCpf(rs.getString("pessoaCPF"));
             return reserva;
             }
         

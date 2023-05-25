@@ -1,35 +1,53 @@
 package model;
 
+import java.sql.Date;
+import java.util.Calendar;
+import java.util.*;
+
 public class Hospedagem {
-    private String horaCheckOut;
-    private String horaCheckIn;
+    private Date horaCheckOut;
+    private Date horaCheckIn;
+    private boolean confirmarCheckIn;
+    private boolean confirmarCheckout;
 
     // Construtor da classe
-    public Hospedagem(String horaCheckOut, String horaCheckIn) {
-        this.horaCheckOut = horaCheckOut;
-        this.horaCheckIn = horaCheckIn;
+    public Hospedagem() {
+        confirmarCheckIn = false;
+        confirmarCheckout = false;
+    }
+
+    public String realizarCheckIn(int diasEstadia){
+        this.confirmarCheckIn = true;
+        long tempoAtual = System.currentTimeMillis();
+        this.horaCheckIn = new Date(tempoAtual);
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(this.getHoraCheckIn()); 
+        cal.add(Calendar.DAY_OF_MONTH, diasEstadia);
+        this.setHoraCheckOut(cal.getTime()); // Obtém a hora do checkout como objeto Date
+
+        return "Checkin realizado!";
+    }
+
+    public String realizarCheckOut(){
+        this.confirmarCheckout = true;
+        return "Checkout realizado";
     }
 
     // Métodos getters e setters para os atributos
-    public String getHoraCheckOut() {
+    public Date getHoraCheckOut() {
         return horaCheckOut;
     }
 
-    public void setHoraCheckOut(String horaCheckOut) {
+    public void setHoraCheckOut(Date horaCheckOut) {
         this.horaCheckOut = horaCheckOut;
     }
 
-    public String getHoraCheckIn() {
+    public Date getHoraCheckIn() {
         return horaCheckIn;
     }
 
-    public void setHoraCheckIn(String horaCheckIn) {
+    public void setHoraCheckIn(Date horaCheckIn) {
         this.horaCheckIn = horaCheckIn;
     }
 
-    public void setCodigoReserva(String string) {
-    }
-
-    public void setIdQuarto(String string) {
-    }
 }
