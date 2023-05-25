@@ -80,6 +80,7 @@ public class PessoaDAO {
     
     
     public List<Pessoa> listarPessoas(String tipo) {
+        if(tipo.equals("CLIENTE")){
         List<Pessoa> clientes = new ArrayList<>();
         String sql = "SELECT * FROM pessoa";
         try(PreparedStatement stmt = conexao.prepareStatement(sql)) {
@@ -93,14 +94,12 @@ public class PessoaDAO {
                 cliente.setSenha(rs.getString("senha"));
                 cliente.setEndereco(rs.getString("endereco"));
                 cliente.setSalario(rs.getDouble("salario"));
+                cliente.setSituacao(rs.getString("situacao"));
                 clientes.add(cliente);
             }
-        } 
-
+        }
         return clientes;
-    }
-
-    public List<Pessoa> listarPessoas(String tipo) {
+        }else if(tipo.equals("FUNCIONARIO")){
         List<Pessoa> funcionarios = new ArrayList<>();
         String sql = "SELECT * FROM pessoa";
         try(PreparedStatement stmt = conexao.prepareStatement(sql)) {
@@ -121,10 +120,8 @@ public class PessoaDAO {
         } 
 
         return funcionarios;
-    }
 
-
-    public List<Pessoa> listarPessoas(String tipo) {
+        }else if(tipo.equals("ADMINISTRADOR")){
         List<Pessoa> administradores = new ArrayList<>();
         String sql = "SELECT * FROM pessoa";
         try(PreparedStatement stmt = conexao.prepareStatement(sql)) {
@@ -144,40 +141,46 @@ public class PessoaDAO {
             }
         } 
 
-        return administradores;
-    }
+        return administradores;      
 
-
-    public void atualizarPessoa(Pessoa pessoa) {
-    String sql = "UPDATE pessoa SET nome = ?, email = ?, senha = ?, endereco = ?, telefone = ?, situacao = ?, dataContratacao = ?, salario = ? WHERE cpf = ?";
-    try(PreparedStatement stmt = conexao.prepareStatement(sql)) {
-        
-        stmt.setString(1, pessoa.getNome());
-        stmt.setString(2, pessoa.getEmail());
-        stmt.setString(3, pessoa.getSenha());
-        stmt.setString(4, pessoa.getEndereco());
-        stmt.setString(5, pessoa.getTelefone());
-        stmt.setString(6, pessoa.getSituacao());
-        stmt.setDate(7, pessoa.getDataContratacao());
-        stmt.setDouble(8, pessoa.getSalario());
-        stmt.setString(9, pessoa.getCpf());
-
-        stmt.executeUpdate();
-        System.out.println("Pessoa atualizada com sucesso!");
-        //Retornar string
-        
         }
+
+        
+    }
+
+    public List<Pessoa> listarPessoas() {
+        List<Pessoa> pessoas = new ArrayList<>();
+        String sql = "SELECT * FROM pessoa";
+        try(PreparedStatement stmt = conexao.prepareStatement(sql)) {
+            
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                Pessoa pessoa;
+                pessoa.setCpf(rs.getString("cpf"));
+                pessoa.setNome(rs.getString("nome"));
+                pessoa.setEmail(rs.getString("email"));
+                pessoa.setSenha(rs.getString("senha"));
+                pessoa.setEndereco(rs.getString("endereco"));
+                pessoa.setTelefone(rs.getString("telefone"));
+                pessoa.setDataContratacao(rs.getDate("dataContratacao"));
+                pessoa.setSalario(rs.getDouble("salario"));
+                pessoa.setSituacao(rs.getString("situacao"));
+                pessoas.add(pessoa);
+            }
+        } 
+
+        return pessoas;
     }
 
 
-    public void excluirPessoa(String cpf) {
+    public String excluirPessoa(String cpf) {
     String sql = "DELETE FROM pessoa WHERE cpf = ?";
     try(PreparedStatement stmt = conexao.prepareStatement(sql)) {
        
         stmt.setString(1, cpf);
         stmt.executeUpdate();
-        System.out.println("Pessoa excluída com sucesso!");
-        //retornar string
+        return "Pessoa excluída com sucesso!";
+        
     }
     }
 
@@ -188,17 +191,13 @@ public class PessoaDAO {
         stmt.setString(1, cpf);
         ResultSet rs = stmt.executeQuery();
         if (rs.next()) {
-            Cliente cliente = new Cliente(); //Não precisa instancear se for settar todos os atributos manualmente, se não me engano
-                                            //Nesse sentido, basta Cliente cliente;
+            Cliente cliente;                                            
             cliente.setCpf(rs.getString("cpf"));
             cliente.setNome(rs.getString("nome"));
             cliente.setEmail(rs.getString("email"));
             cliente.setSenha(rs.getString("senha"));
             cliente.setEndereco(rs.getString("endereco"));
-            cliente.setTelefone(rs.getString("telefone"));
             cliente.setSituacao(rs.getString("situacao"));
-            cliente.setDataContratacao(rs.getDate("dataContratacao"));
-            cliente.setSalario(rs.getDouble("salario"));
             return cliente;
         }
     } 
@@ -212,14 +211,13 @@ public class PessoaDAO {
         stmt.setString(1, cpf);
         ResultSet rs = stmt.executeQuery();
         if (rs.next()) {
-            Funcionario funcionario = new Funcionario(); //mesma lógica de cliente acima e será a mesma para administrador;
+            Funcionario funcionario;  
             funcionario.setCpf(rs.getString("cpf"));
             funcionario.setNome(rs.getString("nome"));
             funcionario.setEmail(rs.getString("email"));
             funcionario.setSenha(rs.getString("senha"));
             funcionario.setEndereco(rs.getString("endereco"));
             funcionario.setTelefone(rs.getString("telefone"));
-            funcionario.setSituacao(rs.getString("situacao"));
             funcionario.setDataContratacao(rs.getDate("dataContratacao"));
             funcionario.setSalario(rs.getDouble("salario"));
             return funcionario;
@@ -235,14 +233,13 @@ public class PessoaDAO {
         stmt.setString(1, cpf);
         ResultSet rs = stmt.executeQuery();
         if (rs.next()) {
-            Administrador administrador = new Administrador(); //acima
+            Administrador administrador; 
             administrador.setCpf(rs.getString("cpf"));
             administrador.setNome(rs.getString("nome"));
             administrador.setEmail(rs.getString("email"));
             administrador.setSenha(rs.getString("senha"));
             administrador.setEndereco(rs.getString("endereco"));
             administrador.setTelefone(rs.getString("telefone"));
-            administrador.setSituacao(rs.getString("situacao"));
             administrador.setDataContratacao(rs.getDate("dataContratacao"));
             administrador.setSalario(rs.getDouble("salario"));
             return administrador;
