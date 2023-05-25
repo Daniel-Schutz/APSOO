@@ -2,9 +2,15 @@ package model;
 
 import java.sql.Date;
 import java.util.Calendar;
+
+import DAO.HospedagemDAO;
+import DAO.QuartoDAO;
+import DAO.ReservaQuartoDAO;
+
 import java.util.*;
 import java.time.LocalTime;
-
+// ESSA CLASSE SO DEVE SER UTILIZADA QUANDO O CLIENTE ENTRAR NO HOTEL, OU SEJA, SÓ SERÁ CRIADO HOSPEDAGEM NO BANCO QUANDO O CLIENTE ESTIVER HOSPEDADO.
+// ASSIM EVITAMOS TER Q DELETAR HOSPEDAGEM NO BANCO EM CASO DE CANCELAMENTO DE RESERVA
 public class Hospedagem {
     private LocalTime horaCheckOut;
     private LocalTime horaCheckIn;
@@ -33,15 +39,39 @@ public class Hospedagem {
     //     return "Checkin realizado!";
     // }
 
-    public String realizarCheckOut(){
+    public String realizarCheckOut(int codigoReserva, HospedagemDAO hospedagemDAO, ReservaQuartoDAO reservaQuartoDAO, QuartoDAO quartoDAO){
         this.confirmarCheckOut = true;
-        setHoraCheckOut(LocalTime.now());
+        this.setHoraCheckOut(LocalTime.now());
+        this.setCodigoReserva(codigoReserva);
+        if (this.getHoraCheckOut().getHour() > 12){
+            try{
+                List<ReservaQuarto> reservaQuarto = reservaQuartoDAO.buscarReservaQuarto(codigoReserva);
+                int i = 0;
+                float soma = 0;
+                while (i < reservaQuarto.size()){
+                    int idQuarto = reservaQuarto.get(i).getIdQuarto();
+                    Quarto quarto = quartoDAO.buscarQuarto(idQuarto);
+                    soma = soma + quarto.getValor();
+                    i++;
+                }
+                Float novaDiaria = soma;
+                return novaDiaria.toString();
+            } catch (Exception e){
+                return "Error";
+            }
+        }
+        
         return "CheckOut realizado";
     }
 
-    public String realizarCheckIn(){
+    public String realizarCheckIn(HospedagemDAO hospedagemDAO){
         this.confirmarCheckIn = true;
-        setHoraCheckIn(LocalTime.now());
+        this.setHoraCheckIn(LocalTime.now());
+        this.setCodigoReserva(codigoReserva);
+        if (this.getHoraCheckIn().getHour() < 16){
+            return "Não é permitido realizar Check in antes das 16 horas";
+        }
+        hospedagemDAO.criarHospedagem(this);
         return "CheckIn realizado";
     }
 
@@ -61,5 +91,11 @@ public class Hospedagem {
     public void setHoraCheckIn(LocalTime horaCheckIn) {
         this.horaCheckIn = horaCheckIn;
     }
-
+    
+    public void setCodigoReserva(int codigo){
+        this.codigoReserva = codigo;
+    }
+    public int getCodigoReserva(){
+        return this.codigoReserva;
+    }
 }
