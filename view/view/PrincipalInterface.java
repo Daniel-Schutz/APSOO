@@ -56,13 +56,12 @@ public class PrincipalInterface extends JFrame {
             }
         });
 
-        
         criarReservaButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                ReservaInterface reservaInterface = new ReservaInterface(conexao);
+                ReservaView reservaInterface = new ReservaView(conexao);
                 reservaInterface.setVisible(true);
                 dispose();
-               // JOptionPane.showMessageDialog(PrincipalInterface.this, "Reserva criada!");
+                // JOptionPane.showMessageDialog(PrincipalInterface.this, "Reserva criada!");
             }
         });
 
@@ -246,6 +245,6 @@ public class PrincipalInterface extends JFrame {
     }
 
     // public static void main(String[] args) {
-    //     SwingUtilities.invokeLater(() -> new PrincipalInterface());
+    // SwingUtilities.invokeLater(() -> new PrincipalInterface());
     // }
 }
