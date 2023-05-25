@@ -55,7 +55,7 @@ public class SisHotel {
     public String atualizarCliente(String nome, String cpf, String email, String senha, String endereco,
     String situacao) {
         try{
-            
+
             String message;
             cliente = new Cliente(this.pessoaDAO, nome, cpf, email, senha, endereco, situacao);
             message = cliente.atualizarCliente();
@@ -71,9 +71,9 @@ public class SisHotel {
         return Cliente.existeCliente(this.pessoaDAO, cpf);
     }
 
-    public void registrarReserva(Date dataEntrada, int dataSaida, String tipoPagamento, String situacao, String pessoaCPF){
+    public void registrarReserva(Date dataEntrada, int diasEstadia, String tipoPagamento, String situacao, String pessoaCPF){
         int codigo = 0; //definir logica para gerar codigo
-        Reserva newReserva = new Reserva(codigo, dataEntrada,dataSaida,tipoPagamento, situacao, pessoaCPF, this.reservaDAO);
+        Reserva newReserva = new Reserva(codigo, dataEntrada, diasEstadia,tipoPagamento, situacao, pessoaCPF, this.reservaDAO);
         newReserva.registrarReserva();
         System.out.println("SisHotel: Reserva criada com sucesso!!");
     }
