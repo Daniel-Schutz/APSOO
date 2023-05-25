@@ -73,37 +73,24 @@ public class ReservaView extends JFrame {
         reservarButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // Obter as informações inseridas pelo usuário
-                String cpf = cpfLabel.getText();
-                String entradaText = entradaLabel.getText();
+                String cpf = cpfField.getText();
+                String entradaText = dataEntradaField.getText(); // Correção aqui
                 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                 String saidaTexto = dataSaidaField.getText();
                 saidaTexto = saidaTexto.replaceAll("[\\D]", "");
                 int tempoEstadia = Integer.parseInt(saidaTexto);
-             //   System.out.println("TEMPO ESTADIA " + tempoEstadia);
-             //   if(tempoEstadia == 8){
-              //      System.out.println("VERDADEIRO");
-              //  }
-              //  System.out.println("entradaText1 " + entradaText + "\n");
-                
-                // int saida = Integer.parseInt(saidaLabel.getText());
-                String quantidadePessoas = quantidadePessoasLabel.getText();
-                String quantidadeQuartos = quantidadeQuartosLabel.getText();
+
+                String quantidadePessoas = quantidadePessoasField.getText();
+                String quantidadeQuartos = quantidadeQuartosField.getText();
                 String situacao = "RESERVADO";
-                String tipoPagamento = tipoPagamentoLabel.getText();
+                String tipoPagamento = tipoPagamentoField.getText();
 
                 try {
                     Date entrada = sdf.parse(entradaText);
-                  //  System.out.println("ENTRADA2 " + entrada + "\n");
                     java.sql.Date sqlEntrada = new java.sql.Date(entrada.getTime());
-                  //  System.out.println("sqlEntrada3 " + sqlEntrada + "\n");
 
-
-                    // sisHotel.registrarReserva(sqlEntrada, tempoEstadia, tipoPagamento, situacao, cpf);
-
-                     // Exibir uma mensagem de confirmação
                     JOptionPane.showMessageDialog(ReservaView.this, "Reserva criada!!!");
 
-                    // Limpar os campos de entrada após o cadastro
                     cpfField.setText("");
                     dataEntradaField.setText("");
                     dataSaidaField.setText("");
@@ -111,17 +98,13 @@ public class ReservaView extends JFrame {
                     quantidadeQuartosField.setText("");
                     tipoPagamentoField.setText("");
 
-                    // Voltar para a tela principal
                     PrincipalInterface principalInterface = new PrincipalInterface(conexao);
                     principalInterface.setVisible(true);
 
-                    // Fechar a tela de cadastro de funcionário
                     dispose();
                 } catch (ParseException ex) {
                     JOptionPane.showMessageDialog(ReservaView.this, "Data entrada inválida");
                 }
-
-               
             }
         });
 
@@ -143,4 +126,15 @@ public class ReservaView extends JFrame {
 
     }
 
+    public void pagamento(char tipoPagamento) {
+    }
+
+    public void selecaoQuartos() {
+    }
+
+    public void escolhaConfirmarOuCancelar() {
+
+    }
+
 }
+
