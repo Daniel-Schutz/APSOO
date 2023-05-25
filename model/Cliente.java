@@ -3,9 +3,8 @@ package model;
 import DAO.*;
 
 import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
 
 public class Cliente extends Pessoa {
     PessoaDAO pessoaDAO;

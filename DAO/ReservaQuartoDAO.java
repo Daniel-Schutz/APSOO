@@ -76,25 +76,20 @@ public class ReservaQuartoDAO{
     }
 
 
-    public ReservaQuarto buscarReservaQuarto(int idReservaQuarto) throws SQLException { //Cliente não saberá informar ID para buscar, logo, terá que buscar pelo codigo da reserva, mantem essa função e cria outra so pra buscar todos os reservaquarto atrelados ao codigo da reserva
-    String sql = "SELECT * FROM reservaQuarto WHERE idReservaQuarto = ?";
+    public List<ReservaQuarto> buscarReservaQuarto(int codigoDaReserva) throws SQLException { //Cliente não saberá informar ID para buscar, logo, terá que buscar pelo codigo da reserva, mantem essa função e cria outra so pra buscar todos os reservaquarto atrelados ao codigo da reserva
+    String sql = "SELECT * FROM reservaQuarto WHERE codigoReserva = ?";
     
     try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
-        stmt.setInt(1, idReservaQuarto);
+        stmt.setInt(1, codigoDaReserva);
         ResultSet rs = stmt.executeQuery();
-
-        if (rs.next()) {
-            ReservaQuarto reservaQuarto = new ReservaQuarto(idReservaQuarto, idReservaQuarto);
-            reservaQuarto.setcodigoReserva(rs.getInt("codigoReserva"));
-            reservaQuarto.setIdQuarto(rs.getInt("idQuarto"));
-
-            return reservaQuarto;
+        List<ReservaQuarto> resultado =  new ArrayList<>();
+        int i =0;
+        while (rs.next()) {
+            ReservaQuarto reservaQuarto = new ReservaQuarto(codigoDaReserva, rs.getInt("idQuarto"));
+            resultado.add(i, reservaQuarto);
+            i++;
         } 
-        }
-
-        return null;
+        return resultado;
     }
-
-
-
+    }
 }
