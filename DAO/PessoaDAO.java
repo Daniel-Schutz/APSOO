@@ -170,7 +170,45 @@ public class PessoaDAO {
         
     }
 
+    public void atualizarPessoa(Cliente cliente) {
+    String sql = "UPDATE pessoa SET nome = ?, email = ?, senha = ?, endereco = ?, telefone = ?, situacao = ?, dataContratacao = ?, salario = ? WHERE cpf = ?";
+    try(PreparedStatement stmt = conexao.prepareStatement(sql)) {
+
+        stmt.setString(1, pessoa.getNome());
+        stmt.setString(2, pessoa.getEmail());
+        stmt.setString(3, pessoa.getSenha());
+        stmt.setString(4, pessoa.getEndereco());
+        stmt.setString(6, pessoa.getSituacao());
+        stmt.setString(9, pessoa.getCpf());
+    }
+
+    public void atualizarPessoa(Funcionario funcionario) {
+    String sql = "UPDATE pessoa SET nome = ?, email = ?, senha = ?, endereco = ?, telefone = ?, situacao = ?, dataContratacao = ?, salario = ? WHERE cpf = ?";
+    try(PreparedStatement stmt = conexao.prepareStatement(sql)) {
+
+        stmt.setString(1, pessoa.getNome());
+        stmt.setString(2, pessoa.getEmail());
+        stmt.setString(3, pessoa.getSenha());
+        stmt.setString(4, pessoa.getEndereco());
+        stmt.setString(5, pessoa.getTelefone());
+        stmt.setDate(7, pessoa.getDataContratacao());
+        stmt.setDouble(8, pessoa.getSalario());
+        stmt.setString(9, pessoa.getCpf());
+    }
     
+    public void atualizarPessoa(Administrador administrador) {
+    String sql = "UPDATE pessoa SET nome = ?, email = ?, senha = ?, endereco = ?, telefone = ?, situacao = ?, dataContratacao = ?, salario = ? WHERE cpf = ?";
+    try(PreparedStatement stmt = conexao.prepareStatement(sql)) {
+
+        stmt.setString(1, pessoa.getNome());
+        stmt.setString(2, pessoa.getEmail());
+        stmt.setString(3, pessoa.getSenha());
+        stmt.setString(4, pessoa.getEndereco());
+        stmt.setString(5, pessoa.getTelefone());
+        stmt.setDate(7, pessoa.getDataContratacao());
+        stmt.setDouble(8, pessoa.getSalario());
+        stmt.setString(9, pessoa.getCpf());
+    }
 
 
     public String excluirPessoa(String cpf) {
