@@ -9,7 +9,6 @@ public class SisHotel {
     private PessoaDAO pessoaDAO;
     private QuartoDAO quartoDAO;
     private ReservaDAO reservaDAO;
-    private ReservaView reservaView;
     private ReservaQuartoDAO reservaQuartoDAO;
     private Cliente cliente;
 
@@ -17,7 +16,6 @@ public class SisHotel {
         pessoaDAO = new PessoaDAO(conexao);
         quartoDAO = new QuartoDAO(conexao);
         reservaDAO = new ReservaDAO(conexao);
-        reservaView = new ReservaView();
         reservaQuartoDAO = new ReservaQuartoDAO();
     }
 
