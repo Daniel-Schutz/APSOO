@@ -13,7 +13,7 @@ public class ReservaDAO{
     }
 
     
-    public void criarReserva(Reserva reserva) throws SQLException {
+    public String criarReserva(Reserva reserva) throws SQLException {
         String sql = "INSERT INTO reserva (data, diasEstadia, tipoPagamento, situacao, pessoaCPF) VALUES (?, ?, ?, ?, ?)";
 
         try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
@@ -21,13 +21,14 @@ public class ReservaDAO{
             stmt.setInt(2, reserva.getDiasEstadia());
             stmt.setString(3, reserva.getTipoPagamento());
             stmt.setString(4, reserva.getSituacao());
-            stmt.setString(5, reserva.getCpf());       // irá receber cpf de pessoa por parametro ou pelo método get?
+            stmt.setString(5, reserva.getCpf());       
 
             stmt.executeUpdate();
-            System.out.println("Reserva inserida com sucesso!");
+            return "Reserva inserida com sucesso!";
         }
     }
 
+        // retornar string
 
     public List<Reserva> listarReservas() throws SQLException {
     String sql = "SELECT * FROM reserva";
