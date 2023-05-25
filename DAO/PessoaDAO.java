@@ -268,18 +268,5 @@ public class PessoaDAO {
         }
         return false;
     }
-    
-     public String atualizarPessoa(Cliente cliente) {
-        // desenvolver
-        return null;
-    }
-
-    public Object buscarCliente(String cpf) {
-        // desenvolver
-        return null;
-    }
-
-
-
 
 }
