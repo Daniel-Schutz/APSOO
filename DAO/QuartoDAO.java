@@ -43,8 +43,9 @@ public class QuartoDAO{
             String local = rs.getString("local");
             String descricao = rs.getString("descricao");
             String situacao = rs.getString("situacao");
+            int idQuarto = rs.getInt("idQuarto");
 
-            Quarto quarto = new Quarto(situacao, descricao, local, tipoQuarto, valor);
+            Quarto quarto = new Quarto(situacao, descricao, local, tipoQuarto, valor, idQuarto);
             quartos.add(quarto);
         }
 
@@ -89,14 +90,14 @@ public class QuartoDAO{
         ResultSet rs = stmt.executeQuery();
         
         if (rs.next()) {
-            double valor = rs.getDouble("valor");
+            float valor = rs.getFloat("valor");
             String tipoQuarto = rs.getString("tipoQuarto");
             String local = rs.getString("local");
             String descricao = rs.getString("descricao");
             String situacao = rs.getString("situacao");
 
-            Quarto quarto = new Quarto(situacao, descricao, local, tipoQuarto, valor);
-            quarto.setIdQuarto(idQuarto);
+            Quarto quarto = new Quarto(situacao, descricao, local, tipoQuarto, valor, idQuarto);
+            
             return quarto;
         } else {
             return null;
