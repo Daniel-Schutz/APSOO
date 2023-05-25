@@ -92,9 +92,6 @@ public class PessoaDAO {
                 cliente.setEmail(rs.getString("email"));
                 cliente.setSenha(rs.getString("senha"));
                 cliente.setEndereco(rs.getString("endereco"));
-                cliente.setTelefone(rs.getString("telefone"));
-                cliente.setSituacao(rs.getString("situacao"));
-                cliente.setDataContratacao(rs.getDate("dataContratacao"));
                 cliente.setSalario(rs.getDouble("salario"));
                 clientes.add(cliente);
             }
@@ -117,7 +114,6 @@ public class PessoaDAO {
                 funcionario.setSenha(rs.getString("senha"));
                 funcionario.setEndereco(rs.getString("endereco"));
                 funcionario.setTelefone(rs.getString("telefone"));
-                funcionario.setSituacao(rs.getString("situacao"));
                 funcionario.setDataContratacao(rs.getDate("dataContratacao"));
                 funcionario.setSalario(rs.getDouble("salario"));
                 funcionarios.add(funcionario);
@@ -142,7 +138,6 @@ public class PessoaDAO {
                 administrador.setSenha(rs.getString("senha"));
                 administrador.setEndereco(rs.getString("endereco"));
                 administrador.setTelefone(rs.getString("telefone"));
-                administrador.setSituacao(rs.getString("situacao"));
                 administrador.setDataContratacao(rs.getDate("dataContratacao"));
                 administrador.setSalario(rs.getDouble("salario"));
                 administradores.add(administrador);
