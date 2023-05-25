@@ -28,7 +28,7 @@ public class ReservaDAO{
         }
     }
 
-        // retornar string
+        
 
     public List<Reserva> listarReservas() throws SQLException {
     String sql = "SELECT * FROM reserva";
@@ -52,7 +52,7 @@ public class ReservaDAO{
         return reservas;
     }
 
-    public void atualizarReserva(Reserva reserva) throws SQLException {
+    public String atualizarReserva(Reserva reserva) throws SQLException {
             String sql = "UPDATE reserva SET data = ?, diasEstadia = ?, tipoPagamento = ?, situacao = ? WHERE codigo = ?";
 
             try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
@@ -63,17 +63,17 @@ public class ReservaDAO{
                 stmt.setInt(5, reserva.getCodigo());
 
                 stmt.executeUpdate();
-                System.out.println("Reserva atualizada com sucesso!");
+                return "Reserva atualizada com sucesso!";
             }
         }
 
 
-    public void excluirReserva(int codigo) throws SQLException {
+    public String excluirReserva(int codigo) throws SQLException {
     String sql = "DELETE FROM reserva WHERE codigo = ?";
     try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
         stmt.setInt(1, codigo);
         stmt.executeUpdate();
-        System.out.println("Reserva excluída com sucesso!");
+        return "Reserva excluída com sucesso!";
          
         }
     }

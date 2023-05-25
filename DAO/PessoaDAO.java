@@ -14,7 +14,7 @@ public class PessoaDAO {
         this.conexao = conexao;
     }
 
-    public void criarPessoa(Cliente cliente) {
+    public String criarPessoa(Cliente cliente) {
     String sql = "INSERT INTO pessoa (cpf, nome, email, senha, endereco, telefone, situacao, dataContratacao, salario, tipo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     try(PreparedStatement stmt = conexao.prepareStatement(sql)) {
        
@@ -30,13 +30,13 @@ public class PessoaDAO {
         stmt.setString(10, cliente.getTipo());
 
         stmt.executeUpdate();
-        System.out.println("Cliente inserido com sucesso!");
+        return "Cliente inserido com sucesso!";
         
         }
     }
 
     
-    public void criarPessoa(Funcionario funcionario) {
+    public String criarPessoa(Funcionario funcionario) {
     String sql = "INSERT INTO pessoa (cpf, nome, email, senha, endereco, telefone, situacao, dataContratacao, salario, tipo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     try(PreparedStatement stmt = conexao.prepareStatement(sql)) {
        
@@ -52,12 +52,12 @@ public class PessoaDAO {
         stmt.setString(10, funcionario.getTipo());
 
         stmt.executeUpdate();
-        System.out.println("Funcionario inserido com sucesso!");
+        return "Funcionario inserido com sucesso!";
         
         }
     }
 
-    public void criarPessoa(Administrador administrador) {
+    public String criarPessoa(Administrador administrador) {
     String sql = "INSERT INTO pessoa (cpf, nome, email, senha, endereco, telefone, situacao, dataContratacao, salario, tipo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     try(PreparedStatement stmt = conexao.prepareStatement(sql)) {
        
@@ -73,20 +73,20 @@ public class PessoaDAO {
         stmt.setString(10, administrador.getTipo());
 
         stmt.executeUpdate();
-        System.out.println("Administrador inserido com sucesso!");
+        return "Administrador inserido com sucesso!";
         
         }
     }
     
     
-    public List<Pessoa> listarPessoas() {
+    public List<Pessoa> listarPessoas(String tipo) {
         List<Pessoa> clientes = new ArrayList<>();
         String sql = "SELECT * FROM pessoa";
         try(PreparedStatement stmt = conexao.prepareStatement(sql)) {
             
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                Cliente cliente = new Cliente();
+                Cliente cliente;
                 cliente.setCpf(rs.getString("cpf"));
                 cliente.setNome(rs.getString("nome"));
                 cliente.setEmail(rs.getString("email"));
@@ -103,14 +103,14 @@ public class PessoaDAO {
         return clientes;
     }
 
-    public List<Pessoa> listarPessoas() {
+    public List<Pessoa> listarPessoas(String tipo) {
         List<Pessoa> funcionarios = new ArrayList<>();
         String sql = "SELECT * FROM pessoa";
         try(PreparedStatement stmt = conexao.prepareStatement(sql)) {
             
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                Funcionario funcionario = new Funcionario();
+                Funcionario funcionario;
                 funcionario.setCpf(rs.getString("cpf"));
                 funcionario.setNome(rs.getString("nome"));
                 funcionario.setEmail(rs.getString("email"));
@@ -128,14 +128,14 @@ public class PessoaDAO {
     }
 
 
-    public List<Pessoa> listarPessoas() {
+    public List<Pessoa> listarPessoas(String tipo) {
         List<Pessoa> administradores = new ArrayList<>();
         String sql = "SELECT * FROM pessoa";
         try(PreparedStatement stmt = conexao.prepareStatement(sql)) {
             
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                Administrador administrador = new Administrador();
+                Administrador administrador;
                 administrador.setCpf(rs.getString("cpf"));
                 administrador.setNome(rs.getString("nome"));
                 administrador.setEmail(rs.getString("email"));
