@@ -166,7 +166,7 @@ public class Reserva {
     }
 
     public String checkIn(){
-        this.hospedagem.confirmarCheckIn(this.diasEstadia)
+        this.hospedagem.confirmarCheckIn(this.diasEstadia);
     }
 
     public int getCodigo() {
