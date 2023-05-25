@@ -79,6 +79,12 @@ public class ReservaView extends JFrame {
                 String saidaTexto = dataSaidaField.getText();
                 saidaTexto = saidaTexto.replaceAll("[\\D]", "");
                 int tempoEstadia = Integer.parseInt(saidaTexto);
+             //   System.out.println("TEMPO ESTADIA " + tempoEstadia);
+             //   if(tempoEstadia == 8){
+              //      System.out.println("VERDADEIRO");
+              //  }
+              //  System.out.println("entradaText1 " + entradaText + "\n");
+                
                 // int saida = Integer.parseInt(saidaLabel.getText());
                 String quantidadePessoas = quantidadePessoasLabel.getText();
                 String quantidadeQuartos = quantidadeQuartosLabel.getText();
@@ -87,30 +93,35 @@ public class ReservaView extends JFrame {
 
                 try {
                     Date entrada = sdf.parse(entradaText);
+                  //  System.out.println("ENTRADA2 " + entrada + "\n");
                     java.sql.Date sqlEntrada = new java.sql.Date(entrada.getTime());
-                    // sisHotel.registrarReserva(sqlEntrada, tempoEstadia, tipoPagamento, situacao,
-                    // cpf);
+                  //  System.out.println("sqlEntrada3 " + sqlEntrada + "\n");
+
+
+                    // sisHotel.registrarReserva(sqlEntrada, tempoEstadia, tipoPagamento, situacao, cpf);
+
+                     // Exibir uma mensagem de confirmação
+                    JOptionPane.showMessageDialog(ReservaView.this, "Reserva criada!!!");
+
+                    // Limpar os campos de entrada após o cadastro
+                    cpfField.setText("");
+                    dataEntradaField.setText("");
+                    dataSaidaField.setText("");
+                    quantidadePessoasField.setText("");
+                    quantidadeQuartosField.setText("");
+                    tipoPagamentoField.setText("");
+
+                    // Voltar para a tela principal
+                    PrincipalInterface principalInterface = new PrincipalInterface(conexao);
+                    principalInterface.setVisible(true);
+
+                    // Fechar a tela de cadastro de funcionário
+                    dispose();
                 } catch (ParseException ex) {
                     JOptionPane.showMessageDialog(ReservaView.this, "Data entrada inválida");
                 }
 
-                // Exibir uma mensagem de confirmação
-                JOptionPane.showMessageDialog(ReservaView.this, "Reserva criada!!!");
-
-                // Limpar os campos de entrada após o cadastro
-                cpfField.setText("");
-                dataEntradaField.setText("");
-                dataSaidaField.setText("");
-                quantidadePessoasField.setText("");
-                quantidadeQuartosField.setText("");
-                tipoPagamentoField.setText("");
-
-                // Voltar para a tela principal
-                PrincipalInterface principalInterface = new PrincipalInterface(conexao);
-                principalInterface.setVisible(true);
-
-                // Fechar a tela de cadastro de funcionário
-                dispose();
+               
             }
         });
 
