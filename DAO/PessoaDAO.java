@@ -27,14 +27,18 @@ public class PessoaDAO {
         stmt.setString(5, cliente.getEndereco());
         stmt.setString(6, cliente.getTelefone());
         stmt.setString(7, cliente.getSituacao());
-        stmt.setDate(8, cliente.getDataContratacao());
+        stmt.setDate(8, (Date) cliente.getDataContratacao());
         stmt.setDouble(9, cliente.getSalario());
         stmt.setString(10, cliente.getTipo());
 
         stmt.executeUpdate();
         return "Cliente inserido com sucesso!";
         
+        }catch (SQLException e) {
+            System.err.println("Erro ao executar a consulta SQL: " + e.getMessage());
         }
+
+        return "Erro!";
     }
 
     
@@ -49,14 +53,17 @@ public class PessoaDAO {
         stmt.setString(5, funcionario.getEndereco());
         stmt.setString(6, funcionario.getTelefone());
         stmt.setString(7, funcionario.getSituacao());
-        stmt.setDate(8, funcionario.getDataContratacao());
+        stmt.setDate(8, (Date) funcionario.getDataContratacao());
         stmt.setDouble(9, funcionario.getSalario());
         stmt.setString(10, funcionario.getTipo());
 
         stmt.executeUpdate();
         return "Funcionario inserido com sucesso!";
         
+        }catch (SQLException e) {
+            System.err.println("Erro ao executar a consulta SQL: " + e.getMessage());
         }
+        return "Erro!";
     }
 
     public String criarPessoa(Administrador administrador) {
@@ -70,14 +77,18 @@ public class PessoaDAO {
         stmt.setString(5, administrador.getEndereco());
         stmt.setString(6, administrador.getTelefone());
         stmt.setString(7, administrador.getSituacao());
-        stmt.setDate(8, administrador.getDataContratacao());
+        stmt.setDate(8, (Date) administrador.getDataContratacao());
         stmt.setDouble(9, administrador.getSalario());
         stmt.setString(10, administrador.getTipo());
 
         stmt.executeUpdate();
         return "Administrador inserido com sucesso!";
         
+        }catch (SQLException e) {
+            System.err.println("Erro ao executar a consulta SQL: " + e.getMessage());
         }
+
+        return "Erro!";
     }
     
     
@@ -89,7 +100,7 @@ public class PessoaDAO {
             
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                Cliente cliente;
+                Cliente cliente = new Cliente(null, sql, sql, sql, sql, tipo, sql);
                 cliente.setCpf(rs.getString("cpf"));
                 cliente.setNome(rs.getString("nome"));
                 cliente.setEmail(rs.getString("email"));
@@ -99,6 +110,8 @@ public class PessoaDAO {
                 cliente.setSituacao(rs.getString("situacao"));
                 clientes.add(cliente);
             }
+        }catch (SQLException e) {
+            System.err.println("Erro ao executar a consulta SQL: " + e.getMessage());
         }
         return clientes;
         }else if(tipo.equals("FUNCIONARIO")){
@@ -108,7 +121,7 @@ public class PessoaDAO {
             
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                Funcionario funcionario;
+                Funcionario funcionario = new Funcionario(sql, sql, sql, sql, tipo, 0, null, sql);
                 funcionario.setCpf(rs.getString("cpf"));
                 funcionario.setNome(rs.getString("nome"));
                 funcionario.setEmail(rs.getString("email"));
@@ -119,6 +132,8 @@ public class PessoaDAO {
                 funcionario.setSalario(rs.getDouble("salario"));
                 funcionarios.add(funcionario);
             }
+        }catch (SQLException e) {
+            System.err.println("Erro ao executar a consulta SQL: " + e.getMessage());
         } 
 
         return funcionarios;
@@ -130,7 +145,7 @@ public class PessoaDAO {
             
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                Administrador administrador;
+                Administrador administrador = new Administrador(sql, sql, sql, sql, tipo, 0, null, sql);
                 administrador.setCpf(rs.getString("cpf"));
                 administrador.setNome(rs.getString("nome"));
                 administrador.setEmail(rs.getString("email"));
@@ -140,13 +155,17 @@ public class PessoaDAO {
                 administrador.setDataContratacao(rs.getDate("dataContratacao"));
                 administrador.setSalario(rs.getDouble("salario"));
                 administradores.add(administrador);
+
+                
             }
+        }catch (SQLException e) {
+            System.err.println("Erro ao executar a consulta SQL: " + e.getMessage());
         } 
 
         return administradores;      
 
         }
-
+       
         
     }
 
@@ -169,9 +188,12 @@ public class PessoaDAO {
                 pessoa.setSituacao(rs.getString("situacao"));
                 pessoas.add(pessoa);
             }
+            return pessoas;
+        }catch (SQLException e) {
+            System.err.println("Erro ao executar a consulta SQL: " + e.getMessage());
         } 
 
-        return pessoas;
+      return pessoas;
     }
 
 
@@ -183,17 +205,19 @@ public class PessoaDAO {
         stmt.executeUpdate();
         return "Pessoa excluída com sucesso!";
         
+    }catch (SQLException e) {
+        System.err.println("Erro ao executar a consulta SQL: " + e.getMessage());
     }
+    return "Erro ao excluir pessoa";
     }
 
-    public Pessoa buscarPessoa(String cpf) { 
+    public Pessoa buscarPessoa(Cliente cliente, String cpf) { 
     String sql = "SELECT * FROM pessoa WHERE cpf = ?";
     try(PreparedStatement stmt = conexao.prepareStatement(sql)) {
         
         stmt.setString(1, cpf);
         ResultSet rs = stmt.executeQuery();
-        if (rs.next()) {
-            Cliente cliente;                                            
+        if (rs.next()) {                                        
             cliente.setCpf(rs.getString("cpf"));
             cliente.setNome(rs.getString("nome"));
             cliente.setEmail(rs.getString("email"));
@@ -202,18 +226,20 @@ public class PessoaDAO {
             cliente.setSituacao(rs.getString("situacao"));
             return cliente;
         }
+    }catch (SQLException e) {
+        System.err.println("Erro ao executar a consulta SQL: " + e.getMessage());
     } 
     return null;
     }
 
-    public Pessoa buscarPessoa(String cpf) { 
+    public Pessoa buscarPessoa(Funcionario funcionario, String cpf) { 
     String sql = "SELECT * FROM pessoa WHERE cpf = ?";
     try(PreparedStatement stmt = conexao.prepareStatement(sql)) {
         
         stmt.setString(1, cpf);
         ResultSet rs = stmt.executeQuery();
         if (rs.next()) {
-            Funcionario funcionario;  
+      
             funcionario.setCpf(rs.getString("cpf"));
             funcionario.setNome(rs.getString("nome"));
             funcionario.setEmail(rs.getString("email"));
@@ -224,44 +250,48 @@ public class PessoaDAO {
             funcionario.setSalario(rs.getDouble("salario"));
             return funcionario;
         }
+    }catch (SQLException e) {
+        System.err.println("Erro ao executar a consulta SQL: " + e.getMessage());
     } 
     return null;
     }
 
-    public Pessoa buscarPessoa(String cpf) { 
-    String sql = "SELECT * FROM pessoa WHERE cpf = ?";
-    try(PreparedStatement stmt = conexao.prepareStatement(sql)) {
-        
-        stmt.setString(1, cpf);
-        ResultSet rs = stmt.executeQuery();
-        if (rs.next()) {
-            Administrador administrador; 
-            administrador.setCpf(rs.getString("cpf"));
-            administrador.setNome(rs.getString("nome"));
-            administrador.setEmail(rs.getString("email"));
-            administrador.setSenha(rs.getString("senha"));
-            administrador.setEndereco(rs.getString("endereco"));
-            administrador.setTelefone(rs.getString("telefone"));
-            administrador.setDataContratacao(rs.getDate("dataContratacao"));
-            administrador.setSalario(rs.getDouble("salario"));
-            return administrador;
+    public Pessoa buscarPessoa(Administrador administrador, String cpf) {
+        String sql = "SELECT * FROM pessoa WHERE cpf = ?";
+        try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
+            stmt.setString(1, cpf);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                administrador.setCpf(rs.getString("cpf"));
+                administrador.setNome(rs.getString("nome"));
+                administrador.setEmail(rs.getString("email"));
+                administrador.setSenha(rs.getString("senha"));
+                administrador.setEndereco(rs.getString("endereco"));
+                administrador.setTelefone(rs.getString("telefone"));
+                administrador.setDataContratacao(rs.getDate("dataContratacao"));
+                administrador.setSalario(rs.getDouble("salario"));
+                return administrador;
+            }
+        } catch (SQLException e) {
+            System.err.println("Erro ao executar a consulta SQL: " + e.getMessage());
         }
-    } 
-    return null;
+        return null;
     }
 
     //Fiz essa função baseada na decima mas não sei se está certa
     public boolean existePessoa(String cpf) {
         String sql = "SELECT * FROM pessoa WHERE cpf = ?";
-        try(PreparedStatement stmt = conexao.prepareStatement(sql)) {
+        try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
             stmt.setString(1, cpf);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 return true;
             }
-        } 
-        return false;
+        } catch (SQLException e) {
+            System.err.println("Erro ao executar a consulta SQL: " + e.getMessage());
         }
+        return false;
+    }
     
      public String atualizarPessoa(Cliente cliente) {
         // desenvolver
