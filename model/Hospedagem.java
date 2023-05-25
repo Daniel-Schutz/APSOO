@@ -5,6 +5,7 @@ import java.util.Calendar;
 
 import DAO.HospedagemDAO;
 import DAO.QuartoDAO;
+import DAO.ReservaDAO;
 import DAO.ReservaQuartoDAO;
 
 import java.util.*;
@@ -71,15 +72,20 @@ public class Hospedagem {
         return mensagem;
     }
 
-    public String realizarCheckIn(HospedagemDAO hospedagemDAO){
+    public String realizarCheckIn(HospedagemDAO hospedagemDAO, ReservaDAO reservaDAO, int codigo){ //Mudar para cpf no futuro Precisarrá mudar a função buscarporCPF no dao
+       try{
+        Reserva reserva = reservaDAO.buscarReserva(codigo);
         this.confirmarCheckIn = true;
         this.setHoraCheckIn(LocalTime.now());
-        this.setCodigoReserva(codigoReserva);
+        this.setCodigoReserva(reserva.getCodigo());
         if (this.getHoraCheckIn().getHour() < 16){
             return "Não é permitido realizar Check in antes das 16 horas";
         }
         hospedagemDAO.criarHospedagem(this);
         return "CheckIn realizado";
+       } catch (Exception e){
+        return "Não foi possível realizar checkin";
+       }
     }
 
     // Métodos getters e setters para os atributos
