@@ -170,44 +170,56 @@ public class PessoaDAO {
         
     }
 
-    public void atualizarPessoa(Cliente cliente) {
+    public String atualizarPessoa(Cliente cliente) throws SQLException {
     String sql = "UPDATE pessoa SET nome = ?, email = ?, senha = ?, endereco = ?, telefone = ?, situacao = ?, dataContratacao = ?, salario = ? WHERE cpf = ?";
-    try(PreparedStatement stmt = conexao.prepareStatement(sql)) {
+        
+        try(PreparedStatement stmt = conexao.prepareStatement(sql)) {
 
-        stmt.setString(1, pessoa.getNome());
-        stmt.setString(2, pessoa.getEmail());
-        stmt.setString(3, pessoa.getSenha());
-        stmt.setString(4, pessoa.getEndereco());
-        stmt.setString(6, pessoa.getSituacao());
-        stmt.setString(9, pessoa.getCpf());
+        
+        stmt.setString(1, cliente.getNome());
+        stmt.setString(2, cliente.getEmail());
+        stmt.setString(3, cliente.getSenha());
+        stmt.setString(4, cliente.getEndereco());
+        stmt.setString(6, cliente.getSituacao());
+        stmt.setString(9, cliente.getCpf());
+
+        return "Cliente Atualizado!!";
+    
+        }
     }
 
-    public void atualizarPessoa(Funcionario funcionario) {
+    public String atualizarPessoa(Funcionario funcionario) throws SQLException {
     String sql = "UPDATE pessoa SET nome = ?, email = ?, senha = ?, endereco = ?, telefone = ?, situacao = ?, dataContratacao = ?, salario = ? WHERE cpf = ?";
-    try(PreparedStatement stmt = conexao.prepareStatement(sql)) {
+        try(PreparedStatement stmt = conexao.prepareStatement(sql)) {
 
-        stmt.setString(1, pessoa.getNome());
-        stmt.setString(2, pessoa.getEmail());
-        stmt.setString(3, pessoa.getSenha());
-        stmt.setString(4, pessoa.getEndereco());
-        stmt.setString(5, pessoa.getTelefone());
-        stmt.setDate(7, pessoa.getDataContratacao());
-        stmt.setDouble(8, pessoa.getSalario());
-        stmt.setString(9, pessoa.getCpf());
+        stmt.setString(1, funcionario.getNome());
+        stmt.setString(2, funcionario.getEmail());
+        stmt.setString(3, funcionario.getSenha());
+        stmt.setString(4, funcionario.getEndereco());
+        stmt.setString(5, funcionario.getTelefone());
+        stmt.setDate(7, (Date) funcionario.getDataContratacao());
+        stmt.setDouble(8, funcionario.getSalario());
+        stmt.setString(9, funcionario.getCpf());
+
+        return "Funcionario atualizado";
+        }
     }
     
-    public void atualizarPessoa(Administrador administrador) {
+    public String atualizarPessoa(Administrador administrador) throws SQLException {
     String sql = "UPDATE pessoa SET nome = ?, email = ?, senha = ?, endereco = ?, telefone = ?, situacao = ?, dataContratacao = ?, salario = ? WHERE cpf = ?";
-    try(PreparedStatement stmt = conexao.prepareStatement(sql)) {
+        try(PreparedStatement stmt = conexao.prepareStatement(sql)) {
 
-        stmt.setString(1, pessoa.getNome());
-        stmt.setString(2, pessoa.getEmail());
-        stmt.setString(3, pessoa.getSenha());
-        stmt.setString(4, pessoa.getEndereco());
-        stmt.setString(5, pessoa.getTelefone());
-        stmt.setDate(7, pessoa.getDataContratacao());
-        stmt.setDouble(8, pessoa.getSalario());
-        stmt.setString(9, pessoa.getCpf());
+        stmt.setString(1, administrador.getNome());
+        stmt.setString(2, administrador.getEmail());
+        stmt.setString(3, administrador.getSenha());
+        stmt.setString(4, administrador.getEndereco());
+        stmt.setString(5, administrador.getTelefone());
+        stmt.setDate(7, (Date) administrador.getDataContratacao());
+        stmt.setDouble(8, administrador.getSalario());
+        stmt.setString(9, administrador.getCpf());
+
+        return "Administrador Atualizado";
+        }
     }
 
 

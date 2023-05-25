@@ -1,6 +1,8 @@
 package model;
 
 import DAO.*;
+
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,7 +32,7 @@ public class Cliente extends Pessoa {
         return message;
     }
 
-    public String atualizarCliente() {
+    public String atualizarCliente() throws SQLException {
         return this.pessoaDAO.atualizarPessoa(this); // verificar se poderá passar tipo cliente ou pessoa e retornar
                                                      // string no dao
     }
