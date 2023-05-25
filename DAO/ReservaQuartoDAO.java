@@ -14,15 +14,17 @@ public class ReservaQuartoDAO{
         this.conexao = conexao;
     }
 
-    public void criarReservaQuarto(int codigoReserva, int idQuarto){
+    public void criarReservaQuarto(ReservaQuarto reservaQuarto){
         String sql = "INSERT INTO reservaQuarto (codigoReserva, idQuarto) VALUES (?, ?)";
 
         try(PreparedStatement stmt = conexao.prepareStatement(sql)){
-            stmt.setCodigoReserva(1, codigoReserva);
-            stmt.setIdQuarto(2, idQuarto);
+            stmt.setInt(1, reservaQuarto.getcodigoReserva());
+            stmt.setInt(2, reservaQuarto.getIdQuarto());
 
             stmt.executeUpdate();
             System.out.println("ReservaQuarto inserida com sucesso!");
+        }catch (SQLException e) {
+            System.err.println("Erro ao executar a consulta SQL: " + e.getMessage());
         }
     }
 
@@ -35,8 +37,8 @@ public class ReservaQuartoDAO{
         ResultSet rs = stmt.executeQuery();
 
         while (rs.next()) {
-            ReservaQuarto reservaQuarto = new ReservaQuarto();
-            reservaQuarto.setCodigoReserva(rs.getInt("codigoReserva"));
+            ReservaQuarto reservaQuarto = new ReservaQuarto(0, 0);
+            reservaQuarto.setcodigoReserva(rs.getInt("codigoReserva"));
             reservaQuarto.setIdQuarto(rs.getInt("idQuarto"));
         
 
@@ -82,7 +84,7 @@ public class ReservaQuartoDAO{
         ResultSet rs = stmt.executeQuery();
 
         if (rs.next()) {
-            ReservaQuarto reservaQuarto;
+            ReservaQuarto reservaQuarto = new ReservaQuarto(idReservaQuarto, idReservaQuarto);
             reservaQuarto.setcodigoReserva(rs.getInt("codigoReserva"));
             reservaQuarto.setIdQuarto(rs.getInt("idQuarto"));
 
