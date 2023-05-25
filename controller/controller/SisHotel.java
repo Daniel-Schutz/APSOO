@@ -4,6 +4,7 @@ import model.*;
 import view.ReservaView;
 
 import java.sql.*;
+import java.util.Collection;
 import java.util.List;
 
 public class SisHotel {

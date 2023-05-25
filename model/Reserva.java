@@ -57,7 +57,7 @@ public class Reserva {
 
     }
 
-    public static Collection<String> buscarReservaPorCpf(String cpf, ReservaDAO reservaDAO) {
+    public static Collection<String> buscarReservaPorCpf(ReservaDAO reservaDAO, String cpf) {
 
         if (reservaDAO.buscarReservaPorCpf(cpf) != null) {
             return reservaDAO.buscarReservaPorCpf(cpf);
