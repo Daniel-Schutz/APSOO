@@ -19,11 +19,6 @@ public class PrincipalInterface extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
-        // Inicialização da lista de funcionários
-        funcionarios = new ArrayList<>();
-        funcionarios.add(new Funcionario("João", "123456789", "joao@example.com", "1234567890", "Rua A, 123"));
-        funcionarios.add(new Funcionario("Maria", "987654321", "maria@example.com", "0987654321", "Rua B, 456"));
-
         // Inicialização da lista de clientes
         clientes = new ArrayList<>();
         clientes.add(new Cliente("João", "123456789", "joao@example.com", "1234567890", "Rua A, 123"));
