@@ -11,12 +11,12 @@ import model.Administrador;
 
 
 public class PessoaDAO {
-    private Connection conexao;
+    private static Connection conexao;
     public PessoaDAO(Connection conexao){
-        this.conexao = conexao;
+        PessoaDAO.conexao = conexao;
     }
 
-    public String criarPessoa(Cliente cliente) {
+    public static String criarPessoa(Cliente cliente) {
     String sql = "INSERT INTO pessoa (cpf, nome, email, senha, endereco, telefone, situacao, dataContratacao, salario, tipo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     try(PreparedStatement stmt = conexao.prepareStatement(sql)) {
        
@@ -42,7 +42,7 @@ public class PessoaDAO {
     }
 
     
-    public String criarPessoa(Funcionario funcionario) {
+    public static String criarPessoa(Funcionario funcionario) {
     String sql = "INSERT INTO pessoa (cpf, nome, email, senha, endereco, telefone, situacao, dataContratacao, salario, tipo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     try(PreparedStatement stmt = conexao.prepareStatement(sql)) {
        
@@ -66,7 +66,7 @@ public class PessoaDAO {
         return "Erro!";
     }
 
-    public String criarPessoa(Administrador administrador) {
+    public static String criarPessoa(Administrador administrador) {
     String sql = "INSERT INTO pessoa (cpf, nome, email, senha, endereco, telefone, situacao, dataContratacao, salario, tipo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     try(PreparedStatement stmt = conexao.prepareStatement(sql)) {
        
@@ -100,7 +100,7 @@ public class PessoaDAO {
             
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                Cliente cliente = new Cliente(null, sql, sql, sql, sql, tipo, sql);
+                Cliente cliente = new Cliente(sql, sql, sql, sql, tipo, sql);
                 cliente.setCpf(rs.getString("cpf"));
                 cliente.setNome(rs.getString("nome"));
                 cliente.setEmail(rs.getString("email"));
@@ -170,7 +170,7 @@ public class PessoaDAO {
         
     }
 
-    public String atualizarPessoa(Cliente cliente) throws SQLException {
+    public static String atualizarPessoa(Cliente cliente) throws SQLException {
     String sql = "UPDATE pessoa SET nome = ?, email = ?, senha = ?, endereco = ?, telefone = ?, situacao = ?, dataContratacao = ?, salario = ? WHERE cpf = ?";
         
         try(PreparedStatement stmt = conexao.prepareStatement(sql)) {
@@ -188,7 +188,7 @@ public class PessoaDAO {
         }
     }
 
-    public String atualizarPessoa(Funcionario funcionario) throws SQLException {
+    public static String atualizarPessoa(Funcionario funcionario) throws SQLException {
     String sql = "UPDATE pessoa SET nome = ?, email = ?, senha = ?, endereco = ?, telefone = ?, situacao = ?, dataContratacao = ?, salario = ? WHERE cpf = ?";
         try(PreparedStatement stmt = conexao.prepareStatement(sql)) {
 
@@ -205,7 +205,7 @@ public class PessoaDAO {
         }
     }
     
-    public String atualizarPessoa(Administrador administrador) throws SQLException {
+    public static String atualizarPessoa(Administrador administrador) throws SQLException {
     String sql = "UPDATE pessoa SET nome = ?, email = ?, senha = ?, endereco = ?, telefone = ?, situacao = ?, dataContratacao = ?, salario = ? WHERE cpf = ?";
         try(PreparedStatement stmt = conexao.prepareStatement(sql)) {
 
@@ -305,7 +305,7 @@ public class PessoaDAO {
     }
 
     //Fiz essa função baseada na decima mas não sei se está certa
-    public boolean existePessoa(String cpf) {
+    public static boolean existePessoa(String cpf) {
         String sql = "SELECT * FROM pessoa WHERE cpf = ?";
         try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
             stmt.setString(1, cpf);

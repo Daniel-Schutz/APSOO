@@ -8,15 +8,14 @@ import java.util.List;
 
 
 public class Cliente extends Pessoa {
-    PessoaDAO pessoaDAO;
+    
     private String situacao;
 
     // Construtor da classe
-    public Cliente(PessoaDAO pessoaDAO, String nome, String cpf, String email, String senha, String endereco,
+    public Cliente( String nome, String cpf, String email, String senha, String endereco,
             String situacao) {
         super(nome, cpf, email, senha, endereco);
         this.situacao = situacao;
-        this.pessoaDAO = pessoaDAO;
         this.tipo = CLIENTE;
 
     }
@@ -32,7 +31,7 @@ public class Cliente extends Pessoa {
         String message;
         try{
             if(this.getCpf().matches("\\d+") && this.getCpf().length() == 11){
-                message = this.pessoaDAO.criarPessoa(this); // cria cliente caso cpf seja válido
+                message = PessoaDAO.criarPessoa(this); // cria cliente caso cpf seja válido
             }
             else{
                 message = "CPF Inválido";
@@ -46,13 +45,13 @@ public class Cliente extends Pessoa {
     }
 
     public String atualizarCliente() throws SQLException {
-        return this.pessoaDAO.atualizarPessoa(this); // verificar se poderá passar tipo cliente ou pessoa e retornar
+        return PessoaDAO.atualizarPessoa(this); // verificar se poderá passar tipo cliente ou pessoa e retornar
                                                      // string no dao
     }
 
     public static Cliente buscarCliente(PessoaDAO pessoaDAO, String cpf) {
 
-        Cliente cliente = new Cliente(null, null, null, null, null, null, null);
+        Cliente cliente = new Cliente(null, null, null, null, null, null);
         if (pessoaDAO.buscarPessoa(cliente,cpf) != null) {
             cliente = (Cliente) pessoaDAO.buscarPessoa(cliente, cpf);
             return cliente;

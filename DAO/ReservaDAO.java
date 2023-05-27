@@ -11,7 +11,7 @@ public class ReservaDAO{
     private static Connection conexao;
 
     public ReservaDAO(Connection conexao){
-        this.conexao = conexao;
+        ReservaDAO.conexao = conexao;
     }
 
     
