@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 import DAO.*;
+import utils.NovaExcecao;
 
 public class Reserva {
     private int codigo;
@@ -31,12 +32,25 @@ public class Reserva {
 
     // Métodos getters e setters para os atributos
 
-    public String registrarReserva() {
+    public String registrarReserva() throws NovaExcecao {
+        String message;
         try {
-            return this.reservaDAO.criarReserva(this); // argumentos error
+            if (!Cliente.existeCliente(pessoaCPF)){
+                message = "Cliente não encontrado";
+                throw new NovaExcecao(message);
+            }
+
+            if(this.getpessoaCpf().matches("\\d+") && this.getpessoaCpf().length() == 11){
+                message = this.reservaDAO.criarReserva(this); // cria cliente caso cpf seja válido
+            }
+            else{
+                message = "CPF Inválido";
+                throw new NovaExcecao(message);
+            }
         } catch (Exception e) {
-            return "Error";
+            return "SQLError";
         }
+        return message;
     }
 
     public static Reserva buscarReserva(ReservaDAO reservaDAO, int codigo) {
@@ -92,7 +106,7 @@ public class Reserva {
             List<ReservaQuarto> reservaQuarto = reservaQuartoDAO.buscarReservaQuarto(codigo); 
             Float valorMulta;
 
-            if (reservaACancelar.getCpf() != cpf) {
+            if (reservaACancelar.getpessoaCpf() != cpf) {
                 return "ERROR : CPF não titular da reserva";
             }
             if (reservaACancelar == null) {
@@ -201,11 +215,11 @@ public class Reserva {
         this.situacao = situacao;
     }
 
-    public String getCpf() {
+    public String getpessoaCpf() {
         return pessoaCPF;
     }
 
-    public void setCpf(String pessoaCPF) {
+    public void setpessoaCpf(String pessoaCPF) {
         this.pessoaCPF = pessoaCPF;
     }
 

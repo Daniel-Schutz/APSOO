@@ -21,9 +21,9 @@ public class Cliente extends Pessoa {
     }
 
     // Método para verificar se um cliente existe no banco de dados pelo CPF
-    public static boolean existeCliente(PessoaDAO pessoaDAO, String cpf) {
+    public static boolean existeCliente(String cpf) {
 
-        return pessoaDAO.existePessoa(cpf);
+        return PessoaDAO.existePessoa(cpf);
     }
 
     // Método para cadastrar um cliente no banco de dados

@@ -1,13 +1,13 @@
 package utils;
 
 public class NovaExcecao extends Exception {
-  private String message;
+  private static String message;
 
   public NovaExcecao(String message){
-    this.message = message;
+    NovaExcecao.message = message;
   }
 
-  public String getMessage(){
-    return this.message;
+  public static String getNewMessage(){
+    return message;
   }
 }
