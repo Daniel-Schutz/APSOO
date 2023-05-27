@@ -39,14 +39,8 @@ public class Reserva {
                 message = "Cliente não encontrado";
                 throw new NovaExcecao(message);
             }
+            message = ReservaDAO.criarReserva(this);
 
-            if(this.getpessoaCpf().matches("\\d+") && this.getpessoaCpf().length() == 11){
-                message = this.reservaDAO.criarReserva(this); // cria cliente caso cpf seja válido
-            }
-            else{
-                message = "CPF Inválido";
-                throw new NovaExcecao(message);
-            }
         } catch (Exception e) {
             return "SQLError";
         }
