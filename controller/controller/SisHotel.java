@@ -28,9 +28,15 @@ public class SisHotel {
 
     public String cadastrarCliente(String nome, String cpf, String email, String senha, String endereco,
             String situacao) {
-        cliente = new Cliente(this.pessoaDAO, nome, cpf, email, senha, endereco, situacao);
-        cliente.cadastrarCliente();
+        try{
+            cliente = new Cliente(nome, cpf, email, senha, endereco, situacao);
+            cliente.cadastrarCliente();
+            
+        } catch (NovaExcecao e){
+            return NovaExcecao.getNewMessage();
+        }
         return "Cliente cadastrado com sucesso!";
+        
     }
 
     public Cliente buscarCliente(String cpf) {
@@ -60,7 +66,7 @@ public class SisHotel {
         try{
 
             String message;
-            cliente = new Cliente(this.pessoaDAO, nome, cpf, email, senha, endereco, situacao);
+            cliente = new Cliente(nome, cpf, email, senha, endereco, situacao);
             message = cliente.atualizarCliente();
             return message;
 
