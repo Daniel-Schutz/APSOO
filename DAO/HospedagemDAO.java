@@ -20,7 +20,7 @@ public class HospedagemDAO{
         
         try(PreparedStatement stmt = conexao.prepareStatement(sql)){
             stmt.setDate(1, hospedagem.getHoraCheckIn());
-            stmt.setDate(2, hospedagem.getHoraCheckOut());
+            stmt.setDate(2, null);
             stmt.setCodigoReserva(3, hospedagem.getcodigoReserva());
             
             stmt.executeUpdate();
