@@ -1,6 +1,7 @@
 package model;
 
 import DAO.*;
+import utils.NovaExcecao;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -27,8 +28,20 @@ public class Cliente extends Pessoa {
     }
 
     // Método para cadastrar um cliente no banco de dados
-    public String cadastrarCliente() {
-        String message = this.pessoaDAO.criarPessoa(this);
+    public String cadastrarCliente() throws NovaExcecao {
+        String message;
+        try{
+            if(this.getCpf().matches("\\d+") && this.getCpf().length() == 11){
+                message = this.pessoaDAO.criarPessoa(this); // cria cliente caso cpf seja válido
+            }
+            else{
+                message = "CPF Inválido";
+                throw new NovaExcecao(message);
+            }
+        } catch (Exception e){
+            message = e.getMessage();
+            System.out.println("VERIFICAR ESSE ERROR HANDLING");
+        }
         return message;
     }
 
