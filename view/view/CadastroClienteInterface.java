@@ -18,10 +18,10 @@ public class CadastroClienteInterface extends JFrame {
     private JTextField cpfField;
     private JTextField emailField;
     private JTextField enderecoField;
-    //private SisHotel sishotel;
+    private SisHotel sishotel;
 
     public CadastroClienteInterface(Connection conexao) {
-       // this.sishotel = new SisHotel(conexao);
+        this.sishotel = new SisHotel(conexao);
   
         // Configurações da janela
         setTitle("Cadastro de Cliente");
@@ -68,7 +68,7 @@ public class CadastroClienteInterface extends JFrame {
                 String situacao = "VAZIO"; //QUAIS TIPOS DE SITUAÇÃO??
 
                 // Criar um novo objeto Funcionario com base nas informações inseridas
-           //     sishotel.cadastrarCliente(nome, cpf, email, senha, endereco, situacao);
+                sishotel.cadastrarCliente(nome, cpf, email, senha, endereco, situacao);
                 //Cliente novoCliente = new Cliente(nome, cpf, email, telefone, endereco);
 
                 // Adicionar o novo funcionário ao ArrayList de funcionários
