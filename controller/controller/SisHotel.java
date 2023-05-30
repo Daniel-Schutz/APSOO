@@ -1,6 +1,7 @@
 package controller;
 import DAO.*;
 import model.*;
+import utils.NovaExcecao;
 import view.ReservaView;
 
 import java.sql.*;
@@ -27,9 +28,15 @@ public class SisHotel {
 
     public String cadastrarCliente(String nome, String cpf, String email, String senha, String endereco,
             String situacao) {
-        cliente = new Cliente(this.pessoaDAO, nome, cpf, email, senha, endereco, situacao);
-        cliente.cadastrarCliente();
+        try{
+            cliente = new Cliente(nome, cpf, email, senha, endereco, situacao);
+            cliente.cadastrarCliente();
+            
+        } catch (NovaExcecao e){
+            return NovaExcecao.getNewMessage();
+        }
         return "Cliente cadastrado com sucesso!";
+        
     }
 
     public Cliente buscarCliente(String cpf) {
@@ -59,7 +66,7 @@ public class SisHotel {
         try{
 
             String message;
-            cliente = new Cliente(this.pessoaDAO, nome, cpf, email, senha, endereco, situacao);
+            cliente = new Cliente(nome, cpf, email, senha, endereco, situacao);
             message = cliente.atualizarCliente();
             return message;
 
@@ -70,14 +77,20 @@ public class SisHotel {
     }
 
     public boolean existeCliente(String cpf) {
-        return Cliente.existeCliente(this.pessoaDAO, cpf);
+        return Cliente.existeCliente(cpf);
     }
 
-    public void registrarReserva(Date dataEntrada, int diasEstadia, String tipoPagamento, String situacao, String pessoaCPF){
+    public String registrarReserva(Date dataEntrada, int diasEstadia, String tipoPagamento, String situacao, String pessoaCPF){
         int codigo = 0; //definir logica para gerar codigo
         Reserva newReserva = new Reserva(codigo, dataEntrada, diasEstadia,tipoPagamento, situacao, pessoaCPF, this.reservaDAO);
-        newReserva.registrarReserva();
-        System.out.println("SisHotel: Reserva criada com sucesso!!");
+        //vai tentar criar reserva se não trata exceção correspondente
+        try{
+            newReserva.registrarReserva();
+        } catch (NovaExcecao e){
+            return NovaExcecao.getNewMessage();
+        }        
+        
+        return "Reserva registrada com sucesso";
     }
 
     public Reserva buscarReserva(int codigo){

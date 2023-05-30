@@ -8,14 +8,14 @@ import java.util.List;
 import model.Reserva;
 
 public class ReservaDAO{
-    private Connection conexao;
+    private static Connection conexao;
 
     public ReservaDAO(Connection conexao){
-        this.conexao = conexao;
+        ReservaDAO.conexao = conexao;
     }
 
     
-    public String criarReserva(Reserva reserva) throws SQLException {
+    public static String criarReserva(Reserva reserva) throws SQLException {
         String sql = "INSERT INTO reserva (data, diasEstadia, tipoPagamento, situacao, pessoaCPF) VALUES (?, ?, ?, ?, ?)";
 
         try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
@@ -23,7 +23,7 @@ public class ReservaDAO{
             stmt.setInt(2, reserva.getDiasEstadia());
             stmt.setString(3, reserva.getTipoPagamento());
             stmt.setString(4, reserva.getSituacao());
-            stmt.setString(5, reserva.getCpf());       
+            stmt.setString(5, reserva.getpessoaCpf());       
 
             stmt.executeUpdate();
             return "Reserva inserida com sucesso!";
@@ -105,6 +105,7 @@ public class ReservaDAO{
 
         
     }
+
     
     public Collection<String> buscarReservaPorCpf(String cpf) {
         Collection<String> resultado = new ArrayList<>();
@@ -132,3 +133,8 @@ public class ReservaDAO{
     }
 
 }
+
+
+
+
+    

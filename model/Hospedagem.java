@@ -47,7 +47,6 @@ public class Hospedagem {
             Hospedagem hospedagem = hospedagemDAO.buscarHospedagem(codigoReserva);
             hospedagem.confirmarCheckOut = true; //temos q buscar uma hospedagem antes para depois realizar a atualização dessa, temos que corrigir BuscarHospedagem no hospedagem dao
             hospedagem.setHoraCheckOut(LocalTime.now());
-            hospedagem.setCodigoReserva(codigoReserva);
             if (hospedagem.getHoraCheckOut().getHour() > 12){
             
                 List<ReservaQuarto> reservaQuarto = reservaQuartoDAO.buscarReservaQuarto(codigoReserva);
