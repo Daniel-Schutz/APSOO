@@ -1,11 +1,18 @@
 import javax.swing.SwingUtilities;
 
 import view.LoginInterface;
+import view.PrincipalInterface;
 
 public class Main {
     public static void main(String[] args) {
-        Conexao connect = new Conexao("jdbc:mysql://localhost:3306/banco_de_dados", "root", "fernanda123");
-        SwingUtilities.invokeLater(() -> new LoginInterface(connect.getConexao()));
+        Conexao connect = new Conexao("jdbc:mysql://127.0.0.1:3306/hotelariadb", "root", "fernanda123");
+        try{
+             connect.conectar();
+        } catch (Exception e){
+            System.out.println(e);
+        }
+       
+        SwingUtilities.invokeLater(() -> new PrincipalInterface(connect.getConexao()));
     }
 }
 

@@ -16,8 +16,10 @@ public class PessoaDAO {
         PessoaDAO.conexao = conexao;
     }
 
+  
     public static String criarPessoa(Cliente cliente) {
     String sql = "INSERT INTO pessoa (cpf, nome, email, senha, endereco, telefone, situacao, dataContratacao, salario, tipo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+      
     try(PreparedStatement stmt = conexao.prepareStatement(sql)) {
        
         stmt.setString(1, cliente.getCpf());
