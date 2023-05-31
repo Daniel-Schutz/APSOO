@@ -11,10 +11,7 @@ import model.Administrador;
 
 
 public class PessoaDAO {
-    private static Connection conexao;
-    public PessoaDAO(Connection conexao){
-        PessoaDAO.conexao = conexao;
-    }
+    static Connection conexao;
 
   
     public static String criarPessoa(Cliente cliente) {
@@ -321,4 +318,7 @@ public class PessoaDAO {
         return false;
     }
 
+    public void setConexao(Connection conexao){
+        PessoaDAO.conexao = conexao;
+    }
 }

@@ -39,13 +39,13 @@ public class ReservaDAO{
     try (PreparedStatement stmt = conexao.prepareStatement(sql);
          ResultSet rs = stmt.executeQuery()) {
         while (rs.next()) {
-            Reserva reserva = new Reserva(0, null, 0, sql, sql, sql, null);
+            Reserva reserva = new Reserva(0, null, 0, sql, sql, sql);
             reserva.setCodigo(rs.getInt("codigo"));
             reserva.setData(rs.getDate("data"));
             reserva.setDiasEstadia(rs.getInt("diasEstadia"));
             reserva.setTipoPagamento(rs.getString("tipoPagamento"));
             reserva.setSituacao(rs.getString("situacao"));
-            reserva.setCpf(rs.getString("pessoaCPF"));
+            reserva.setpessoaCpf(rs.getString("pessoaCPF"));
 
             reservas.add(reserva);
             }
@@ -89,13 +89,13 @@ public class ReservaDAO{
         ResultSet rs = stmt.executeQuery();
     
         if (rs.next()) {
-            Reserva reserva = new Reserva(codigo, null, codigo, sql, sql, sql, null);
+            Reserva reserva = new Reserva(codigo, null, codigo, sql, sql, sql);
             reserva.setCodigo(rs.getInt("id"));
             reserva.setData(rs.getDate("data"));
             reserva.setDiasEstadia(rs.getInt("diasEstadia"));
             reserva.setTipoPagamento(rs.getString("tipoPagamento"));
             reserva.setSituacao(rs.getString("situacao"));
-            reserva.setCpf(rs.getString("pessoaCPF"));
+            reserva.setpessoaCpf(rs.getString("pessoaCPF"));
             return reserva;
             }
         

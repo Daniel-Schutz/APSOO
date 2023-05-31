@@ -10,10 +10,6 @@ import model.Quarto;
 public class QuartoDAO{
     private static Connection conexao;
 
-    public QuartoDAO(Connection conexao){
-        QuartoDAO.conexao = conexao;
-    }
-
     public static void criarQuarto(Quarto quarto) throws SQLException {
     String sql = "INSERT INTO quarto (valor, tipoQuarto, local, descricao, situacao) VALUES (?, ?, ?, ?, ?)";
     try(PreparedStatement stmt = conexao.prepareStatement(sql)) {
@@ -105,6 +101,9 @@ public class QuartoDAO{
     }
 }
 
+public void setConexao(Connection conexao){
+    QuartoDAO.conexao = conexao;
+}
 
    
 }

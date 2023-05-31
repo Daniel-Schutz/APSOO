@@ -1,5 +1,4 @@
 package controller;
-import Persistence.*;
 import model.*;
 import utils.NovaExcecao;
 
@@ -8,27 +7,15 @@ import java.util.Collection;
 import java.util.List;
 
 public class SisHotel {
-    private PessoaDAO pessoaDAO;
-    private QuartoDAO quartoDAO;
-    private ReservaDAO reservaDAO;
-    private ReservaQuartoDAO reservaQuartoDAO;
-    private HospedagemDAO hospedagemDAO;
-    private Cliente cliente;
-    
 
-    public SisHotel(Connection conexao) {
-        this.pessoaDAO = new PessoaDAO(conexao);
-        this.quartoDAO = new QuartoDAO(conexao);
-        this.reservaDAO = new ReservaDAO(conexao);
-        this.hospedagemDAO = new HospedagemDAO(conexao);
-        this.reservaQuartoDAO = new ReservaQuartoDAO(conexao);
-
+    public SisHotel() {
+        
     }
 
     public String cadastrarCliente(String nome, String cpf, String email, String senha, String endereco,
             String situacao) {
         try{
-            cliente = new Cliente(nome, cpf, email, senha, endereco, situacao);
+            Cliente cliente = new Cliente(nome, cpf, email, senha, endereco, situacao);
             cliente.cadastrarCliente();
             
         } catch (NovaExcecao e){
@@ -40,15 +27,15 @@ public class SisHotel {
 
     public Cliente buscarCliente(String cpf) {
 
-        if(Cliente.buscarCliente(pessoaDAO, cpf) != null){
-            return Cliente.buscarCliente(pessoaDAO, cpf);
+        if(Cliente.buscarCliente(cpf) != null){
+            return Cliente.buscarCliente(cpf);
         }
         return null;
     }
 
     public List<Pessoa> buscarTodosClientes(String tipo) {
         List<Pessoa> objCliente;
-        objCliente = Cliente.buscarTodosCliente(this.pessoaDAO, tipo); //Mudar no dao para receeber parametro tipo
+        objCliente = Cliente.buscarTodosCliente(tipo); //Mudar no dao para receeber parametro tipo
         return objCliente;
     }
 
@@ -56,7 +43,7 @@ public class SisHotel {
         if(!this.existeCliente(cpf)){
             return "Cliente não encontrado";
         }
-        String message = Cliente.deletarCliente(this.pessoaDAO, cpf);
+        String message = Cliente.deletarCliente(cpf);
         return message;
     }
 
@@ -65,7 +52,7 @@ public class SisHotel {
         try{
 
             String message;
-            cliente = new Cliente(nome, cpf, email, senha, endereco, situacao);
+            Cliente cliente = new Cliente(nome, cpf, email, senha, endereco, situacao);
             message = cliente.atualizarCliente();
             return message;
 
@@ -125,7 +112,7 @@ public class SisHotel {
 
     public String emiteMultaCancelamento(int codigo, String cpf) {
         String message;
-        message = Reserva.emiteMultaCancelamentoReserva(this.reservaQuartoDAO, this.quartoDAO, codigo, cpf);
+        message = Reserva.emiteMultaCancelamentoReserva(codigo, cpf);
         
         return message;
     }
@@ -140,19 +127,19 @@ public class SisHotel {
     }
     }
 
-    public String realizarCheckIn(int codigo){ // vai mudar pra cpf ainda,
+    // public String realizarCheckIn(int codigo){ // vai mudar pra cpf ainda,
         
-        Hospedagem hospedagem =  new Hospedagem(codigo, null, null);
-        String mensagem = hospedagem.realizarCheckIn(this.hospedagemDAO, this.reservaDAO, codigo);
-        return mensagem;
-    }
+    //     Hospedagem hospedagem =  new Hospedagem(codigo, null, null);
+    //     String mensagem = hospedagem.realizarCheckIn(this.hospedagemDAO, this.reservaDAO, codigo);
+    //     return mensagem;
+    // }
 
-    public String realizarCheckOut(int codigo){
+    // public String realizarCheckOut(int codigo){
 
-        String mensagem = Hospedagem.realizarCheckOut(codigo, this.hospedagemDAO, this.reservaQuartoDAO, this.quartoDAO);
-        return mensagem;
+    //     String mensagem = Hospedagem.realizarCheckOut(codigo, this.hospedagemDAO, this.reservaQuartoDAO, this.quartoDAO);
+    //     return mensagem;
         
-    }
+    // }
     // Outros métodos e funcionalidades da classe SisHotel
     // ...
 }

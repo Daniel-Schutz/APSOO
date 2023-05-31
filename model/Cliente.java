@@ -50,24 +50,24 @@ public class Cliente extends Pessoa {
                                                      // string no dao
     }
 
-    public static Cliente buscarCliente(PessoaDAO pessoaDAO, String cpf) {
+    public static Cliente buscarCliente(String cpf) {
 
         Cliente cliente = new Cliente(null, null, null, null, null, null);
-        if (pessoaDAO.buscarPessoa(cliente,cpf) != null) {
-            cliente = (Cliente) pessoaDAO.buscarPessoa(cliente, cpf);
+        if (PessoaDAO.buscarPessoa(cliente,cpf) != null) {
+            cliente = (Cliente) PessoaDAO.buscarPessoa(cliente, cpf);
             return cliente;
         }
         return null;
     }
 
-    public static List<Pessoa> buscarTodosCliente(PessoaDAO pessoaDAO, String tipo) {
+    public static List<Pessoa> buscarTodosCliente(String tipo) {
         List<Pessoa> objClientes;
-        objClientes = pessoaDAO.listarPessoas(tipo);
+        objClientes = PessoaDAO.listarPessoas(tipo);
         return objClientes;
     }
 
-    public static String deletarCliente(PessoaDAO pessoaDAO, String cpf) {
-        return pessoaDAO.excluirPessoa(cpf); // não esquecer de no DAO retornar a string mensagem;
+    public static String deletarCliente(String cpf) {
+        return PessoaDAO.excluirPessoa(cpf); // não esquecer de no DAO retornar a string mensagem;
 
     }
 
