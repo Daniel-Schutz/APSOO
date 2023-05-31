@@ -16,18 +16,16 @@ public class Reserva {
     private String tipoPagamento;
     private String situacao;
     private String pessoaCPF;
-    private ReservaDAO reservaDAO;
+
 
     // Construtor da classe
-    public Reserva(int codigo, Date data, int diasEstadia, String tipoPagamento, String situacao, String pessoaCPF,
-            ReservaDAO reservaDAO) {
+    public Reserva(int codigo, Date data, int diasEstadia, String tipoPagamento, String situacao, String pessoaCPF) {
         this.codigo = codigo;
         this.data = data;
         this.diasEstadia = diasEstadia;
         this.tipoPagamento = tipoPagamento;
         this.situacao = situacao;
         this.pessoaCPF = pessoaCPF;
-        this.reservaDAO = reservaDAO;
     }
 
     // Métodos getters e setters para os atributos
@@ -47,14 +45,14 @@ public class Reserva {
         return message;
     }
 
-    public static Reserva buscarReserva(ReservaDAO reservaDAO, int codigo) {
+    public static Reserva buscarReserva(int codigo) {
 
         // a função buscarReserva está declarando que pode lançar uma exceção do tipo
         // SQLException
         // por isso precisa de um try catch aqui
         try {
             Reserva reserva;
-            reserva = reservaDAO.buscarReserva(codigo);
+            reserva = ReservaDAO.buscarReserva(codigo);
             return reserva;
 
         } catch (Exception e) {
@@ -63,17 +61,17 @@ public class Reserva {
 
     }
 
-    public static Collection<String> buscarReservaPorCpf(ReservaDAO reservaDAO, String cpf) {
+    public static Collection<String> buscarReservaPorCpf(String cpf) {
 
-        if (reservaDAO.buscarReservaPorCpf(cpf) != null) {
-            return reservaDAO.buscarReservaPorCpf(cpf);
+        if (ReservaDAO.buscarReservaPorCpf(cpf) != null) {
+            return ReservaDAO.buscarReservaPorCpf(cpf);
         }
         return null;
     }
 
-    public static List<Reserva> buscarTodasReservas(ReservaDAO reservaDAO) {
+    public static List<Reserva> buscarTodasReservas() {
         try {
-            List<Reserva> reservas = reservaDAO.listarReservas();
+            List<Reserva> reservas = ReservaDAO.listarReservas();
             return reservas;
         } catch (Exception e) {
             return null;
@@ -83,20 +81,20 @@ public class Reserva {
 
     public String atualizarReserva() {
         try {
-            this.reservaDAO.atualizarReserva(this);
-            return "Reserva Atualizada";
+            return ReservaDAO.atualizarReserva(this);
+
         } catch (Exception e) {
             return "Erro ao atualizar reserva";
         }
 
     }
 
-    public static String emiteMultaCancelamentoReserva(ReservaDAO reservaDAO, ReservaQuartoDAO reservaQuartoDAO,
+    public static String emiteMultaCancelamentoReserva(ReservaQuartoDAO reservaQuartoDAO,
             QuartoDAO quartoDAO, int codigo, String cpf) {
         try {
 
             Reserva reservaACancelar;
-            reservaACancelar = reservaDAO.buscarReserva(codigo);
+            reservaACancelar = ReservaDAO.buscarReserva(codigo);
             List<ReservaQuarto> reservaQuarto = reservaQuartoDAO.buscarReservaQuarto(codigo); 
             Float valorMulta;
 
@@ -164,8 +162,8 @@ public class Reserva {
         }
     }
 
-    public static String excluirReserva(ReservaDAO reservaDAO, int codigo) throws SQLException {
-        String message = reservaDAO.excluirReserva(codigo);
+    public static String excluirReserva(int codigo) throws SQLException {
+        String message = ReservaDAO.excluirReserva(codigo);
         return message;
     }
 

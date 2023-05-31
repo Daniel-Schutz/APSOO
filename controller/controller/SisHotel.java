@@ -2,7 +2,6 @@ package controller;
 import Persistence.*;
 import model.*;
 import utils.NovaExcecao;
-import view.ReservaView;
 
 import java.sql.*;
 import java.util.Collection;
@@ -12,7 +11,6 @@ public class SisHotel {
     private PessoaDAO pessoaDAO;
     private QuartoDAO quartoDAO;
     private ReservaDAO reservaDAO;
-    private ReservaView reservaView;
     private ReservaQuartoDAO reservaQuartoDAO;
     private HospedagemDAO hospedagemDAO;
     private Cliente cliente;
@@ -22,9 +20,9 @@ public class SisHotel {
         this.pessoaDAO = new PessoaDAO(conexao);
         this.quartoDAO = new QuartoDAO(conexao);
         this.reservaDAO = new ReservaDAO(conexao);
-        this.reservaView = new ReservaView(conexao);
         this.hospedagemDAO = new HospedagemDAO(conexao);
         this.reservaQuartoDAO = new ReservaQuartoDAO(conexao);
+
     }
 
     public String cadastrarCliente(String nome, String cpf, String email, String senha, String endereco,
@@ -83,7 +81,7 @@ public class SisHotel {
 
     public String registrarReserva(Date dataEntrada, int diasEstadia, String tipoPagamento, String situacao, String pessoaCPF){
         int codigo = 0; //definir logica para gerar codigo
-        Reserva newReserva = new Reserva(codigo, dataEntrada, diasEstadia,tipoPagamento, situacao, pessoaCPF, this.reservaDAO);
+        Reserva newReserva = new Reserva(codigo, dataEntrada, diasEstadia,tipoPagamento, situacao, pessoaCPF);
         //vai tentar criar reserva se não trata exceção correspondente
         try{
             newReserva.registrarReserva();
@@ -96,7 +94,7 @@ public class SisHotel {
 
     public Reserva buscarReserva(int codigo){
         Reserva reserva;
-        reserva = Reserva.buscarReserva(this.reservaDAO, codigo);
+        reserva = Reserva.buscarReserva(codigo);
         if (reserva != null){
             return reserva;
         }
@@ -104,7 +102,7 @@ public class SisHotel {
     }
 
     public List<Reserva> buscarTodasReservas(){
-        List<Reserva> reservas = Reserva.buscarTodasReservas(this.reservaDAO);
+        List<Reserva> reservas = Reserva.buscarTodasReservas();
         if (reservas != null){
             return reservas;
         }
@@ -112,7 +110,7 @@ public class SisHotel {
     }
 
     public Collection<String> buscarReservaPorCpf(String cpf){
-        Collection<String> resultado = Reserva.buscarReservaPorCpf(this.reservaDAO, cpf);
+        Collection<String> resultado = Reserva.buscarReservaPorCpf(cpf);
         if (resultado != null){
             return resultado;
         }
@@ -120,14 +118,14 @@ public class SisHotel {
     }
 
     public String atualizarReserva(int codigo, Date dataEntrada, int dataSaida, String tipoPagamento, String situacao, String pessoaCPF){
-        Reserva updatedReserva = new Reserva(codigo, dataEntrada,dataSaida,tipoPagamento, situacao, pessoaCPF, this.reservaDAO);
+        Reserva updatedReserva = new Reserva(codigo, dataEntrada,dataSaida,tipoPagamento, situacao, pessoaCPF);
         String message = updatedReserva.atualizarReserva();
         return message;
     }
 
     public String emiteMultaCancelamento(int codigo, String cpf) {
         String message;
-        message = Reserva.emiteMultaCancelamentoReserva(this.reservaDAO, this.reservaQuartoDAO, this.quartoDAO, codigo, cpf);
+        message = Reserva.emiteMultaCancelamentoReserva(this.reservaQuartoDAO, this.quartoDAO, codigo, cpf);
         
         return message;
     }
@@ -135,7 +133,7 @@ public class SisHotel {
     public String excluirReserva(int codigo) {
     try{
         String message;
-        message = Reserva.excluirReserva(this.reservaDAO, codigo); 
+        message = Reserva.excluirReserva(codigo); 
         return message;
     } catch (Exception e){
         return "Error";
