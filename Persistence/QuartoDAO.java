@@ -101,9 +101,8 @@ public class QuartoDAO{
     }
 }
 
-public void setConexao(Connection conexao){
+public static void setConexao(Connection conexao){
     QuartoDAO.conexao = conexao;
 }
-
    
 }

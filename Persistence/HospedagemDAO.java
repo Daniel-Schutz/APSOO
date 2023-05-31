@@ -7,13 +7,7 @@ import model.Hospedagem;
 
 
 public class HospedagemDAO{
-    private Connection conexao;
-
-
-    public HospedagemDAO(Connection conexao){
-        this.conexao = conexao;
-    }
-
+    private static Connection conexao;
 
     public void criarHospedagem(Hospedagem hospedagem){
         String sql = "INSERT INTO hospedagem (horaCheckIn, horaCheckOut, codigoReserva) VALUES (?, ?, ?)";
@@ -101,5 +95,8 @@ public class HospedagemDAO{
         }
     }
 
+    public static void setConexao(Connection conexao){
+        HospedagemDAO.conexao = conexao;
+    }
 
 }

@@ -132,6 +132,9 @@ public class ReservaDAO{
         return resultado;
     }
 
+    public static void setConexao(Connection conexao){
+        ReservaDAO.conexao = conexao;
+    }
 }
 
 

@@ -318,7 +318,7 @@ public class PessoaDAO {
         return false;
     }
 
-    public void setConexao(Connection conexao){
+    public static void setConexao(Connection conexao){
         PessoaDAO.conexao = conexao;
     }
 }

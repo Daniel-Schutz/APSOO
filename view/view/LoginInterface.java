@@ -1,5 +1,8 @@
 package view;
 import javax.swing.*;
+
+import controller.SisHotel;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,10 +12,8 @@ import java.sql.Connection;
 public class LoginInterface extends JFrame implements ActionListener {
     private JTextField usernameField;
     private JPasswordField passwordField;
-    private Connection conexao;
 
-    public LoginInterface(Connection conexao) {
-        this.conexao = conexao;
+    public LoginInterface(SisHotel sisHotel) {
         // Configurações da janela
         setTitle("Login");
         setSize(300, 150);
@@ -48,14 +49,14 @@ public class LoginInterface extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         String username = usernameField.getText();
         String password = new String(passwordField.getPassword());
-
+        SisHotel sisHotel = new SisHotel();
         // Verifica se o usuário e senha estão corretos (exemplo: usuário=admin,
         // senha=123)
         if (username.equals("admin") && password.equals("123")) {
             JOptionPane.showMessageDialog(this, "Login realizado com sucesso!");
 
             // Redireciona para a tela principal
-            PrincipalInterface principalInterface = new PrincipalInterface(conexao);
+            PrincipalInterface principalInterface = new PrincipalInterface(sisHotel);
             principalInterface.setVisible(true);
             dispose(); // Fecha a janela de login
         } else {

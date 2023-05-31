@@ -1,6 +1,11 @@
 import javax.swing.SwingUtilities;
 
 import Persistence.Conexao;
+import Persistence.HospedagemDAO;
+import Persistence.PessoaDAO;
+import Persistence.QuartoDAO;
+import Persistence.ReservaDAO;
+import Persistence.ReservaQuartoDAO;
 import view.LoginInterface;
 import view.PrincipalInterface;
 import controller.*;
@@ -14,7 +19,13 @@ public class Main {
             System.out.println(e);
         }
 
-        SisHotel sisHotel = new SisHotel(connect.getConexao());
+        PessoaDAO.setConexao(connect.getConexao());
+        QuartoDAO.setConexao(connect.getConexao());
+        ReservaDAO.setConexao(connect.getConexao());
+        ReservaQuartoDAO.setConexao(connect.getConexao());
+        HospedagemDAO.setConexao(connect.getConexao());
+
+        SisHotel sisHotel = new SisHotel();
        
         SwingUtilities.invokeLater(() -> new PrincipalInterface(sisHotel));
     }

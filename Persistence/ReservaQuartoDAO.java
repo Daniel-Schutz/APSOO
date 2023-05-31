@@ -92,4 +92,8 @@ public class ReservaQuartoDAO{
         return resultado;
     }
     }
+
+    public static void setConexao(Connection conexao){
+        ReservaQuartoDAO.conexao = conexao;
+    }
 }
