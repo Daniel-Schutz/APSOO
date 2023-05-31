@@ -1,4 +1,4 @@
-package DAO;
+package Persistence;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -8,13 +8,13 @@ import model.ReservaQuarto;
 
 
 public class ReservaQuartoDAO{
-    private Connection conexao;
+    private static Connection conexao;
 
     public ReservaQuartoDAO(Connection conexao){
-        this.conexao = conexao;
+        ReservaQuartoDAO.conexao = conexao;
     }
 
-    public void criarReservaQuarto(ReservaQuarto reservaQuarto){
+    public static void criarReservaQuarto(ReservaQuarto reservaQuarto){
         String sql = "INSERT INTO reservaQuarto (codigoReserva, idQuarto) VALUES (?, ?)";
 
         try(PreparedStatement stmt = conexao.prepareStatement(sql)){
@@ -29,7 +29,7 @@ public class ReservaQuartoDAO{
     }
 
 
-    public List<ReservaQuarto> listarReservaQuarto() throws SQLException {
+    public static List<ReservaQuarto> listarReservaQuarto() throws SQLException {
     String sql = "SELECT * FROM reservaQuarto";
     List<ReservaQuarto> reservasQuartos = new ArrayList<>();
 
@@ -50,7 +50,7 @@ public class ReservaQuartoDAO{
     }
 
 
-    public void atualizarReservaQuarto(int idReservaQuarto, int novoIdQuarto) throws SQLException {
+    public static void atualizarReservaQuarto(int idReservaQuarto, int novoIdQuarto) throws SQLException {
     String sql = "UPDATE reservaQuarto SET idQuarto = ? WHERE idReservaQuarto = ?";
     
     try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
@@ -64,7 +64,7 @@ public class ReservaQuartoDAO{
     }
 
 
-    public void excluirReservaQuarto(int idReservaQuarto) throws SQLException {
+    public static void excluirReservaQuarto(int idReservaQuarto) throws SQLException {
     String sql = "DELETE FROM reservaQuarto WHERE idReservaQuarto = ?";
     
     try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
@@ -76,7 +76,7 @@ public class ReservaQuartoDAO{
     }
 
 
-    public List<ReservaQuarto> buscarReservaQuarto(int codigoDaReserva) throws SQLException { //Cliente não saberá informar ID para buscar, logo, terá que buscar pelo codigo da reserva, mantem essa função e cria outra so pra buscar todos os reservaquarto atrelados ao codigo da reserva
+    public static List<ReservaQuarto> buscarReservaQuarto(int codigoDaReserva) throws SQLException { //Cliente não saberá informar ID para buscar, logo, terá que buscar pelo codigo da reserva, mantem essa função e cria outra so pra buscar todos os reservaquarto atrelados ao codigo da reserva
     String sql = "SELECT * FROM reservaQuarto WHERE codigoReserva = ?";
     
     try (PreparedStatement stmt = conexao.prepareStatement(sql)) {

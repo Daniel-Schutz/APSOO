@@ -18,10 +18,8 @@ public class CadastroClienteInterface extends JFrame {
     private JTextField cpfField;
     private JTextField emailField;
     private JTextField enderecoField;
-    private SisHotel sishotel;
 
-    public CadastroClienteInterface(Connection conexao) {
-        this.sishotel = new SisHotel(conexao);
+    public CadastroClienteInterface(SisHotel sishotel) {
   
         // Configurações da janela
         setTitle("Cadastro de Cliente");
@@ -84,7 +82,7 @@ public class CadastroClienteInterface extends JFrame {
                 enderecoField.setText("");
 
                 // Voltar para a tela principal
-                PrincipalInterface principalInterface = new PrincipalInterface(conexao);
+                PrincipalInterface principalInterface = new PrincipalInterface(sishotel);
                 principalInterface.setVisible(true);
 
                 // Fechar a tela de cadastro de funcionário
@@ -97,7 +95,7 @@ public class CadastroClienteInterface extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 // Fecha a tela de cadastro de funcionário e abre a tela principal
                 dispose();
-                PrincipalInterface principalInterface = new PrincipalInterface(conexao);
+                PrincipalInterface principalInterface = new PrincipalInterface(sishotel);
                 principalInterface.setVisible(true);
             }
         });

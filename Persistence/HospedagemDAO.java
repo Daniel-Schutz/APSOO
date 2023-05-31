@@ -1,4 +1,4 @@
-package DAO;
+package Persistence;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;

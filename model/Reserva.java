@@ -6,7 +6,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
-import DAO.*;
+import Persistence.*;
 import utils.NovaExcecao;
 
 public class Reserva {

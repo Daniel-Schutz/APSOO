@@ -1,4 +1,4 @@
-package DAO;
+package Persistence;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -94,7 +94,7 @@ public class PessoaDAO {
     }
     
     
-    public List<Pessoa> listarPessoas(String tipo) {
+    public static List<Pessoa> listarPessoas(String tipo) {
         if(tipo.equals("CLIENTE")){
         List<Pessoa> clientes = new ArrayList<>();
         String sql = "SELECT * FROM pessoa";
@@ -225,7 +225,7 @@ public class PessoaDAO {
     }
 
 
-    public String excluirPessoa(String cpf) {
+    public static String excluirPessoa(String cpf) {
     String sql = "DELETE FROM pessoa WHERE cpf = ?";
     try(PreparedStatement stmt = conexao.prepareStatement(sql)) {
        
@@ -239,7 +239,7 @@ public class PessoaDAO {
     return "Erro ao excluir pessoa";
     }
 
-    public Pessoa buscarPessoa(Cliente cliente, String cpf) { 
+    public static Pessoa buscarPessoa(Cliente cliente, String cpf) { 
     String sql = "SELECT * FROM pessoa WHERE cpf = ?";
     try(PreparedStatement stmt = conexao.prepareStatement(sql)) {
         
@@ -260,7 +260,7 @@ public class PessoaDAO {
     return null;
     }
 
-    public Pessoa buscarPessoa(Funcionario funcionario, String cpf) { 
+    public static Pessoa buscarPessoa(Funcionario funcionario, String cpf) { 
     String sql = "SELECT * FROM pessoa WHERE cpf = ?";
     try(PreparedStatement stmt = conexao.prepareStatement(sql)) {
         
@@ -284,7 +284,7 @@ public class PessoaDAO {
     return null;
     }
 
-    public Pessoa buscarPessoa(Administrador administrador, String cpf) {
+    public static Pessoa buscarPessoa(Administrador administrador, String cpf) {
         String sql = "SELECT * FROM pessoa WHERE cpf = ?";
         try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
             stmt.setString(1, cpf);

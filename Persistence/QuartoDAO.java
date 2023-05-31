@@ -1,4 +1,4 @@
-package DAO;
+package Persistence;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -8,13 +8,13 @@ import model.Quarto;
 
 
 public class QuartoDAO{
-    private Connection conexao;
+    private static Connection conexao;
 
     public QuartoDAO(Connection conexao){
-        this.conexao = conexao;
+        QuartoDAO.conexao = conexao;
     }
 
-    public void criarQuarto(Quarto quarto) throws SQLException {
+    public static void criarQuarto(Quarto quarto) throws SQLException {
     String sql = "INSERT INTO quarto (valor, tipoQuarto, local, descricao, situacao) VALUES (?, ?, ?, ?, ?)";
     try(PreparedStatement stmt = conexao.prepareStatement(sql)) {
         
@@ -30,7 +30,7 @@ public class QuartoDAO{
         } 
     }
 
-    public List<Quarto> listarQuartos() throws SQLException {
+    public static List<Quarto> listarQuartos() throws SQLException {
     List<Quarto> quartos = new ArrayList<>();
     String sql = "SELECT * FROM quarto";
     
@@ -54,7 +54,7 @@ public class QuartoDAO{
     }
 
 
-    public void atualizarQuarto(Quarto quarto) throws SQLException {
+    public static void atualizarQuarto(Quarto quarto) throws SQLException {
     String sql = "UPDATE quarto SET valor = ?, tipoQuarto = ?, local = ?, descricao = ?, situacao = ? WHERE idQuarto = ?";
     try(PreparedStatement stmt = conexao.prepareStatement(sql)) {
         
@@ -71,7 +71,7 @@ public class QuartoDAO{
         } 
     }
 
-    public void excluirQuarto(int idQuarto) throws SQLException {
+    public static void excluirQuarto(int idQuarto) throws SQLException {
     String sql = "DELETE FROM quarto WHERE idQuarto = ?";
     try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
         stmt.setInt(1, idQuarto);
@@ -81,7 +81,7 @@ public class QuartoDAO{
     }
 
 
-    public Quarto buscarQuarto(int idQuarto) throws SQLException {
+    public static Quarto buscarQuarto(int idQuarto) throws SQLException {
     String sql = "SELECT * FROM quarto WHERE idQuarto = ?";
     
     try (PreparedStatement stmt = conexao.prepareStatement(sql)) {        

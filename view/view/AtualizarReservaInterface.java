@@ -19,7 +19,7 @@ public class AtualizarReservaInterface extends JFrame {
 
     // private SisHotel sisHotel;
 
-    public AtualizarReservaInterface(Connection conexao) {
+    public AtualizarReservaInterface(SisHotel sisHotel) {
 
         // this.sisHotel = new SisHotel(conexao);
 
@@ -56,7 +56,7 @@ public class AtualizarReservaInterface extends JFrame {
                 // Obter as informações inseridas pelo usuário
                 String cpf = cpfField.getText();
                 // Abre a lista de funcionários para edição
-                ListaReservasInterface listaReservasInterface = new ListaReservasInterface(conexao);
+                ListaReservasInterface listaReservasInterface = new ListaReservasInterface(sisHotel);
                 listaReservasInterface.setVisible(true);
                 dispose();
 
@@ -68,7 +68,7 @@ public class AtualizarReservaInterface extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 // Fecha a tela de cadastro de funcionário e abre a tela principal
                 dispose();
-                PrincipalInterface principalInterface = new PrincipalInterface(conexao);
+                PrincipalInterface principalInterface = new PrincipalInterface(sisHotel);
                 principalInterface.setVisible(true);
             }
         });
@@ -94,7 +94,7 @@ public class AtualizarReservaInterface extends JFrame {
     private class ListaReservasInterface extends JFrame {
         private JList<String> ReservasList;
 
-        public ListaReservasInterface(Connection conexao) {
+        public ListaReservasInterface(SisHotel sisHotel) {
             // Configurações da janela
             setTitle("Lista de reservas deste usuário");
             setSize(300, 150);
@@ -121,7 +121,7 @@ public class AtualizarReservaInterface extends JFrame {
                 int index = ReservasList.getSelectedIndex();
                 if (index != -1) {
                     // Abre a página de informações do funcionário
-                    InfoReservaInterface infoReservaInterface = new InfoReservaInterface(index, conexao);
+                    InfoReservaInterface infoReservaInterface = new InfoReservaInterface(index, sisHotel);
                     infoReservaInterface.setVisible(true);
                     dispose();
                 }
@@ -130,7 +130,7 @@ public class AtualizarReservaInterface extends JFrame {
             voltarButton.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     // Volta para a tela principal
-                    PrincipalInterface principalInterface = new PrincipalInterface(conexao);
+                    PrincipalInterface principalInterface = new PrincipalInterface(sisHotel);
                     principalInterface.setVisible(true);
                     dispose();
                 }
@@ -152,7 +152,7 @@ public class AtualizarReservaInterface extends JFrame {
         private JTextField formaPagamentoField;
         private int ReservaIndex;
 
-        public InfoReservaInterface(int index, Connection conexao) {
+        public InfoReservaInterface(int index, SisHotel sisHotel) {
             // Configurações da janela
             setTitle("Informações do Funcionário");
             setSize(300, 250);
@@ -205,7 +205,7 @@ public class AtualizarReservaInterface extends JFrame {
             voltarButton.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     // Volta para a lista de funcionários
-                    ListaReservasInterface listaReservasInterface = new ListaReservasInterface(conexao);
+                    ListaReservasInterface listaReservasInterface = new ListaReservasInterface(sisHotel);
                     listaReservasInterface.setVisible(true);
                     dispose();
                 }
@@ -220,7 +220,7 @@ public class AtualizarReservaInterface extends JFrame {
                     JOptionPane.showMessageDialog(InfoReservaInterface.this, "Reserva cancelada com sucesso!");
 
                     // Volta para a lista de funcionários
-                    ListaReservasInterface listaReservasInterface = new ListaReservasInterface(conexao);
+                    ListaReservasInterface listaReservasInterface = new ListaReservasInterface(sisHotel);
                     listaReservasInterface.setVisible(true);
                     dispose();
                 }
@@ -247,7 +247,7 @@ public class AtualizarReservaInterface extends JFrame {
                     JOptionPane.showMessageDialog(InfoReservaInterface.this, "Check-In realizado com sucesso!");
 
                     // Volta para a lista de funcionários
-                    ListaReservasInterface listaReservasInterface = new ListaReservasInterface(conexao);
+                    ListaReservasInterface listaReservasInterface = new ListaReservasInterface(sisHotel);
                     listaReservasInterface.setVisible(true);
                     dispose();
                 }
@@ -277,7 +277,7 @@ public class AtualizarReservaInterface extends JFrame {
                     JOptionPane.showMessageDialog(InfoReservaInterface.this, "Check-Out realizado com sucesso!");
 
                     // Volta para a lista de funcionários
-                    ListaReservasInterface listaReservasInterface = new ListaReservasInterface(conexao);
+                    ListaReservasInterface listaReservasInterface = new ListaReservasInterface(sisHotel);
                     listaReservasInterface.setVisible(true);
                     dispose();
                 }

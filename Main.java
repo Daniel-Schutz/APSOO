@@ -1,18 +1,22 @@
 import javax.swing.SwingUtilities;
 
+import Persistence.Conexao;
 import view.LoginInterface;
 import view.PrincipalInterface;
+import controller.*;
 
 public class Main {
     public static void main(String[] args) {
-        Conexao connect = new Conexao("jdbc:mysql://127.0.0.1:3306/hotelariadb", "root", "fernanda123");
+        Conexao connect = new Conexao("jdbc:mysql://127.0.0.1:3306/hotelariadb", "root", "B1o2b345!?#?!");
         try{
              connect.conectar();
         } catch (Exception e){
             System.out.println(e);
         }
+
+        SisHotel sisHotel = new SisHotel(connect.getConexao());
        
-        SwingUtilities.invokeLater(() -> new PrincipalInterface(connect.getConexao()));
+        SwingUtilities.invokeLater(() -> new PrincipalInterface(sisHotel));
     }
 }
 

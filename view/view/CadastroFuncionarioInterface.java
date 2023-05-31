@@ -1,5 +1,8 @@
 package view;
 import javax.swing.*;
+
+import controller.SisHotel;
+
 import java.sql.Connection;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -13,7 +16,7 @@ public class CadastroFuncionarioInterface extends JFrame {
     private JTextField telefoneField;
     private JTextField enderecoField;
 
-    public CadastroFuncionarioInterface(ArrayList<Funcionario> funcionarios, Connection conexao) {
+    public CadastroFuncionarioInterface(ArrayList<Funcionario> funcionarios, SisHotel sisHotel) {
         // Configurações da janela
         setTitle("Cadastro de Funcionário");
         setSize(300, 250);
@@ -78,7 +81,7 @@ public class CadastroFuncionarioInterface extends JFrame {
                 enderecoField.setText("");
 
                 // Voltar para a tela principal
-                PrincipalInterface principalInterface = new PrincipalInterface(conexao);
+                PrincipalInterface principalInterface = new PrincipalInterface(sisHotel);
                 principalInterface.setVisible(true);
 
                 // Fechar a tela de cadastro de funcionário
@@ -91,7 +94,7 @@ public class CadastroFuncionarioInterface extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 // Fecha a tela de cadastro de funcionário e abre a tela principal
                 dispose();
-                PrincipalInterface principalInterface = new PrincipalInterface(conexao);
+                PrincipalInterface principalInterface = new PrincipalInterface(sisHotel);
                 principalInterface.setVisible(true);
             }
         });

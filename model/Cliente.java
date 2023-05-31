@@ -1,10 +1,11 @@
 package model;
 
-import DAO.*;
 import utils.NovaExcecao;
 
 import java.sql.SQLException;
 import java.util.List;
+
+import Persistence.*;
 
 
 public class Cliente extends Pessoa {

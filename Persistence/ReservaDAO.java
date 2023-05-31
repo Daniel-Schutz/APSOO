@@ -1,4 +1,4 @@
-package DAO;
+package Persistence;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -32,7 +32,7 @@ public class ReservaDAO{
 
         
 
-    public List<Reserva> listarReservas() throws SQLException {
+    public static List<Reserva> listarReservas() throws SQLException {
     String sql = "SELECT * FROM reserva";
     List<Reserva> reservas = new ArrayList<>();
 
@@ -54,7 +54,7 @@ public class ReservaDAO{
         return reservas;
     }
 
-    public String atualizarReserva(Reserva reserva) throws SQLException {
+    public static String atualizarReserva(Reserva reserva) throws SQLException {
             String sql = "UPDATE reserva SET data = ?, diasEstadia = ?, tipoPagamento = ?, situacao = ? WHERE codigo = ?";
 
             try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
@@ -70,7 +70,7 @@ public class ReservaDAO{
         }
 
 
-    public String excluirReserva(int codigo) throws SQLException {
+    public static String excluirReserva(int codigo) throws SQLException {
     String sql = "DELETE FROM reserva WHERE codigo = ?";
     try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
         stmt.setInt(1, codigo);
@@ -81,7 +81,7 @@ public class ReservaDAO{
     }
 
 
-    public Reserva buscarReserva(int codigo) throws SQLException {
+    public static Reserva buscarReserva(int codigo) throws SQLException {
     String sql = "SELECT * FROM reserva WHERE codigo = ?";
 
     try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
@@ -107,7 +107,7 @@ public class ReservaDAO{
     }
 
     
-    public Collection<String> buscarReservaPorCpf(String cpf) {
+    public static Collection<String> buscarReservaPorCpf(String cpf) {
         Collection<String> resultado = new ArrayList<>();
 
         try {

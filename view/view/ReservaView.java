@@ -23,7 +23,7 @@ public class ReservaView extends JFrame {
 
     // private SisHotel sisHotel;
 
-    public ReservaView(Connection conexao) {
+    public ReservaView(SisHotel sisHotel) {
 
         // this.sisHotel = new SisHotel(conexao);
 
@@ -98,7 +98,7 @@ public class ReservaView extends JFrame {
                     quantidadeQuartosField.setText("");
                     tipoPagamentoField.setText("");
 
-                    PrincipalInterface principalInterface = new PrincipalInterface(conexao);
+                    PrincipalInterface principalInterface = new PrincipalInterface(sisHotel);
                     principalInterface.setVisible(true);
 
                     dispose();
@@ -113,7 +113,7 @@ public class ReservaView extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 // Fecha a tela de cadastro de funcionário e abre a tela principal
                 dispose();
-                PrincipalInterface principalInterface = new PrincipalInterface(conexao);
+                PrincipalInterface principalInterface = new PrincipalInterface(sisHotel);
                 principalInterface.setVisible(true);
             }
         });

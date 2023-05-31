@@ -3,10 +3,10 @@ package model;
 import java.sql.Date;
 import java.util.Calendar;
 
-import DAO.HospedagemDAO;
-import DAO.QuartoDAO;
-import DAO.ReservaDAO;
-import DAO.ReservaQuartoDAO;
+import Persistence.HospedagemDAO;
+import Persistence.QuartoDAO;
+import Persistence.ReservaDAO;
+import Persistence.ReservaQuartoDAO;
 
 import java.util.*;
 import java.time.LocalTime;

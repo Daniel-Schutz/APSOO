@@ -1,5 +1,5 @@
 package controller;
-import DAO.*;
+import Persistence.*;
 import model.*;
 import utils.NovaExcecao;
 import view.ReservaView;
@@ -16,14 +16,15 @@ public class SisHotel {
     private ReservaQuartoDAO reservaQuartoDAO;
     private HospedagemDAO hospedagemDAO;
     private Cliente cliente;
+    
 
     public SisHotel(Connection conexao) {
-        pessoaDAO = new PessoaDAO(conexao);
-        quartoDAO = new QuartoDAO(conexao);
-        reservaDAO = new ReservaDAO(conexao);
-        reservaView = new ReservaView(conexao);
-        hospedagemDAO = new HospedagemDAO(conexao);
-        reservaQuartoDAO = new ReservaQuartoDAO(conexao);
+        this.pessoaDAO = new PessoaDAO(conexao);
+        this.quartoDAO = new QuartoDAO(conexao);
+        this.reservaDAO = new ReservaDAO(conexao);
+        this.reservaView = new ReservaView(conexao);
+        this.hospedagemDAO = new HospedagemDAO(conexao);
+        this.reservaQuartoDAO = new ReservaQuartoDAO(conexao);
     }
 
     public String cadastrarCliente(String nome, String cpf, String email, String senha, String endereco,

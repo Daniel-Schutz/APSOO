@@ -1,7 +1,7 @@
 package view;
 
 import javax.swing.*;
-
+import controller.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,7 +12,7 @@ public class PrincipalInterface extends JFrame {
     private ArrayList<Funcionario> funcionarios;
     private ArrayList<Cliente> clientes;
 
-    public PrincipalInterface(Connection conexao) {
+    public PrincipalInterface(SisHotel sishotel) {
         // Configurações da janela
         setTitle("Tela Principal");
         setSize(300, 150);
@@ -44,8 +44,7 @@ public class PrincipalInterface extends JFrame {
         cadastrarFuncionarioButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // Abre a tela de cadastro de funcionário, passando a referência do ArrayList
-                CadastroFuncionarioInterface cadastroFuncionarioInterface = new CadastroFuncionarioInterface(
-                        funcionarios, conexao);
+                CadastroFuncionarioInterface cadastroFuncionarioInterface = new CadastroFuncionarioInterface(funcionarios, sishotel);
                 cadastroFuncionarioInterface.setVisible(true);
                 dispose();
             }
@@ -55,7 +54,7 @@ public class PrincipalInterface extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Botao apertado");
                 // Abre a tela de cadastro de cliente, passando a referência do ArrayList
-                CadastroClienteInterface cadastroClienteInterface = new CadastroClienteInterface(conexao);
+                CadastroClienteInterface cadastroClienteInterface = new CadastroClienteInterface(sishotel);
                 cadastroClienteInterface.setVisible(true);
                 dispose();
             }
@@ -64,7 +63,7 @@ public class PrincipalInterface extends JFrame {
         editarClienteButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // Abre a lista de funcionários para edição
-                ListaClientesInterface listaClientesInterface = new ListaClientesInterface(conexao);
+                ListaClientesInterface listaClientesInterface = new ListaClientesInterface(sishotel);
                 listaClientesInterface.setVisible(true);
                 dispose();
             }
@@ -72,7 +71,7 @@ public class PrincipalInterface extends JFrame {
 
         criarReservaButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                ReservaView reservaInterface = new ReservaView(conexao);
+                ReservaView reservaInterface = new ReservaView(sishotel);
                 reservaInterface.setVisible(true);
                 dispose();
                 // JOptionPane.showMessageDialog(PrincipalInterface.this, "Reserva criada!");
@@ -82,7 +81,7 @@ public class PrincipalInterface extends JFrame {
         editarFuncionarioButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // Abre a lista de funcionários para edição
-                ListaFuncionariosInterface listaFuncionariosInterface = new ListaFuncionariosInterface(conexao);
+                ListaFuncionariosInterface listaFuncionariosInterface = new ListaFuncionariosInterface(sishotel);
                 listaFuncionariosInterface.setVisible(true);
                 dispose();
             }
@@ -91,7 +90,7 @@ public class PrincipalInterface extends JFrame {
         atualizarReservaButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // Abre a tela de cadastro de funcionário, passando a referência do ArrayList
-                AtualizarReservaInterface atualizarReservaInterface = new AtualizarReservaInterface(conexao);
+                AtualizarReservaInterface atualizarReservaInterface = new AtualizarReservaInterface(sishotel);
                 atualizarReservaInterface.setVisible(true);
                 dispose();
             }
@@ -107,7 +106,7 @@ public class PrincipalInterface extends JFrame {
     private class ListaFuncionariosInterface extends JFrame {
         private JList<String> funcionariosList;
 
-        public ListaFuncionariosInterface(Connection conexao) {
+        public ListaFuncionariosInterface(SisHotel sisHotel) {
             // Configurações da janela
             setTitle("Lista de Funcionários");
             setSize(300, 150);
@@ -133,7 +132,7 @@ public class PrincipalInterface extends JFrame {
                 int index = funcionariosList.getSelectedIndex();
                 if (index != -1) {
                     // Abre a página de informações do funcionário
-                    InfoFuncionarioInterface infoFuncionarioInterface = new InfoFuncionarioInterface(index, conexao);
+                    InfoFuncionarioInterface infoFuncionarioInterface = new InfoFuncionarioInterface(index, sisHotel );
                     infoFuncionarioInterface.setVisible(true);
                     dispose();
                 }
@@ -142,7 +141,7 @@ public class PrincipalInterface extends JFrame {
             voltarButton.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     // Volta para a tela principal
-                    PrincipalInterface principalInterface = new PrincipalInterface(conexao);
+                    PrincipalInterface principalInterface = new PrincipalInterface(sisHotel);
                     principalInterface.setVisible(true);
                     dispose();
                 }
@@ -164,7 +163,7 @@ public class PrincipalInterface extends JFrame {
         private JTextField enderecoField;
         private int funcionarioIndex;
 
-        public InfoFuncionarioInterface(int index, Connection conexao) {
+        public InfoFuncionarioInterface(int index, SisHotel sisHotel ) {
             // Configurações da janela
             setTitle("Informações do Funcionário");
             setSize(300, 250);
@@ -214,7 +213,7 @@ public class PrincipalInterface extends JFrame {
             voltarButton.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     // Volta para a lista de funcionários
-                    ListaFuncionariosInterface listaFuncionariosInterface = new ListaFuncionariosInterface(conexao);
+                    ListaFuncionariosInterface listaFuncionariosInterface = new ListaFuncionariosInterface(sisHotel);
                     listaFuncionariosInterface.setVisible(true);
                     dispose();
                 }
@@ -226,7 +225,7 @@ public class PrincipalInterface extends JFrame {
                     funcionarios.remove(funcionarioIndex);
 
                     // Volta para a lista de funcionários
-                    ListaFuncionariosInterface listaFuncionariosInterface = new ListaFuncionariosInterface(conexao);
+                    ListaFuncionariosInterface listaFuncionariosInterface = new ListaFuncionariosInterface(sisHotel);
                     listaFuncionariosInterface.setVisible(true);
                     dispose();
                 }
@@ -253,7 +252,7 @@ public class PrincipalInterface extends JFrame {
                     JOptionPane.showMessageDialog(InfoFuncionarioInterface.this, "Edições salvas com sucesso!");
 
                     // Volta para a lista de funcionários
-                    ListaFuncionariosInterface listaFuncionariosInterface = new ListaFuncionariosInterface(conexao);
+                    ListaFuncionariosInterface listaFuncionariosInterface = new ListaFuncionariosInterface(sisHotel);
                     listaFuncionariosInterface.setVisible(true);
                     dispose();
                 }
@@ -274,7 +273,7 @@ public class PrincipalInterface extends JFrame {
     private class ListaClientesInterface extends JFrame {
         private JList<String> clientesList;
 
-        public ListaClientesInterface(Connection conexao) {
+        public ListaClientesInterface(SisHotel sisHotel ) {
             // Configurações da janela
             setTitle("Lista de Clientes");
             setSize(300, 150);
@@ -300,7 +299,7 @@ public class PrincipalInterface extends JFrame {
                 int index = clientesList.getSelectedIndex();
                 if (index != -1) {
                     // Abre a página de informações do funcionário
-                    InfoClienteInterface infoClienteInterface = new InfoClienteInterface(index, conexao);
+                    InfoClienteInterface infoClienteInterface = new InfoClienteInterface(index, sisHotel);
                     infoClienteInterface.setVisible(true);
                     dispose();
                 }
@@ -309,7 +308,7 @@ public class PrincipalInterface extends JFrame {
             voltarButton.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     // Volta para a tela principal
-                    PrincipalInterface principalInterface = new PrincipalInterface(conexao);
+                    PrincipalInterface principalInterface = new PrincipalInterface(sisHotel);
                     principalInterface.setVisible(true);
                     dispose();
                 }
@@ -331,7 +330,7 @@ public class PrincipalInterface extends JFrame {
         private JTextField enderecoField;
         private int clienteIndex;
 
-        public InfoClienteInterface(int index, Connection conexao) {
+        public InfoClienteInterface(int index, SisHotel sisHotel ) {
             // Configurações da janela
             setTitle("Informações do cliente");
             setSize(300, 250);
@@ -381,7 +380,7 @@ public class PrincipalInterface extends JFrame {
             voltarButton.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     // Volta para a lista de funcionários
-                    ListaClientesInterface listaClientesInterface = new ListaClientesInterface(conexao);
+                    ListaClientesInterface listaClientesInterface = new ListaClientesInterface(sisHotel);
                     listaClientesInterface.setVisible(true);
                     dispose();
                 }
@@ -393,7 +392,7 @@ public class PrincipalInterface extends JFrame {
                     clientes.remove(clienteIndex);
 
                     // Volta para a lista de funcionários
-                    ListaClientesInterface listaClientesInterface = new ListaClientesInterface(conexao);
+                    ListaClientesInterface listaClientesInterface = new ListaClientesInterface(sisHotel);
                     listaClientesInterface.setVisible(true);
                     dispose();
                 }
@@ -420,7 +419,7 @@ public class PrincipalInterface extends JFrame {
                     JOptionPane.showMessageDialog(InfoClienteInterface.this, "Edições salvas com sucesso!");
 
                     // Volta para a lista de funcionários
-                    ListaClientesInterface listaClientesInterface = new ListaClientesInterface(conexao);
+                    ListaClientesInterface listaClientesInterface = new ListaClientesInterface(sisHotel);
                     listaClientesInterface.setVisible(true);
                     dispose();
                 }
