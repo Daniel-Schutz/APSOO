@@ -15,6 +15,7 @@ public class PessoaDAO {
 
   
     public static String criarPessoa(Cliente cliente) {
+        System.out.println("PessoaDAO: criar pessoa - Chegou aqui");
     String sql = "INSERT INTO pessoa (cpf, nome, email, senha, endereco, telefone, situacao, dataContratacao, salario, tipoUsuario) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
       
     try(PreparedStatement stmt = conexao.prepareStatement(sql)) {

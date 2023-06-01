@@ -12,7 +12,7 @@ import controller.*;
 
 public class Main {
     public static void main(String[] args) {
-        Conexao connect = new Conexao("jdbc:mysql://127.0.0.1:3306/hotelariadb", "root", "B1o2b345!?#?!");
+        Conexao connect = new Conexao("jdbc:mysql://127.0.0.1:3306/hotelariadb", "root", "fernanda123");
         try{
              connect.conectar();
         } catch (Exception e){

@@ -16,14 +16,17 @@ public class ReservaDAO{
 
     
     public static String criarReserva(Reserva reserva) throws SQLException {
+        System.out.println("ReservaDAO: criarReserva");
         String sql = "INSERT INTO reserva (data, diasEstadia, tipoPagamento, situacao, pessoaCPF) VALUES (?, ?, ?, ?, ?)";
-
+        System.out.println("PESSOA CPF" + reserva.getpessoaCpf());
         try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
             stmt.setDate(1, (Date) reserva.getData());
             stmt.setInt(2, reserva.getDiasEstadia());
             stmt.setString(3, reserva.getTipoPagamento());
             stmt.setString(4, reserva.getSituacao());
-            stmt.setString(5, reserva.getpessoaCpf());       
+            stmt.setString(5, reserva.getpessoaCpf());     
+            
+
 
             stmt.executeUpdate();
             return "Reserva inserida com sucesso!";
@@ -108,17 +111,15 @@ public class ReservaDAO{
 
     
     public static Collection<String> buscarReservaPorCpf(String cpf) {
+        System.out.println(cpf);
         Collection<String> resultado = new ArrayList<>();
+        String sql = "SELECT * FROM reserva INNER JOIN reservaQuarto ON reserva.codigo = reservaQuarto.codigoReserva INNER JOIN hospedagem ON reserva.codigo = hospedagem.codigoReserva INNER JOIN quarto ON reservaQuarto.idQuarto = quarto.idQuarto INNER JOIN pessoa ON pessoa.cpf = reserva.pessoaCPF WHERE pessoaCPF = ?";
 
-        try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/banco_de_dados", "usuario", "senha");
+        try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
+            
+            stmt.setString(1, cpf);
 
-            String sql = "SELECT * FROM reserva INNER JOIN reservaQuarto ON reserva.codigo = reservaQuarto.codigoReserva INNER JOIN hospedagem ON reserva.codigo = hospedagem.codigoReserva INNER JOIN quarto ON reservaQuarto.idQuarto = quarto.idQuarto INNER JOIN pessoa ON pessoa.cpf = reserva.pessoaCPF WHERE pessoaCPF = ?";
-
-            PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setString(1, cpf);
-
-            ResultSet resultSet = statement.executeQuery();
+            ResultSet resultSet = stmt.executeQuery();
 
             while (resultSet.next()) {
                 String detalhesReserva = resultSet.getString("detalhes");
@@ -129,6 +130,7 @@ public class ReservaDAO{
             e.printStackTrace();
         }
 
+        System.out.println("Buscar por cpf DAO:" + resultado);
         return resultado;
     }
 
