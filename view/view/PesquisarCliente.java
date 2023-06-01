@@ -45,9 +45,6 @@ public class PesquisarCliente extends JFrame {
 
         pesquisarClienteButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                ReservaView reservaInterface = new ReservaView(sisHotel);
-                reservaInterface.setVisible(true);
-                dispose();
 
                 // Obter as informações inseridas pelo usuário
                 String cpf = cpfField.getText();
@@ -63,7 +60,7 @@ public class PesquisarCliente extends JFrame {
                     JOptionPane.showMessageDialog(PesquisarCliente.this, "CPF não registrado!");
                 } else {
                     JOptionPane.showMessageDialog(PesquisarCliente.this, cliente.getNome());
-                    ReservaView reservaInterface2 = new ReservaView(sisHotel);
+                    ReservaView reservaInterface = new ReservaView(sisHotel);
                     reservaInterface.setVisible(true);
                     dispose();
                 }
