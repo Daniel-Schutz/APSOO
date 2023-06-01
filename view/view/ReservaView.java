@@ -16,7 +16,7 @@ public class ReservaView extends JFrame {
     private JTextField Field;
     private JTextField cpfField;
     private JTextField dataEntradaField;
-    private JTextField dataSaidaField;
+    private JTextField diasEstadiaField;
     private JTextField quantidadePessoasField;
     private JTextField quantidadeQuartosField;
     private JComboBox<String> tipoPagamentoField;
@@ -34,14 +34,14 @@ public class ReservaView extends JFrame {
 
         JLabel cpfLabel = new JLabel("CPF:");
         JLabel entradaLabel = new JLabel("Data entrada:");
-        JLabel saidaLabel = new JLabel("Data de saída:");
+        JLabel saidaLabel = new JLabel("Dias de estadia:");
         JLabel quantidadePessoasLabel = new JLabel("Quantidade de Pessoas:");
         JLabel quantidadeQuartosLabel = new JLabel("Quantidade de Quartos:");
         JLabel tipoPagamentoLabel = new JLabel("Tipo de pagamento:");
 
         JTextField cpfField = new JTextField(20);
         JTextField dataEntradaField = new JTextField(20);
-        JTextField dataSaidaField = new JTextField(20);
+        JTextField diasEstadiaField = new JTextField(20);
         JTextField quantidadePessoasField = new JTextField(20);
         JTextField quantidadeQuartosField = new JTextField(20);
         String[] tipoPagamentoOptions = { "Dinheiro", "Pix", "Crédito", "Débito" };
@@ -56,7 +56,7 @@ public class ReservaView extends JFrame {
         panel.add(entradaLabel);
         panel.add(dataEntradaField);
         panel.add(saidaLabel);
-        panel.add(dataSaidaField);
+        panel.add(diasEstadiaField);
         panel.add(quantidadePessoasLabel);
         panel.add(quantidadePessoasField);
         panel.add(quantidadeQuartosLabel);
@@ -84,18 +84,23 @@ public class ReservaView extends JFrame {
 
                 String entradaText = dataEntradaField.getText(); // Correção aqui
                 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-                String saidaTexto = dataSaidaField.getText();
+                String saidaTexto = diasEstadiaField.getText();
 
-                // Validate dataSaidaField
+                String diasEstadia = diasEstadiaField.getText();
                 try {
-                    Date dataSaida = sdf.parse(saidaTexto);
-                } catch (ParseException ex) {
+                    int dias = Integer.parseInt(diasEstadia);
+                    if (dias < 1 || dias > 15) {
+                        throw new NumberFormatException();
+                    }
+                } catch (NumberFormatException ex) {
                     JOptionPane.showMessageDialog(ReservaView.this,
-                            "Data de saída inválida. Utilize o formato dd/MM/yyyy.");
+                            "Quantidade de dias invalido. Deve ser um número entre 1 e 14.");
                     return;
                 }
-                saidaTexto = saidaTexto.replaceAll("[\\D]", "");
-                int tempoEstadia = Integer.parseInt(saidaTexto);
+
+                // Validate diasEstadiaField
+
+                int tempoEstadia = Integer.parseInt(diasEstadia);
 
                 String quantidadePessoas = quantidadePessoasField.getText();
                 String quantidadeQuartos = quantidadeQuartosField.getText();
@@ -136,7 +141,7 @@ public class ReservaView extends JFrame {
 
                     cpfField.setText("");
                     dataEntradaField.setText("");
-                    dataSaidaField.setText("");
+                    diasEstadiaField.setText("");
                     quantidadePessoasField.setText("");
                     quantidadeQuartosField.setText("");
 
