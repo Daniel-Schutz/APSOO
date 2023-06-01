@@ -86,11 +86,12 @@ public class ReservaView extends JFrame {
                 String tipoPagamento = tipoPagamentoField.getText();
 
                 try {
+                    String message;
                     Date entrada = sdf.parse(entradaText);
                     java.sql.Date sqlEntrada = new java.sql.Date(entrada.getTime());
-                    sisHotel.registrarReserva(sqlEntrada, tempoEstadia, tipoPagamento, situacao, quantidadePessoas);
+                    message = sisHotel.registrarReserva(sqlEntrada, tempoEstadia, tipoPagamento, situacao, cpf);
 
-                    JOptionPane.showMessageDialog(ReservaView.this, "Reserva criada!!!");
+                    JOptionPane.showMessageDialog(ReservaView.this, message);
 
                     cpfField.setText("");
                     dataEntradaField.setText("");
