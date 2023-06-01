@@ -45,6 +45,7 @@ public class PesquisarCliente extends JFrame {
 
         pesquisarClienteButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+
                 // Obter as informações inseridas pelo usuário
                 String cpf = cpfField.getText();
                 // Abre a lista de funcionários para edição
