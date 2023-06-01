@@ -40,7 +40,6 @@ public class Cliente extends Pessoa {
             }
         } catch (Exception e){
             message = e.getMessage();
-            System.out.println("VERIFICAR ESSE ERROR HANDLING");
         }
         return message;
     }

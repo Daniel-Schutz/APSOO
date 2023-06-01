@@ -19,7 +19,7 @@ public class SisHotel {
             cliente.cadastrarCliente();
             
         } catch (NovaExcecao e){
-            return NovaExcecao.getNewMessage();
+            System.out.println(e);
         }
         return "Cliente cadastrado com sucesso!";
         
