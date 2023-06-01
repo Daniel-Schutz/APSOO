@@ -29,15 +29,16 @@ public class Cliente extends Pessoa {
 
     // Método para cadastrar um cliente no banco de dados
     public String cadastrarCliente() throws NovaExcecao {
+        //System.out.println("Cliente.java: cadastrar cliente");
         String message;
         try{
-            if(this.getCpf().matches("\\d+") && this.getCpf().length() == 11){
+          //  if(this.getCpf().matches("\\d+") && this.getCpf().length() == 11){
                 message = PessoaDAO.criarPessoa(this); // cria cliente caso cpf seja válido
-            }
-            else{
-                message = "CPF Inválido";
-                throw new NovaExcecao(message);
-            }
+          //  }
+          //  else{
+          //      message = "CPF Inválido";
+          //      throw new NovaExcecao(message);
+          //  }
         } catch (Exception e){
             message = e.getMessage();
         }
