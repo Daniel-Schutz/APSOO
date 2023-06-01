@@ -19,7 +19,7 @@ public class ReservaView extends JFrame {
     private JTextField dataSaidaField;
     private JTextField quantidadePessoasField;
     private JTextField quantidadeQuartosField;
-    private JTextField tipoPagamentoField;
+    private JComboBox<String> tipoPagamentoField;
 
     // private SisHotel sisHotel;
 
@@ -34,7 +34,7 @@ public class ReservaView extends JFrame {
 
         JLabel cpfLabel = new JLabel("CPF:");
         JLabel entradaLabel = new JLabel("Data entrada:");
-        JLabel saidaLabel = new JLabel("Tempo de estadia:");
+        JLabel saidaLabel = new JLabel("Data de saída:");
         JLabel quantidadePessoasLabel = new JLabel("Quantidade de Pessoas:");
         JLabel quantidadeQuartosLabel = new JLabel("Quantidade de Quartos:");
         JLabel tipoPagamentoLabel = new JLabel("Tipo de pagamento:");
@@ -44,10 +44,11 @@ public class ReservaView extends JFrame {
         JTextField dataSaidaField = new JTextField(20);
         JTextField quantidadePessoasField = new JTextField(20);
         JTextField quantidadeQuartosField = new JTextField(20);
-        JTextField tipoPagamentoField = new JTextField(20);
+        String[] tipoPagamentoOptions = { "Dinheiro", "Pix", "Crédito", "Débito" };
+        tipoPagamentoField = new JComboBox<>(tipoPagamentoOptions);
 
         JButton reservarButton = new JButton("Realizar Reserva");
-        JButton voltarButton = new JButton("Voltar");
+        JButton voltarButton = new JButton("Cancelar Reserva");
 
         JPanel panel = new JPanel(new GridLayout(10, 2));
         panel.add(cpfLabel);
@@ -74,16 +75,56 @@ public class ReservaView extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 // Obter as informações inseridas pelo usuário
                 String cpf = cpfField.getText();
+
+                // Validate CPF field
+                if (cpf.length() != 11 || !cpf.matches("\\d+")) {
+                    JOptionPane.showMessageDialog(ReservaView.this, "CPF inválido. Deve conter 11 dígitos numéricos.");
+                    return;
+                }
+
                 String entradaText = dataEntradaField.getText(); // Correção aqui
                 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                 String saidaTexto = dataSaidaField.getText();
+
+                // Validate dataSaidaField
+                try {
+                    Date dataSaida = sdf.parse(saidaTexto);
+                } catch (ParseException ex) {
+                    JOptionPane.showMessageDialog(ReservaView.this,
+                            "Data de saída inválida. Utilize o formato dd/MM/yyyy.");
+                    return;
+                }
                 saidaTexto = saidaTexto.replaceAll("[\\D]", "");
                 int tempoEstadia = Integer.parseInt(saidaTexto);
 
                 String quantidadePessoas = quantidadePessoasField.getText();
                 String quantidadeQuartos = quantidadeQuartosField.getText();
                 String situacao = "RESERVADO";
-                String tipoPagamento = tipoPagamentoField.getText();
+                String tipoPagamento = (String) tipoPagamentoField.getSelectedItem();
+
+                // Validate quantidadePessoasField
+                try {
+                    int pessoas = Integer.parseInt(quantidadePessoas);
+                    if (pessoas < 1 || pessoas > 10) {
+                        throw new NumberFormatException();
+                    }
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(ReservaView.this,
+                            "Quantidade de pessoas inválida. Deve ser um número entre 1 e 10.");
+                    return;
+                }
+
+                // Validate quantidadeQuartosField
+                try {
+                    int quartos = Integer.parseInt(quantidadeQuartos);
+                    if (quartos < 1 || quartos > 10) {
+                        throw new NumberFormatException();
+                    }
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(ReservaView.this,
+                            "Quantidade de quartos inválida. Deve ser um número entre 1 e 10.");
+                    return;
+                }
 
                 try {
                     String message;
@@ -98,14 +139,14 @@ public class ReservaView extends JFrame {
                     dataSaidaField.setText("");
                     quantidadePessoasField.setText("");
                     quantidadeQuartosField.setText("");
-                    tipoPagamentoField.setText("");
 
                     PrincipalInterface principalInterface = new PrincipalInterface(sisHotel);
                     principalInterface.setVisible(true);
 
                     dispose();
                 } catch (ParseException ex) {
-                    JOptionPane.showMessageDialog(ReservaView.this, "Data entrada inválida");
+                    JOptionPane.showMessageDialog(ReservaView.this,
+                            "Data entrada inválida. Utilize o formato dd/MM/yyyy.");
                 }
             }
         });
@@ -114,9 +155,11 @@ public class ReservaView extends JFrame {
         voltarButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // Fecha a tela de cadastro de funcionário e abre a tela principal
+                JOptionPane.showMessageDialog(ReservaView.this,
+                        "Reserva Cancelada!");
+                PesquisarCliente pesquisarCliente = new PesquisarCliente(sisHotel);
+                pesquisarCliente.setVisible(true);
                 dispose();
-                PrincipalInterface principalInterface = new PrincipalInterface(sisHotel);
-                principalInterface.setVisible(true);
             }
         });
 
@@ -139,4 +182,3 @@ public class ReservaView extends JFrame {
     }
 
 }
-
