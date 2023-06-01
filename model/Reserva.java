@@ -31,15 +31,18 @@ public class Reserva {
     // Métodos getters e setters para os atributos
 
     public String registrarReserva() throws NovaExcecao {
+        System.out.println("Reserva.java: registrarReserva");
         String message;
         try {
             if (!Cliente.existeCliente(pessoaCPF)){
                 message = "Cliente não encontrado";
-                throw new NovaExcecao(message);
+                System.out.println(message);
+                //throw new NovaExcecao(message);
             }
             message = ReservaDAO.criarReserva(this);
 
         } catch (Exception e) {
+            System.out.println(e);
             return "SQLError";
         }
         return message;
