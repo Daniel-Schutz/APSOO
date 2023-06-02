@@ -110,10 +110,8 @@ public class ReservaDAO{
     }
 
     
-    public static Collection<String> buscarReservaPorCpf(String cpf) {
-        System.out.println(cpf);
-        Collection<String> resultado = new ArrayList<>();
-        String sql = "SELECT * FROM reserva INNER JOIN reservaQuarto ON reserva.codigo = reservaQuarto.codigoReserva INNER JOIN hospedagem ON reserva.codigo = hospedagem.codigoReserva INNER JOIN quarto ON reservaQuarto.idQuarto = quarto.idQuarto INNER JOIN pessoa ON pessoa.cpf = reserva.pessoaCPF WHERE pessoaCPF = ?";
+    public static Reserva buscarReservaPorCpf(String cpf) {
+        String sql = "SELECT * FROM reserva WHERE pessoaCPF = ?";
 
         try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
             
@@ -121,9 +119,14 @@ public class ReservaDAO{
 
             ResultSet resultSet = stmt.executeQuery();
 
-            while (resultSet.next()) {
-                String detalhesReserva = resultSet.getString("detalhes");
-                resultado.add(detalhesReserva);
+             if (resultSet.next()) {
+                Reserva resultado = new Reserva();
+                resultado.setCodigo(resultSet.getInt("codigo"));
+                resultado.setData(resultSet.getDate("data"));
+                resultado.setDiasEstadia(resultSet.getInt("diasEstadia"));
+                resultado.setTipoPagamento(resultSet.getString("tipoPagamento"));
+                resultado.setSituacao(resultSet.getString("situacao"));
+                resultado.setPessoaCPF(resultSet.getString("pessoaCPF"));
             }
 
         } catch (SQLException e) {
