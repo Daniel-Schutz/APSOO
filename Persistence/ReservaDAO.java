@@ -17,17 +17,16 @@ public class ReservaDAO{
     
     public static String criarReserva(Reserva reserva) throws SQLException {
         System.out.println("ReservaDAO: criarReserva");
-        String sql = "INSERT INTO reserva (data, diasEstadia, tipoPagamento, situacao, pessoaCPF) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO reserva (data, diasEstadia, tipoPagamento, situacao, quartoId, pessoaCPF) VALUES (?, ?, ?, ?, ?, ?)";
         System.out.println("PESSOA CPF" + reserva.getpessoaCpf());
         try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
             stmt.setDate(1, (Date) reserva.getData());
             stmt.setInt(2, reserva.getDiasEstadia());
             stmt.setString(3, reserva.getTipoPagamento());
             stmt.setString(4, reserva.getSituacao());
-            stmt.setString(5, reserva.getpessoaCpf());     
+            stmt.setString(5, reserva.getQuartoId());
+            stmt.setString(6, reserva.getpessoaCpf()); 
             
-
-
             stmt.executeUpdate();
             return "Reserva inserida com sucesso!";
         }
