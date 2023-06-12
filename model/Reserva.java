@@ -64,7 +64,7 @@ public class Reserva {
 
     }
 
-    public static Collection<String> buscarReservaPorCpf(String cpf) {
+    public static List<Reserva> buscarReservaPorCpf(String cpf) {
 
         if (ReservaDAO.buscarReservaPorCpf(cpf) != null) {
             return ReservaDAO.buscarReservaPorCpf(cpf);
@@ -82,9 +82,9 @@ public class Reserva {
 
     }
 
-    public static String atualizarReserva() {
+    public static String atualizarReserva(Reserva reserva) {
         try {
-            return ReservaDAO.atualizarReserva(this);
+            return ReservaDAO.atualizarReserva(reserva);
 
         } catch (Exception e) {
             return "Erro ao atualizar reserva";

@@ -100,15 +100,15 @@ public class SisHotel {
         return null;
     }
 
-    public Collection<String> buscarReservaPorCpf(String cpf){
-        Collection<String> resultado = Reserva.buscarReservaPorCpf(cpf);
+    public List<Reserva> buscarReservaPorCpf(String cpf){
+        List<Reserva> resultado = Reserva.buscarReservaPorCpf(cpf);
         return resultado;
        
     }
 
     public String atualizarReserva(int codigo, Date dataEntrada, int dataSaida, String tipoPagamento, String situacao, String pessoaCPF){
         Reserva updatedReserva = new Reserva(codigo, dataEntrada,dataSaida,tipoPagamento, situacao, pessoaCPF);
-        String message = updatedReserva.atualizarReserva();
+        String message = Reserva.atualizarReserva(updatedReserva);
         return message;
     }
 

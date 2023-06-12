@@ -95,7 +95,7 @@ public class PessoaDAO {
     public static List<Pessoa> listarPessoas(String tipo) {
         if(tipo.equals("CLIENTE")){
         List<Pessoa> clientes = new ArrayList<>();
-        String sql = "SELECT * FROM pessoa";
+        String sql = "SELECT * FROM pessoa WHERE tipo = CLIENTE";
         try(PreparedStatement stmt = conexao.prepareStatement(sql)) {
             
             ResultSet rs = stmt.executeQuery();
@@ -116,7 +116,7 @@ public class PessoaDAO {
         return clientes;
         }else if(tipo.equals("FUNCIONARIO")){
         List<Pessoa> funcionarios = new ArrayList<>();
-        String sql = "SELECT * FROM pessoa";
+        String sql = "SELECT * FROM pessoa WHERE tipo = FUNCIONARIO";
         try(PreparedStatement stmt = conexao.prepareStatement(sql)) {
             
             ResultSet rs = stmt.executeQuery();
@@ -140,7 +140,7 @@ public class PessoaDAO {
 
         }else if(tipo.equals("ADMINISTRADOR")){
         List<Pessoa> administradores = new ArrayList<>();
-        String sql = "SELECT * FROM pessoa";
+        String sql = "SELECT * FROM pessoa WHERE tipo = ADMINISTRADOR";
         try(PreparedStatement stmt = conexao.prepareStatement(sql)) {
             
             ResultSet rs = stmt.executeQuery();

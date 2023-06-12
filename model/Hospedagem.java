@@ -58,10 +58,10 @@ public class Hospedagem {
     public static String realizarCheckIn(Reserva reserva){ //Mudar para cpf no futuro Precisarrá mudar a função buscarporCPF no dao
        try{
         Hospedagem newHospedagem = new Hospedagem(reserva, LocalDateTime.now(), null);
-        if (newHospedagem.getHoraCheckIn().getHour() < 16){
+        if (LocalDateTime.now().getHour() < 16){
             return "Não é permitido realizar Check in antes das 16 horas";
         }
-        newHospedagem.setstatusCheckIn(true);
+        newHospedagem.setStatusCheckIn(true);
         return HospedagemDAO.criarHospedagem(newHospedagem);
         
        } catch (Exception e){
@@ -78,8 +78,8 @@ public class Hospedagem {
         this.horaCheckOut = horaCheckOut;
     }
 
-    public LocalDateTime getHoraCheckIn() {
-        return horaCheckIn;
+    public String getHoraCheckIn() {
+        return horaCheckIn.toString();
     }
     
     public void setHoraCheckIn(LocalDateTime horaCheckIn) {
@@ -93,9 +93,11 @@ public class Hospedagem {
         return this.reserva;
     }
 
-    public int getcodigoReserva(){
-        return this.reserva.getcodigoReserva();
+    public int getCodigoReserva(){
+        return this.reserva.getCodigo();
     }
+
+
 
     public boolean getStatusCheckIn(){
         return this.statusCheckIn;
