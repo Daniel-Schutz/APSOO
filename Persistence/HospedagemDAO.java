@@ -9,23 +9,24 @@ import model.Hospedagem;
 public class HospedagemDAO{
     private static Connection conexao;
 
-    public void criarHospedagem(Hospedagem hospedagem){
+    public static void criarHospedagem(Hospedagem hospedagem){
+        
         String sql = "INSERT INTO hospedagem (horaCheckIn, horaCheckOut, codigoReserva) VALUES (?, ?, ?)";
         
         try(PreparedStatement stmt = conexao.prepareStatement(sql)){
-            stmt.setDate(1, hospedagem.getHoraCheckIn());
+            stmt.setDate(1, Date.valueOf(hospedagem.getHoraCheckIn()));
             stmt.setDate(2, null);
             stmt.setCodigoReserva(3, hospedagem.getcodigoReserva());
             
             stmt.executeUpdate();
-            System.out.println("Hospedagem inserida com sucesso!");
+            return "checkIn realizado";
 
         }
 
     }
 
 
-    public List<Hospedagem> listarHospedagem() throws SQLException {
+    public static List<Hospedagem> listarHospedagem() throws SQLException {
     String sql = "SELECT * FROM hospedagem";
     List<Hospedagem> hospedagens = new ArrayList<>();
 
@@ -47,7 +48,7 @@ public class HospedagemDAO{
     }
 
 
-    public String atualizarHospedagem(Hospedagem hospedagem) throws SQLException {
+    public static String atualizarHospedagem(Hospedagem hospedagem) throws SQLException {
     String sql = "UPDATE hospedagem SET horaCheckIn = ?, horaCheckOut = ? WHERE idHospedagem = ?";
 
     try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
@@ -62,7 +63,7 @@ public class HospedagemDAO{
         }
     }
 
-    public void excluirHospedagem(int idHospedagem) throws SQLException {
+    public static void excluirHospedagem(int idHospedagem) throws SQLException {
     String sql = "DELETE FROM hospedagem WHERE idHospedagem = ?";
 
     try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
@@ -74,7 +75,7 @@ public class HospedagemDAO{
     }
 
 
-    public Hospedagem buscarHospedagem(int idHospedagem) throws SQLException {
+    public static Hospedagem buscarHospedagem(int idHospedagem) throws SQLException {
     String sql = "SELECT * FROM hospedagem WHERE idHospedagem = ?";
 
     try (PreparedStatement stmt = conexao.prepareStatement(sql)) {

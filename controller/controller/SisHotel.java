@@ -129,12 +129,12 @@ public class SisHotel {
     }
     }
 
-    // public String realizarCheckIn(int codigo){ // vai mudar pra cpf ainda,
+    public String realizarCheckIn(Reserva reserva){ // vai mudar pra cpf ainda,
         
-    //     Hospedagem hospedagem =  new Hospedagem(codigo, null, null);
-    //     String mensagem = hospedagem.realizarCheckIn(this.hospedagemDAO, this.reservaDAO, codigo);
-    //     return mensagem;
-    // }
+        String mensagem = Hospedagem.realizarCheckIn(reserva);
+        return mensagem;
+
+    }
 
     // public String realizarCheckOut(int codigo){
 

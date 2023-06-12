@@ -82,7 +82,7 @@ public class Reserva {
 
     }
 
-    public String atualizarReserva() {
+    public static String atualizarReserva() {
         try {
             return ReservaDAO.atualizarReserva(this);
 
