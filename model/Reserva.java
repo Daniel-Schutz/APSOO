@@ -17,7 +17,6 @@ public class Reserva {
     private String situacao;
     private String pessoaCPF;
 
-
     // Construtor da classe
     public Reserva(int codigo, Date data, int diasEstadia, String tipoPagamento, String situacao, String pessoaCPF) {
         this.codigo = codigo;
@@ -34,10 +33,10 @@ public class Reserva {
         System.out.println("Reserva.java: registrarReserva");
         String message;
         try {
-            if (!Cliente.existeCliente(pessoaCPF)){
+            if (!Cliente.existeCliente(pessoaCPF)) {
                 message = "Cliente não encontrado";
                 System.out.println(message);
-                //throw new NovaExcecao(message);
+                // throw new NovaExcecao(message);
             }
             message = ReservaDAO.criarReserva(this);
 
@@ -64,7 +63,7 @@ public class Reserva {
 
     }
 
-    public static Collection<String> buscarReservaPorCpf(String cpf) {
+    public static List<Reserva> buscarReservaPorCpf(String cpf) {
 
         if (ReservaDAO.buscarReservaPorCpf(cpf) != null) {
             return ReservaDAO.buscarReservaPorCpf(cpf);
@@ -82,9 +81,9 @@ public class Reserva {
 
     }
 
-    public String atualizarReserva() {
+    public static String atualizarReserva(Reserva reserva) {
         try {
-            return ReservaDAO.atualizarReserva(this);
+            return ReservaDAO.atualizarReserva(reserva);
 
         } catch (Exception e) {
             return "Erro ao atualizar reserva";
@@ -97,7 +96,7 @@ public class Reserva {
 
             Reserva reservaACancelar;
             reservaACancelar = ReservaDAO.buscarReserva(codigo);
-            List<ReservaQuarto> reservaQuarto = ReservaQuartoDAO.buscarReservaQuarto(codigo); 
+            List<ReservaQuarto> reservaQuarto = ReservaQuartoDAO.buscarReservaQuarto(codigo);
             Float valorMulta;
 
             if (reservaACancelar.getpessoaCpf() != cpf) {

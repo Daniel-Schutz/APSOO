@@ -1,9 +1,14 @@
 package view;
+
 import javax.swing.*;
 
 import controller.SisHotel;
 
 import java.sql.Connection;
+import java.sql.Date;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,7 +21,7 @@ public class CadastroFuncionarioInterface extends JFrame {
     private JTextField telefoneField;
     private JTextField enderecoField;
 
-    public CadastroFuncionarioInterface(ArrayList<Funcionario> funcionarios, SisHotel sisHotel) {
+    public CadastroFuncionarioInterface(ArrayList<model.Funcionario> funcionarios, SisHotel sisHotel) {
         // Configurações da janela
         setTitle("Cadastro de Funcionário");
         setSize(300, 250);
@@ -65,7 +70,12 @@ public class CadastroFuncionarioInterface extends JFrame {
                 String endereco = enderecoField.getText();
 
                 // Criar um novo objeto Funcionario com base nas informações inseridas
-                Funcionario novoFuncionario = new Funcionario(nome, cpf, email, telefone, endereco);
+                Double salario = 1000.5;
+
+                java.util.Date datacontratacao = null;
+
+                model.Funcionario novoFuncionario = new model.Funcionario(nome, cpf, email, telefone, endereco, salario,
+                        datacontratacao, endereco);
 
                 // Adicionar o novo funcionário ao ArrayList de funcionários
                 funcionarios.add(novoFuncionario);

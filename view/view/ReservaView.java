@@ -1,16 +1,29 @@
 package view;
 
 import javax.swing.*;
+
+import Persistence.QuartoDAO;
+import Persistence.ReservaDAO;
+import Persistence.ReservaQuartoDAO;
+
 import java.sql.Connection;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList; // Import the ArrayList class
+import java.util.Calendar;
+
 import controller.*;
+import model.Quarto;
+import model.Reserva;
+import model.ReservaQuarto;
+
 import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.util.Formatter;
 import java.text.ParseException;
+import java.util.List;
+import java.util.Iterator;
 
 public class ReservaView extends JFrame {
     private JTextField Field;
@@ -122,37 +135,78 @@ public class ReservaView extends JFrame {
                 // Validate quantidadeQuartosField
                 try {
                     int quartos = Integer.parseInt(quantidadeQuartos);
-                    if (quartos < 1 || quartos > 10) {
+                    if (quartos < 1 || quartos > 4) {
                         throw new NumberFormatException();
                     }
                 } catch (NumberFormatException ex) {
                     JOptionPane.showMessageDialog(ReservaView.this,
-                            "Quantidade de quartos inválida. Deve ser um número entre 1 e 10.");
+                            "Quantidade de quartos inválida. Deve ser um número entre 1 e 3.");
                     return;
                 }
-
+                System.out.println("NAO1");
                 try {
-                    String message;
                     Date entrada = sdf.parse(entradaText);
-                    java.sql.Date sqlEntrada = new java.sql.Date(entrada.getTime());
-                    message = sisHotel.registrarReserva(sqlEntrada, tempoEstadia, tipoPagamento, situacao, cpf);
+                    List<Quarto> quartosDisponiveis = QuartoDAO.listarQuartos();
+                    List<ReservaQuarto> listaReservaQuartos = ReservaQuartoDAO.listarReservaQuarto();
 
-                    JOptionPane.showMessageDialog(ReservaView.this, message);
+                    if (listaReservaQuartos != null) {
+                        for (ReservaQuarto reservaQuarto : listaReservaQuartos) {
+                            Reserva reserva = ReservaDAO.buscarReserva(reservaQuarto.getcodigoReserva());
+                            Date Rdata = reserva.getData();
+                            int RdiasEstadia = reserva.getDiasEstadia();
+                            if (verificarPeriodosCoincidem(Rdata, RdiasEstadia, entrada, tempoEstadia) == true) {
+                                Iterator<Quarto> iterator = quartosDisponiveis.iterator();
+                                while (iterator.hasNext()) {
+                                    Quarto quarto = iterator.next();
+                                    // Itera pelas reservas de quartos
+                                    if (quarto.getIdQuarto() == reservaQuarto.getIdQuarto()) {
+                                        iterator.remove(); // Remove o quarto da lista
+                                        break; // Sai do loop de reservas
+                                    }
 
-                    cpfField.setText("");
-                    dataEntradaField.setText("");
-                    diasEstadiaField.setText("");
-                    quantidadePessoasField.setText("");
-                    quantidadeQuartosField.setText("");
+                                }
+                            }
+                        }
 
-                    PrincipalInterface principalInterface = new PrincipalInterface(sisHotel);
-                    principalInterface.setVisible(true);
+                    }
 
+                    for (Quarto quarto : quartosDisponiveis) {
+                        System.out.println(quarto.getIdQuarto());
+                    }
+                    try {
+                        /*
+                         * AQUI, antes de efetuar a reserva, quero que apareça os quartosDisponiveis
+                         * para o usuario
+                         */
+
+                        // Crie um JTextArea para exibir os quartos disponíveis
+
+                        java.sql.Date sqlEntrada = new java.sql.Date(entrada.getTime());
+                        sisHotel.registrarReserva(sqlEntrada, tempoEstadia, tipoPagamento, situacao, cpf);
+
+                        // JOptionPane.showMessageDialog(ReservaView.this, message);
+
+                        cpfField.setText("");
+                        dataEntradaField.setText("");
+                        diasEstadiaField.setText("");
+                        quantidadePessoasField.setText("");
+                        quantidadeQuartosField.setText("");
+
+                    } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(ReservaView.this,
+                                "Data entrada inválida. Utilize o formato dd/MM/yyyy.");
+                    }
+
+                    QuartosDisponiveisView quartosView = new QuartosDisponiveisView(quartosDisponiveis,
+                            Integer.parseInt(quantidadeQuartos));
+                    quartosView.setVisible(true);
                     dispose();
-                } catch (ParseException ex) {
-                    JOptionPane.showMessageDialog(ReservaView.this,
-                            "Data entrada inválida. Utilize o formato dd/MM/yyyy.");
+
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                    // Lógica para tratamento de exceção
                 }
+
             }
         });
 
@@ -176,14 +230,21 @@ public class ReservaView extends JFrame {
 
     }
 
-    public void pagamento(char tipoPagamento) {
-    }
+    public static boolean verificarPeriodosCoincidem(Date data1, int diasEstadia1, Date data2, int diasEstadia2) {
+        Calendar calendar1 = Calendar.getInstance();
+        calendar1.setTime(data1);
+        calendar1.add(Calendar.DAY_OF_YEAR, diasEstadia1);
 
-    public void selecaoQuartos() {
-    }
+        Calendar calendar2 = Calendar.getInstance();
+        calendar2.setTime(data2);
+        calendar2.add(Calendar.DAY_OF_YEAR, diasEstadia2);
 
-    public void escolhaConfirmarOuCancelar() {
+        // Verifica se há interseção entre os períodos
+        if (calendar1.getTime().after(data2) && calendar2.getTime().after(data1)) {
+            return true; // Há coincidência entre os períodos
+        }
 
+        return false; // Não há coincidência entre os períodos
     }
 
 }

@@ -1,4 +1,5 @@
 package view;
+
 import javax.swing.*;
 
 import controller.SisHotel;
@@ -65,6 +66,6 @@ public class LoginInterface extends JFrame implements ActionListener {
     }
 
     // public static void main(String[] args) {
-    //     SwingUtilities.invokeLater(() -> new LoginInterface());
+    // SwingUtilities.invokeLater(() -> new LoginInterface());
     // }
 }

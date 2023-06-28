@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.sql.*;
 
 public class PrincipalInterface extends JFrame {
-    private ArrayList<Funcionario> funcionarios;
+    private ArrayList<model.Funcionario> funcionarios;
 
     public PrincipalInterface(SisHotel sishotel) {
         // Configurações da janela
@@ -26,7 +26,7 @@ public class PrincipalInterface extends JFrame {
         JButton editarClienteButton = new JButton("Editar Cliente");
         JButton editarFuncionarioButton = new JButton("Editar Funcionário");
         JButton criarReservaButton = new JButton("Criar Reserva");
-        JButton atualizarReservaButton = new JButton("Atualizar Reserva");
+        JButton atualizarReservaButton = new JButton("Fazer Check-In");
 
         // Layout
         JPanel panel = new JPanel(new GridLayout(6, 1));
@@ -113,7 +113,7 @@ public class PrincipalInterface extends JFrame {
 
             // Criação dos componentes
             DefaultListModel<String> listModel = new DefaultListModel<>();
-            for (Funcionario funcionario : funcionarios) {
+            for (model.Funcionario funcionario : funcionarios) {
                 listModel.addElement(funcionario.getNome());
             }
             funcionariosList = new JList<>(listModel);
@@ -169,7 +169,7 @@ public class PrincipalInterface extends JFrame {
             setLocationRelativeTo(null);
 
             // Obtém o funcionário selecionado pelo índice
-            Funcionario funcionario = funcionarios.get(index);
+            model.Funcionario funcionario = funcionarios.get(index);
 
             // Salva o índice do funcionário para atualizar as informações posteriormente
             funcionarioIndex = index;
@@ -239,7 +239,7 @@ public class PrincipalInterface extends JFrame {
                     String endereco = enderecoField.getText();
 
                     // Atualiza as informações do funcionário selecionado
-                    Funcionario funcionario = funcionarios.get(funcionarioIndex);
+                    model.Funcionario funcionario = funcionarios.get(funcionarioIndex);
                     funcionario.setNome(nome);
                     funcionario.setCpf(cpf);
                     funcionario.setEmail(email);
