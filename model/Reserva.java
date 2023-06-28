@@ -102,9 +102,6 @@ public class Reserva {
             if (reservaACancelar.getpessoaCpf() != cpf) {
                 return "ERROR : CPF não titular da reserva";
             }
-            if (reservaACancelar == null) {
-                return "ERROR : Reserva não encontrada";
-            }
 
             Date dataAtual = new Date();
             Date dataDaReserva = reservaACancelar.getData();
