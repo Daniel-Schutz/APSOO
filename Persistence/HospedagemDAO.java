@@ -3,21 +3,33 @@ package Persistence;
 import java.sql.*;
 //import java.util.ArrayList;
 //import java.util.List;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+
+// Execute the query to save the current date and time to the database
+// ...
 
 import model.Hospedagem;
 
 public class HospedagemDAO {
     private static Connection conexao;
+    static LocalDateTime currentDateTime = LocalDateTime.now();
 
     public static String criarHospedagem(Hospedagem hospedagem) throws SQLException {
-        System.out.println(hospedagem.getHoraCheckIn());
-        System.out.println("sim");
-        System.out.println(Date.valueOf(hospedagem.getHoraCheckIn()));
+
         String sql = "INSERT INTO hospedagem (horaCheckIn, horaCheckOut, codigoReserva) VALUES (?, ?, ?)";
+        LocalDateTime currentDateTime = LocalDateTime.now();
+
+        java.sql.Timestamp timestamp = java.sql.Timestamp.valueOf(currentDateTime);
+        Time time = new Time(timestamp.getTime());
+        System.out.println(time);
 
         try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
-            stmt.setDate(1, Date.valueOf(hospedagem.getHoraCheckIn()));
-            stmt.setDate(2, null);
+
+            stmt.setTime(1, time);
+            stmt.setTime(2, null);
             stmt.setInt(3, hospedagem.getCodigoReserva());
 
             stmt.executeUpdate();
@@ -25,6 +37,23 @@ public class HospedagemDAO {
 
         }
 
+    }
+
+    public static List<Integer> buscarCodigosReserva() throws SQLException {
+        String sql = "SELECT DISTINCT codigoReserva FROM hospedagem";
+        List<Integer> codigosReserva = new ArrayList<>();
+
+        try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                int codigoReserva = rs.getInt("codigoReserva");
+                codigosReserva.add(codigoReserva);
+            }
+
+        }
+
+        return codigosReserva;
     }
 
     // public static List<Hospedagem> listarHospedagem() throws SQLException {

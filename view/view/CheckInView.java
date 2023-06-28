@@ -4,6 +4,7 @@ import javax.swing.*;
 
 import Persistence.HospedagemDAO;
 import Persistence.ReservaDAO;
+import controller.SisHotel;
 import model.Hospedagem;
 import model.Reserva;
 
@@ -17,57 +18,69 @@ import java.util.List;
 
 public class CheckInView extends JFrame {
     private JComboBox<String> cpfComboBox;
-    private JPanel ReservasPanel;
+    private JPanel reservasPanel;
+    private String cpf;
 
     public CheckInView(String cpf) {
         setTitle("Check-In");
         setSize(500, 400);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
+        this.cpf = cpf;
 
-        ReservasPanel = new JPanel();
-        ReservasPanel.setLayout(new BoxLayout(ReservasPanel, BoxLayout.Y_AXIS));
-        JScrollPane scrollPane = new JScrollPane(ReservasPanel);
+        reservasPanel = new JPanel();
+        reservasPanel.setLayout(new BoxLayout(reservasPanel, BoxLayout.Y_AXIS));
+        JScrollPane scrollPane = new JScrollPane(reservasPanel);
         getContentPane().add(scrollPane, BorderLayout.CENTER);
 
         displayReservas(getReservasByCpf(cpf));
+
+        JButton backButton = new JButton("Voltar");
+        backButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                SisHotel sisHotel = new SisHotel();
+                AtualizarReservaInterface atualizarReservaInterface = new AtualizarReservaInterface(sisHotel);
+                atualizarReservaInterface.setVisible(true);
+                dispose(); // Fecha a janela de check-in
+            }
+        });
+        getContentPane().add(backButton, BorderLayout.SOUTH);
 
         setVisible(true);
     }
 
     private List<Reserva> getReservasByCpf(String cpf) {
-        List<Reserva> Reservas = new ArrayList<>();
+        List<Reserva> reservas = new ArrayList<>();
 
         // Call the buscarReservaPorCpf function to retrieve Reservas by CPF
-        List<Reserva> resultado;
-        resultado = ReservaDAO.buscarReservaPorCpf(cpf);
-        Reservas.addAll(resultado);
+        List<Reserva> resultado = ReservaDAO.buscarReservaPorCpf(cpf);
+        reservas.addAll(resultado);
 
-        return Reservas;
+        return reservas;
     }
 
-    private void displayReservas(List<Reserva> Reservas) {
-        for (Reserva Reserva : Reservas) {
-            JPanel ReservaPanel = createReservaPanel(Reserva);
-            ReservasPanel.add(ReservaPanel);
+    private void displayReservas(List<Reserva> reservas) {
+        for (Reserva reserva : reservas) {
+            JPanel reservaPanel = createReservaPanel(reserva);
+            reservasPanel.add(reservaPanel);
         }
     }
 
-    private JPanel createReservaPanel(Reserva Reserva) {
+    private JPanel createReservaPanel(Reserva reserva) {
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        JLabel ReservaLabel = new JLabel(
-                "Código " + Reserva.getCodigo() + " | Data Entrada: " + Reserva.getDiasEstadia());
-        ReservaLabel.setFont(ReservaLabel.getFont().deriveFont(Font.BOLD));
+        JLabel reservaLabel = new JLabel(
+                "Código " + reserva.getCodigo() + " | Data Entrada: " + reserva.getDiasEstadia());
+        reservaLabel.setFont(reservaLabel.getFont().deriveFont(Font.BOLD));
 
-        panel.add(ReservaLabel);
+        panel.add(reservaLabel);
 
         JButton detailsButton = new JButton("Detalhes");
         detailsButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                showReservaDetails(Reserva);
+                showReservaDetails(reserva);
             }
         });
         panel.add(detailsButton);
@@ -97,10 +110,29 @@ public class CheckInView extends JFrame {
         JButton checkInButton = new JButton("Fazer Check-In");
         checkInButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                System.out.println(LocalDateTime.now());
-                String mensagem = Hospedagem.realizarCheckIn(reserva);
+                try {
+                    List<Integer> codigosReserva = HospedagemDAO.buscarCodigosReserva();
 
-                System.out.println(mensagem);
+                    boolean numeroPresente = codigosReserva.contains(reserva.getCodigo());
+
+                    if (numeroPresente) {
+                        JOptionPane.showMessageDialog(CheckInView.this, "Check-in já realizado.");
+                        detailsFrame.dispose();
+                    } else {
+                        String mensagem = Hospedagem.realizarCheckIn(reserva);
+                        JOptionPane.showMessageDialog(CheckInView.this, "Check-in realizado com sucesso.");
+                        detailsFrame.dispose();
+                        SisHotel sisHotel = new SisHotel();
+                        PrincipalInterface principalInterface = new PrincipalInterface(sisHotel);
+                        principalInterface.setVisible(true);
+                        dispose(); // Fecha a janela de check-in
+                        System.out.println(mensagem);
+                    }
+                } catch (SQLException e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
+
             }
         });
         detailsPanel.add(checkInButton);
@@ -108,5 +140,4 @@ public class CheckInView extends JFrame {
         detailsFrame.getContentPane().add(detailsPanel);
         detailsFrame.setVisible(true);
     }
-
 }

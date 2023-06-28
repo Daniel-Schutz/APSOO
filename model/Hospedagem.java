@@ -73,7 +73,8 @@ public class Hospedagem {
             return HospedagemDAO.criarHospedagem(newHospedagem);
 
         } catch (Exception e) {
-            return "Não foi possível realizar checkin";
+            e.printStackTrace();
+            return "Não foi possível realizar check-in: " + e.getMessage();
         }
     }
 
