@@ -15,6 +15,7 @@ public class SisHotel {
     public String cadastrarCliente(String nome, String cpf, String email, String senha, String endereco,
             String situacao) {
         try{
+            System.out.println("SisHotel Cadastrar cliente");
             Cliente cliente = new Cliente(nome, cpf, email, senha, endereco, situacao);
             cliente.cadastrarCliente();
             
@@ -67,16 +68,19 @@ public class SisHotel {
     }
 
     public String registrarReserva(Date dataEntrada, int diasEstadia, String tipoPagamento, String situacao, String pessoaCPF){
+        System.out.println("SisHotel: registrar reserva");
         int codigo = 0; //definir logica para gerar codigo
         Reserva newReserva = new Reserva(codigo, dataEntrada, diasEstadia,tipoPagamento, situacao, pessoaCPF);
         //vai tentar criar reserva se não trata exceção correspondente
         try{
-            newReserva.registrarReserva();
-        } catch (NovaExcecao e){
-            return NovaExcecao.getNewMessage();
+            String message = newReserva.registrarReserva();
+            return message;
+        } catch (Exception e){
+            //return NovaExcecao.getNewMessage();
+            return "Erro ao registrar reserva";
         }        
         
-        return "Reserva registrada com sucesso";
+        //return "Reserva registrada com sucesso";
     }
 
     public Reserva buscarReserva(int codigo){
@@ -96,17 +100,15 @@ public class SisHotel {
         return null;
     }
 
-    public Collection<String> buscarReservaPorCpf(String cpf){
-        Collection<String> resultado = Reserva.buscarReservaPorCpf(cpf);
-        if (resultado != null){
-            return resultado;
-        }
-        return null;
+    public List<Reserva> buscarReservaPorCpf(String cpf){
+        List<Reserva> resultado = Reserva.buscarReservaPorCpf(cpf);
+        return resultado;
+       
     }
 
     public String atualizarReserva(int codigo, Date dataEntrada, int dataSaida, String tipoPagamento, String situacao, String pessoaCPF){
         Reserva updatedReserva = new Reserva(codigo, dataEntrada,dataSaida,tipoPagamento, situacao, pessoaCPF);
-        String message = updatedReserva.atualizarReserva();
+        String message = Reserva.atualizarReserva(updatedReserva);
         return message;
     }
 
@@ -127,12 +129,12 @@ public class SisHotel {
     }
     }
 
-    // public String realizarCheckIn(int codigo){ // vai mudar pra cpf ainda,
+    public String realizarCheckIn(Reserva reserva){ // vai mudar pra cpf ainda,
         
-    //     Hospedagem hospedagem =  new Hospedagem(codigo, null, null);
-    //     String mensagem = hospedagem.realizarCheckIn(this.hospedagemDAO, this.reservaDAO, codigo);
-    //     return mensagem;
-    // }
+        String mensagem = Hospedagem.realizarCheckIn(reserva);
+        return mensagem;
+
+    }
 
     // public String realizarCheckOut(int codigo){
 
