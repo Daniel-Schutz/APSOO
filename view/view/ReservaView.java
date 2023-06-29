@@ -36,7 +36,12 @@ public class ReservaView extends JFrame {
 
     // private SisHotel sisHotel;
 
-    public ReservaView(SisHotel sisHotel) {
+    private String cpf;
+
+    public ReservaView(SisHotel sisHotel, String cpf) {
+
+        // this.sisHotel = new SisHotel(conexao);
+        this.cpf = cpf;
 
         // this.sisHotel = new SisHotel(conexao);
 
@@ -198,7 +203,7 @@ public class ReservaView extends JFrame {
                     }
 
                     QuartosDisponiveisView quartosView = new QuartosDisponiveisView(quartosDisponiveis,
-                            Integer.parseInt(quantidadeQuartos));
+                            Integer.parseInt(quantidadeQuartos), cpf);
                     quartosView.setVisible(true);
                     dispose();
 

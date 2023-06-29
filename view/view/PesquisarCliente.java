@@ -60,7 +60,7 @@ public class PesquisarCliente extends JFrame {
                     JOptionPane.showMessageDialog(PesquisarCliente.this, "CPF não registrado!");
                 } else {
                     JOptionPane.showMessageDialog(PesquisarCliente.this, cliente.getNome());
-                    ReservaView reservaInterface = new ReservaView(sisHotel);
+                    ReservaView reservaInterface = new ReservaView(sisHotel, cpf);
                     reservaInterface.setVisible(true);
                     dispose();
                 }

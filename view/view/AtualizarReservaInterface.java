@@ -73,6 +73,9 @@ public class AtualizarReservaInterface extends JFrame {
         voltarButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // Fecha a tela de cadastro de funcionário e abre a tela principal
+                SisHotel sisHotel = new SisHotel();
+                PrincipalInterface principalInterface = new PrincipalInterface(sisHotel);
+                principalInterface.setVisible(true);
                 dispose();
             }
         });

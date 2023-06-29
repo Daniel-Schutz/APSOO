@@ -123,8 +123,8 @@ public class CheckInView extends JFrame {
                         JOptionPane.showMessageDialog(CheckInView.this, "Check-in realizado com sucesso.");
                         detailsFrame.dispose();
                         SisHotel sisHotel = new SisHotel();
-                        PrincipalInterface principalInterface = new PrincipalInterface(sisHotel);
-                        principalInterface.setVisible(true);
+                        // PrincipalInterface principalInterface = new PrincipalInterface(sisHotel);
+                        // principalInterface.setVisible(true);
                         dispose(); // Fecha a janela de check-in
                         System.out.println(mensagem);
                     }

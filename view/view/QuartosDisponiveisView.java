@@ -21,9 +21,10 @@ public class QuartosDisponiveisView extends JFrame {
     private JButton selecionarButton;
     private JButton voltarButton;
     private List<Integer> quartosSelecionados;
+    private String cpf;
 
-    public QuartosDisponiveisView(List<Quarto> quartosDisponiveis, int quantidadeQuartos) {
-
+    public QuartosDisponiveisView(List<Quarto> quartosDisponiveis, int quantidadeQuartos, String cpf) {
+        this.cpf = cpf;
         setTitle("Quartos Disponíveis");
         setSize(500, 400);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -70,58 +71,62 @@ public class QuartosDisponiveisView extends JFrame {
         });
         bottomPanel.add(selecionarButton);
 
+        JButton confirmarButton = new JButton("Confirmar");
+        confirmarButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                if (quartosSelecionados.size() < quantidadeQuartos) {
+                    JOptionPane.showMessageDialog(QuartosDisponiveisView.this,
+                            "Selecione a quantidade certa de quartos");
+
+                } else {
+                    System.out.println("Quartos selecionados: " + quartosSelecionados);
+                    try {
+                        int codigoReserva = ReservaDAO.buscarCodigo();
+                        for (int quartoSelecionado : quartosSelecionados) {
+                            ReservaQuarto reservaQuarto = new ReservaQuarto(codigoReserva, quartoSelecionado);
+                            ReservaQuartoDAO.criarReservaQuarto(reservaQuarto);
+                        }
+
+                    } catch (SQLException e1) {
+                        // TODO Auto-generated catch block
+                        e1.printStackTrace();
+                    }
+
+                    // Go back to the PrincipalInterface
+                    SisHotel sisHotel = new SisHotel();
+                    PrincipalInterface principalInterface = new PrincipalInterface(sisHotel);
+                    principalInterface.setVisible(true);
+                    dispose();
+
+                }
+
+            }
+
+        });
+        bottomPanel.add(confirmarButton);
+
         voltarButton = new JButton("Voltar");
         voltarButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
                     int ultimo = ReservaDAO.buscarCodigo();
                     ReservaDAO.excluirReserva(ultimo);
+                    SisHotel sisHotel = new SisHotel();
+                    ReservaView reservaView = new ReservaView(sisHotel, cpf);
+                    reservaView.setVisible(true);
+                    dispose(); // Fecha a janela de login
 
                 } catch (SQLException e1) {
                     // TODO Auto-generated catch block
                     e1.printStackTrace();
                 }
 
-                SisHotel sisHotel = new SisHotel();
-                ReservaView reservaView = new ReservaView(sisHotel); // Replace with your ReservaView instantiation code
-                reservaView.setVisible(true);
-                dispose();
             }
         });
         bottomPanel.add(voltarButton);
 
-        JButton confirmarButton = new JButton("Confirmar");
-        confirmarButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("Quartos selecionados: " + quartosSelecionados);
-                try {
-                    int codigoReserva = ReservaDAO.buscarCodigo();
-                    for (int quartoSelecionado : quartosSelecionados) {
-                        ReservaQuarto reservaQuarto = new ReservaQuarto(codigoReserva, quartoSelecionado);
-                        ReservaQuartoDAO.criarReservaQuarto(reservaQuarto);
-                    }
-
-                } catch (SQLException e1) {
-                    // TODO Auto-generated catch block
-                    e1.printStackTrace();
-                }
-
-                // Go back to the PrincipalInterface
-                SisHotel sisHotel = new SisHotel();
-                PrincipalInterface principalInterface = new PrincipalInterface(sisHotel);
-                principalInterface.setVisible(true);
-                dispose();
-            }
-
-        });
-        bottomPanel.add(confirmarButton);
-
         getContentPane().add(bottomPanel, BorderLayout.SOUTH);
 
-        SisHotel sisHotel = new SisHotel();
-        PrincipalInterface principalInterface = new PrincipalInterface(sisHotel);
-        principalInterface.setVisible(true);
-        dispose();
         quartosSelecionados = new ArrayList<>();
 
         setVisible(true);
