@@ -72,7 +72,7 @@ public class CheckInView extends JFrame {
         panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
         JLabel reservaLabel = new JLabel(
-                "Código " + reserva.getCodigo() + " | Data Entrada: " + reserva.getDiasEstadia());
+                "Código " + reserva.getCodigo() + " | Data Entrada: " + reserva.getData());
         reservaLabel.setFont(reservaLabel.getFont().deriveFont(Font.BOLD));
 
         panel.add(reservaLabel);
@@ -104,8 +104,20 @@ public class CheckInView extends JFrame {
         JLabel codeLabel = new JLabel("Código: " + reserva.getCodigo());
         detailsPanel.add(codeLabel);
 
-        JLabel entryDateLabel = new JLabel("Data Entrada: " + reserva.getDiasEstadia());
+        JLabel cpfLabel = new JLabel("CPF: " + reserva.getpessoaCpf());
+        detailsPanel.add(cpfLabel);
+
+        JLabel entryDateLabel = new JLabel("Data Entrada: " + reserva.getData());
         detailsPanel.add(entryDateLabel);
+
+        JLabel entryDiasEstadiaLabel = new JLabel("Dias de estadia: " + reserva.getDiasEstadia());
+        detailsPanel.add(entryDiasEstadiaLabel);
+
+        JLabel entrySituacaoLabel = new JLabel("Situação: " + reserva.getSituacao());
+        detailsPanel.add(entrySituacaoLabel);
+
+        JLabel entryTipoPagamentoLabel = new JLabel("Forma de Pagamento: " + reserva.getTipoPagamento());
+        detailsPanel.add(entryTipoPagamentoLabel);
 
         JButton checkInButton = new JButton("Fazer Check-In");
         checkInButton.addActionListener(new ActionListener() {
@@ -123,8 +135,8 @@ public class CheckInView extends JFrame {
                         JOptionPane.showMessageDialog(CheckInView.this, "Check-in realizado com sucesso.");
                         detailsFrame.dispose();
                         SisHotel sisHotel = new SisHotel();
-                        // PrincipalInterface principalInterface = new PrincipalInterface(sisHotel);
-                        // principalInterface.setVisible(true);
+                        PrincipalInterface principalInterface = new PrincipalInterface(sisHotel);
+                        principalInterface.setVisible(true);
                         dispose(); // Fecha a janela de check-in
                         System.out.println(mensagem);
                     }

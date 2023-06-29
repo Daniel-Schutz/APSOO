@@ -137,8 +137,12 @@ public class QuartosDisponiveisView extends JFrame {
 
         for (Quarto quarto : quartosDisponiveis) {
             quartosDisponiveisArea.append("ID: " + quarto.getIdQuarto() + "\n");
-            quartosDisponiveisArea.append("Tipo: " + quarto.getDescricao() + "\n");
+            quartosDisponiveisArea.append("Descrição: " + quarto.getDescricao() + "\n");
             quartosDisponiveisArea.append("Preço: " + quarto.getValor() + "\n");
+            quartosDisponiveisArea.append("Local: " + quarto.getLocal() + "\n");
+            quartosDisponiveisArea.append("Tipo: " + quarto.getTipoQuarto() + "\n");
+            quartosDisponiveisArea.append("Local: " + quarto.getLocal() + "\n");
+            quartosDisponiveisArea.append("Situação: " + quarto.getSituacao() + "\n");
             quartosDisponiveisArea.append("-------------------------\n");
         }
     }
